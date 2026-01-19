@@ -1,11 +1,12 @@
-﻿import type { Time } from './importantTypes';
+﻿import type { Time } from '../../static/importantTypes';
 
-type StorageKey = 'startTime';
+type StorageKey = 'breakTime' | 'workTime';
 
 type StorageValue = Time;
 
 const defaultValues: Record<StorageKey, StorageValue> = {
-    startTime: { hours: 0, minutes: 0 },
+    breakTime: { hours: 0, minutes: 30 },
+    workTime: { hours: 7, minutes: 6 },
 };
 
 export const getStorageValue = (key: StorageKey): StorageValue => {

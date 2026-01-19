@@ -1,8 +1,8 @@
-﻿import type { FC, ReactNode, } from 'react';
-import { useState, useMemo } from 'react';
+﻿import type { FC, ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 
-import { getStorageValue, setStorageValue } from '../../utils/storageProvider.ts';
-import type { Time } from '../../utils/importantTypes.ts';
+import type { FloatTime, Time } from '../../static/importantTypes.ts';
+import { getCookie, setCookieUntilMidnight } from '../../utils/storage/cookieManager.ts';
 import { AppContext, type AppContextValues } from './AppContext.tsx';
 
 type AppContextProviderProps = {
@@ -10,18 +10,28 @@ type AppContextProviderProps = {
 };
 
 export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) => {
-    const [startTime, setStartTime] = useState<Time>(getStorageValue('startTime'));
+    const [startTime, setStartTime] = useState<Time>(getCookie('startTime') as Time);
+    const [floatTime, setFloatTime] = useState<FloatTime>(getCookie('floatTime') as FloatTime);
 
-    const updateStartTime = (start: Time): void => {
-        setStartTime(start);
-        setStorageValue("startTime", start);
+    const updateStartTime = (val: Time): void => {
+        setStartTime(val);
+        setCookieUntilMidnight('startTime', val);
+    };
+
+    const updateFloatTime = (val: FloatTime): void => {
+        setFloatTime(val);
+        setCookieUntilMidnight('floatTime', val);
     };
 
     const appContextValues = useMemo<AppContextValues>(
         () => ({
-            startTime: startTime,
-            updateStartTime: updateStartTime
-        }), [startTime]);
+            startTime,
+            updateStartTime,
+            floatTime,
+            updateFloatTime,
+        }),
+        [startTime, floatTime],
+    );
 
     return <AppContext.Provider value={appContextValues}>{children}</AppContext.Provider>;
 };

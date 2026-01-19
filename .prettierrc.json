@@ -1,13 +1,9 @@
-﻿{
-    "importOrder": [
-        "^\\."
-    ],
+{
+    "importOrder": ["^\\."],
     "importOrderCaseInsensitive": true,
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
-    "plugins": [
-        "@trivago/prettier-plugin-sort-imports"
-    ],
+    "plugins": ["@trivago/prettier-plugin-sort-imports"],
     "printWidth": 120,
     "semi": true,
     "singleQuote": true,

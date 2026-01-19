@@ -1,19 +1,19 @@
-﻿import type { Time } from "./importantTypes";
+﻿import type { Time } from './importantTypes';
 
 export const getCurrentTime = (): Time => {
     const date = new Date();
 
     return {
         hours: date.getHours(),
-        minutes: date.getMinutes()
-    }
+        minutes: date.getMinutes(),
+    };
 };
 
 export const addTimes = (a: Time, b: Time): Time => {
     const minutes = a.minutes + b.minutes;
-    const hours = a.hours + b.hours + (minutes / 60);
+    const hours = a.hours + b.hours + minutes / 60;
 
-    return { hours: hours, minutes: (minutes % 60) };
+    return { hours: hours, minutes: minutes % 60 };
 };
 
 export const convertTimeToDate = (time: Time): Date => {

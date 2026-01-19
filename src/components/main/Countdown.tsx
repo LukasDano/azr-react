@@ -1,7 +1,8 @@
-﻿import type {FC} from "react";
-import {useEffect, useState, useRef} from "react";
-import {renderCircle} from "../../helper/renderFunctions";
-import {defaultCountdownTheme} from "../../config/themes.ts";
+﻿import type { FC } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+import { renderCircle } from '../../helper/renderFunctions';
+import { defaultCountdownTheme } from '../../static/themes.ts';
 
 type TimeLabels = {
     days: string;
@@ -29,28 +30,21 @@ type CountdownProps = {
     end: Date;
     onEnd?: () => void;
     showLabels?: boolean;
-    labels?: TimeLabels;
     colorTheme?: Record<keyof CountdownTime, string>;
 };
 
 export const Countdown: FC<CountdownProps> = ({
-                                                  end,
-                                                  onEnd,
-                                                  showLabels = true,
-                                                  colorTheme = defaultCountdownTheme,
-                                              }) => {
-    const [time, setTime] = useState<CountdownTime>(getTimeLeft(end.getTime()));
-
+    end,
+    onEnd,
+    showLabels = true,
+    colorTheme = defaultCountdownTheme,
+}) => {
+    const [time, setTime] = useState<CountdownTime>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-    useEffect(() => {
-        updateOnTick();
-    }, [end, Date.now]);
-
-    function getTimeLeft(end: number) {
+    const getTimeLeft = useCallback((endMs: number) => {
         const now = Date.now();
-
-        let delta = Math.max(0, Math.floor((end - now) / 1000));
+        let delta = Math.max(0, Math.floor((endMs - now) / 1000));
         const days = Math.floor(delta / 86400);
         delta -= days * 86400;
         const hours = Math.floor(delta / 3600);
@@ -58,48 +52,65 @@ export const Countdown: FC<CountdownProps> = ({
         const minutes = Math.floor(delta / 60);
         delta -= minutes * 60;
         const seconds = delta;
-        return {days, hours, minutes, seconds};
-    }
+        return { days, hours, minutes, seconds };
+    }, []);
 
-    const update = (endMs: number) => {
-        const left = getTimeLeft(endMs);
-        setTime(left);
-        if (endMs < Date.now()) {
-            onEnd?.();
-            if (intervalRef.current) clearInterval(intervalRef.current);
+    const update = useCallback(
+        (endMs: number) => {
+            const left = getTimeLeft(endMs);
+            setTime(left);
+
+            if (endMs <= Date.now()) {
+                onEnd?.();
+                if (intervalRef.current) {
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null;
+                }
+            }
+        },
+        [getTimeLeft, onEnd],
+    );
+
+    useEffect(() => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
         }
-    };
 
-    const updateOnTick = () => {
-
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         update(end.getTime());
-        intervalRef.current = setInterval(() => update(end.getTime()), 1000);
+
+        if (end.getTime() > Date.now()) {
+            intervalRef.current = setInterval(() => {
+                update(end.getTime());
+            }, 1000);
+        }
 
         return () => {
             if (intervalRef.current) clearInterval(intervalRef.current);
         };
-    };
+    }, [end]); //eslint-disable-line react-hooks/exhaustive-deps
 
     const createCountdownElements = (time: CountdownTime): CountdownElementConfig[] => {
         return [
-            {value: time.days, max: 99, key: "days"},
-            {value: time.hours, max: 24, key: "hours"},
-            {value: time.minutes, max: 60, key: "minutes"},
-            {value: time.seconds, max: 60, key: "seconds"},
+            { value: time.days, max: 99, key: 'days' },
+            { value: time.hours, max: 24, key: 'hours' },
+            { value: time.minutes, max: 60, key: 'minutes' },
+            { value: time.seconds, max: 60, key: 'seconds' },
         ];
-    }
+    };
 
     return (
-        <div className={`flex items-center justify-center gap-6 p-6 bg-gray-900 rounded-2xl shadow-xl`}>
-            {
-                createCountdownElements(time).map((unit) =>
-                    <CountdownElement
-                        color={colorTheme[unit.key]}
-                        unit={unit.key as CountdownUnit}
-                        value={unit.value}
-                        showLabel={showLabels}
-                    />
-                )}
+        <div className="flex items-center justify-center gap-6 p-6 bg-gray-900 rounded-2xl shadow-xl">
+            {createCountdownElements(time).map((unit) => (
+                <CountdownElement
+                    key={unit.key}
+                    color={colorTheme[unit.key]}
+                    unit={unit.key as CountdownUnit}
+                    value={unit.value}
+                    showLabel={showLabels}
+                />
+            ))}
         </div>
     );
 };
@@ -111,20 +122,19 @@ type CountdownElementProps = {
     showLabel?: boolean;
 };
 
-export const CountdownElement: FC<CountdownElementProps> = ({unit, color, value, showLabel = true}) => {
-
+export const CountdownElement: FC<CountdownElementProps> = ({ unit, color, value, showLabel = true }) => {
     const maxForUnit: Record<CountdownUnit, number> = {
         days: 365,
         hours: 24,
         minutes: 60,
-        seconds: 60
+        seconds: 60,
     };
 
     const defaultLabels: TimeLabels = {
-        days: "Days",
-        hours: "Hours",
-        minutes: "Minutes",
-        seconds: "Seconds",
+        days: 'Days',
+        hours: 'Hours',
+        minutes: 'Minutes',
+        seconds: 'Seconds',
     };
 
     const getPercent = (val: number, max: number) => (val / max) * 100;
@@ -133,16 +143,13 @@ export const CountdownElement: FC<CountdownElementProps> = ({unit, color, value,
         <div key={unit} className="flex flex-col items-center">
             <div className="relative flex items-center justify-center mb-1">
                 {renderCircle(getPercent(value, maxForUnit[unit]), color)}
-                < span className="absolute text-white text-2xl font-mono font-bold select-none">
+                <span className="absolute text-white text-2xl font-mono font-bold select-none">
                     {value < 10 ? `0${value}` : value}
                 </span>
             </div>
             {showLabel && (
-                <span className="text-xs uppercase tracking-widest text-gray-400">
-                    {defaultLabels[unit]}
-                </span>
+                <span className="text-xs uppercase tracking-widest text-gray-400">{defaultLabels[unit]}</span>
             )}
         </div>
     );
-}
-
+};

@@ -1,10 +1,3 @@
-import { Content } from "./main/Content"
+import { Content } from './main/Content';
 
-export const App = () => {
-
-    return (
-        <>
-            <Content />
-        </>
-    )
-}
+export const App = () => <Content />;

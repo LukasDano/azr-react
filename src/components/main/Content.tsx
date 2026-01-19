@@ -1,49 +1,45 @@
-﻿import { useContext } from "react";
-import { AppContext, type AppContextValues } from "../context/AppContext";
-import type { Time } from "../../utils/importantTypes";
-import { addTimes, convertTimeToDate } from "../../utils/timeUtils";
-import { Countdown } from "./Countdown";
+﻿import { useContext } from 'react';
 
+import type { Time } from '../../static/importantTypes';
+import { calculateCurrentNormalEnd, calculateNormalEnd } from '../../utils/calculatingTimes';
+import { setCookie } from '../../utils/storage/cookieManager';
+import { getStorageValue } from '../../utils/storage/localStorageManger';
+import { parseTimeToDate } from '../../utils/typeUtilities/time';
+import { AppContext, type AppContextValues } from '../context/AppContext';
+import { Countdown } from './Countdown';
+import { FloatTimeInputField } from './FloatTimeInputField';
+import { TimeInputField } from './TimeInputField';
 
 export const Content = () => {
-    const { startTime, updateStartTime } = useContext<AppContextValues>(AppContext);
+    const { startTime, updateStartTime, floatTime, updateFloatTime } = useContext<AppContextValues>(AppContext);
 
-    const breakTime: Time = { hours: 0, minutes: 30 };
-    const workTime: Time = { hours: 7, minutes: 6 };
+    const handleStartTimeChange = (val: Time): void => {
+        const breakTime = getStorageValue('breakTime');
+        const workTime = getStorageValue('workTime');
+        const endTime = calculateNormalEnd(val, breakTime, workTime);
 
-    const handleStartTimeChange = (newVaule: string): void => {
-        const [newH, newMin] = newVaule.split(":");
-
-        const newTime: Time = {
-            hours: parseInt(newH, 10),
-            minutes: parseInt(newMin, 10)
-        };
-
-        updateStartTime(newTime);
+        updateStartTime(val);
+        setCookie('endTime', endTime);
     };
-
-    const formatTime = (time: Time): string => {
-        const h = String(time.hours).padStart(2, "0");
-        const m = String(time.minutes).padStart(2, "0");
-        return `${h}:${m}`;
-    };
-
-    const getEndTime = (start: Time): Time => {
-        const withoutBreak = addTimes(start, workTime);
-        return addTimes(withoutBreak, breakTime);
-    }
 
     return (
         <>
-            <input
-                type="time"
-                value={formatTime(startTime)}
-                onChange={(evt) => handleStartTimeChange(evt.target.value)}
+            <TimeInputField label="Arbeitsbeginn" value={startTime} onChange={(val) => handleStartTimeChange(val)} />
+
+            <TimeInputField label="Pause" value={getStorageValue('breakTime')} onChange={() => {}} disabled={true} />
+
+            <TimeInputField label="Arbeitsende" value={calculateCurrentNormalEnd(startTime)} onChange={() => {}} />
+
+            <TimeInputField
+                label="Arbeitszeit"
+                value={getStorageValue('workTime')}
+                onChange={() => {}}
+                disabled={true}
             />
 
-            <Countdown
-                end={convertTimeToDate(getEndTime(startTime))}
-            />
+            <FloatTimeInputField label="Gleitzeit" value={floatTime} onChange={updateFloatTime} disabled={true} />
+
+            <Countdown end={parseTimeToDate(calculateCurrentNormalEnd(startTime))} />
         </>
-    )
-}
+    );
+};
