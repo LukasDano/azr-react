@@ -1,12 +1,11 @@
 ﻿import type { FloatTime, Time } from '../../static/importantTypes';
 
-type CookieKey = 'startTime' | 'endTime' | 'floatTime';
+type CookieKey = 'startTime' | 'floatTime';
 
 type CookieValue = Time | FloatTime;
 
 const defaultValues: Record<CookieKey, CookieValue> = {
     startTime: { hours: 0, minutes: 0 },
-    endTime: { hours: 0, minutes: 0 },
     floatTime: { positive: true, time: { hours: 0, minutes: 4 } },
 };
 

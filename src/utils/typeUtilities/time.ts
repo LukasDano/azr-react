@@ -17,6 +17,17 @@ export const addTimes = (a: Time, b: Time): Time => {
     return { hours: roundNumber(hours), minutes: roundNumber(minutes % 60) };
 };
 
+export const cleanTime = (time: Time): Time => {
+    const val = { ...time };
+
+    while (val.minutes > 60) {
+        val.hours++;
+        val.minutes = val.minutes - 60;
+    }
+
+    return val;
+};
+
 export const parseTimeToDate = (time: Time): Date => {
     const date = new Date();
 
@@ -39,4 +50,19 @@ export const parseStringToTime = (timeAsString: string): Time => {
         hours: Number.parseInt(newH, 10),
         minutes: Number.parseInt(newMin, 10),
     };
+};
+
+export const isValidTime = (time: Time): boolean => {
+    const { hours, minutes } = time;
+
+    return (
+        typeof hours === "number" &&
+        typeof minutes === "number" &&
+        !isNaN(hours) &&
+        !isNaN(minutes) &&
+        hours >= 0 &&
+        hours < 24 &&
+        minutes >= 0 &&
+        minutes < 60
+    );
 };
