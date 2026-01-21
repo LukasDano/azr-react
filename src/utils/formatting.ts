@@ -8,6 +8,6 @@ export const roundNumber = (num: number, digits: number = 0): number => {
 };
 
 export const formatNumber = (num: number): string => {
-    if (num < 10 && num >= 0) return "0" + num.toString();
+    if (num < 10 && num >= 0) return '0' + num.toString();
     return num.toString();
 };

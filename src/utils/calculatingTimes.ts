@@ -1,13 +1,101 @@
-﻿import type { FloatTime, Time } from '../static/importantTypes';
+﻿import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
+import { formatNumber } from './formatting';
 import { getStorageValue } from './storage/localStorageManger';
 
-export const calculateNormalEnd = (startVal: Time, pauseVal: Time, sollVal: Time): Time => {
-    const start = { ...startVal };
-    const pause = { ...pauseVal };
-    const soll = { ...sollVal };
+/**
+ * Gibt die Differenz zwischen Start und Ende zurück
+ * @param startTime Arbeitsbeginn
+ * @param endTime Arbeitsende
+ * @return Die Differenz zwischen Start und Ende
+ */
+export const calculateStartEndeTimeDiff = (startTime: Time, endTime: Time): Time => {
+    const [startHours, startMins] = startTime;
+    const [endHours, endMins] = endTime;
 
-    let endHours = start.hours + pause.hours + soll.hours;
-    let endMins = start.minutes + pause.minutes + soll.minutes;
+    let diffHours = endHours - startHours;
+    let diffMins = endMins - startMins;
+
+    if (diffMins < 0) {
+        diffHours--;
+        diffMins = diffMins + 60;
+    }
+
+    return [diffHours, diffMins];
+};
+
+/**
+ * Berechnet die Differenz zwischen IST und SOLL
+ * @param workTime Zeit die an dem Tag gearbeitet wird
+ * @param sollTime Die zu erfüllende Arbeitszeit
+ * @return Die Differenz zwischen Ist und Soll,
+ *  sowie ob die positiv oder negativ ist
+ */
+export const calculateIstSollTimeDiff = (workTime: Time, sollTime: Time): [number, number, boolean] => {
+    const [workHours, workMins] = workTime;
+    const [sollHours, sollMins] = sollTime;
+
+    let diffHours = workHours - sollHours;
+    let diffMins;
+
+    if (diffHours === 0 && workMins > sollMins) diffMins = workMins - sollMins;
+    else if (diffHours > 0) {
+        diffMins = 60 - sollMins + workMins;
+        diffHours--;
+
+        if (diffMins >= 60) {
+            diffMins = diffMins - 60;
+            diffHours++;
+        }
+    } else if (workMins > sollMins && workMins < 60) {
+        diffMins = 60 - workMins + sollMins;
+        diffHours++;
+    } else diffMins = sollMins - workMins;
+
+    if (diffMins < 0) {
+        diffHours--;
+        diffMins = diffMins + 60;
+    }
+
+    const positive = !((workHours === sollHours && workMins < sollMins) || workHours < sollHours);
+
+    return [diffHours, diffMins, positive];
+};
+
+/**
+ * Berechnet die reine Arbeitszeit (abzüglich Pause)
+ * @param diffTime Zeit von Beginn bis Ende des Arbeitstages
+ * @param pauseTime Pausenzeit
+ * @return Die reine Arbeitszeit
+ */
+export const calculateWorkTime = (diffTime: Time, pauseTime: Time): Time => {
+    const [diffHours, diffMins] = diffTime;
+    const [pauseHours, pauseMins] = pauseTime;
+
+    let workHours = diffHours - pauseHours;
+    let workMins = diffMins - pauseMins;
+
+    if (workMins < 0) {
+        workHours--;
+        workMins = workMins + 60;
+    }
+
+    return [workHours, workMins];
+};
+
+/**
+ * Berechnet das Ende aus dem Start, der Pausenzeiten und dem Soll des Tages
+ * @param startTime Arbeitsbeginn
+ * @param pauseTime Pausenzeit
+ * @param sollTime Wie viel Arbeitszeit soll erbracht werden
+ * @return Das eigentliche Arbeitsende
+ */
+export const calculateNormalEnd = (startTime: Time, pauseTime: Time, sollTime: Time): Time => {
+    const [startHours, startMins] = startTime;
+    const [pauseHours, pauseMins] = pauseTime;
+    const [sollHours, sollMins] = sollTime;
+
+    let endHours = startHours + pauseHours + sollHours;
+    let endMins = startMins + pauseMins + sollMins;
 
     if (endHours >= 24) endHours = endHours - 24;
 
@@ -23,87 +111,23 @@ export const calculateNormalEnd = (startVal: Time, pauseVal: Time, sollVal: Time
         endHours++;
     }
 
-    return { hours: endHours, minutes: endMins };
+    return [endHours, endMins];
 };
 
-export const calculateCurrentNormalEnd = (start: Time): Time => {
-    const breakTime = getStorageValue('breakTime');
-    const workTime = getStorageValue('workTime');
+/**
+ * Berechnet die gewertete Zeit aus dem gerundeten Start und dem gerundeten Ende
+ * @param startTime Der Arbeitsbeginn
+ * @param endTime Das Arbeitsende
+ * @param pauseTime Die Pausenzeit
+ * @return Die Zeit, die an dem Tag wirklich gearbeitet wird
+ */
+export const calculateIstTime = (startTime: Time, endTime: Time, pauseTime: Time): Time => {
+    const [startHours, startMins] = roundStart(startTime);
+    const [endHours, endMins] = roundEnd(endTime);
+    const [_, pauseMins] = pauseTime;
 
-    return calculateNormalEnd(start, breakTime, workTime);
-};
-
-export const calculateStartEndeTimeDiff = (startVal: Time, endVal: Time): Time => {
-    const start = { ...startVal };
-    const end = { ...endVal };
-
-    let diffHours = end.hours - start.hours;
-    let diffMins = end.minutes - start.minutes;
-
-    if (diffMins < 0) {
-        diffHours--;
-        diffMins = diffMins + 60;
-    }
-
-    return { hours: diffHours, minutes: diffMins };
-};
-
-export const calculateIstSollTimeDiff = (workVal: Time, sollVal: Time): FloatTime => {
-    const work = { ...workVal };
-    const soll = { ...sollVal };
-
-    let diffHours = work.hours - soll.hours;
-    let diffMins;
-
-    if (diffHours === 0 && work.minutes > soll.minutes) diffMins = work.minutes - soll.minutes;
-    else if (diffHours > 0) {
-        diffMins = 60 - soll.minutes + work.minutes;
-        diffHours--;
-
-        if (diffMins >= 60) {
-            diffMins = diffMins - 60;
-            diffHours++;
-        }
-    } else if (work.minutes > soll.minutes && work.minutes < 60) {
-        diffMins = 60 - work.minutes + soll.minutes;
-        diffHours++;
-    }
-    else diffMins = soll.minutes - work.minutes;
-
-    if (diffMins < 0) {
-        diffHours--;
-        diffMins = diffMins + 60;
-    }
-
-    const positive = !(
-        (work.minutes === soll.minutes && work.minutes < work.minutes) ||
-        work.minutes < soll.minutes
-    );
-
-    return { positive: positive, time: { hours: diffHours, minutes: diffMins } };
-};
-
-export const calculateWorkTime = (diffVal: Time, pauseVal: Time): Time => {
-    const diff = { ...diffVal };
-    const pause = { ...pauseVal };
-
-    let workHours = diff.hours - pause.hours;
-    let workMins = diff.minutes - pause.minutes;
-
-    if (workMins < 0) {
-        workHours--;
-        workMins = workMins + 60;
-    }
-
-    return { hours: workHours, minutes: workMins };
-};
-
-export const calculateIstTime = (start: Time, end: Time, pause: Time): Time => {
-    const roundedStart = roundStart({ ...start });
-    const roundedEnd = roundEnd({ ...end });
-
-    let istHours = roundedEnd.hours - roundedStart.hours;
-    let istMins = roundedEnd.minutes - roundedStart.minutes - pause.minutes;
+    let istHours = endHours - startHours;
+    let istMins = endMins - startMins - pauseMins;
 
     while (istMins < 0) {
         istHours--;
@@ -112,17 +136,22 @@ export const calculateIstTime = (start: Time, end: Time, pause: Time): Time => {
 
     if (istHours >= 12) istHours = istHours - 2;
 
-    return { hours: istHours, minutes: istMins };
+    return [istHours, istMins];
 };
 
-export const calculateGleitzeit = (istVal: Time): FloatTime => {
-    const ist = { ...istVal };
-    const soll = getStorageValue("workTime");
+/**
+ * Gibt einem die Gleitzeit zurück, die man anhand der IstZeit macht
+ * @param istTime Die aktuelle Arbeitszeit des Tages
+ * @return Die Gleitzeit, die man damit macht
+ */
+export const calculateGleitzeit = (istTime: Time): Time => {
+    const [istHours, istMins] = istTime;
+    const [sollHours, sollMins] = getStorageValue('workTime');
 
-    let gleitHours = ist.hours - soll.hours;
-    let gleitMins = ist.minutes - soll.minutes;
+    let gleitHours = istHours - sollHours;
+    let gleitMins = istMins - sollMins;
 
-    if (ist.hours < soll.hours) {
+    if (istHours < sollHours) {
         gleitHours++;
         gleitMins = gleitMins - 60;
     }
@@ -137,80 +166,102 @@ export const calculateGleitzeit = (istVal: Time): FloatTime => {
         gleitMins = gleitMins + 60;
     }
 
-    const hasNegativeValues = (gleitHours < 0 || gleitHours < 0)
-    return { positive: !hasNegativeValues, time: { hours: gleitHours, minutes: gleitMins } };
+    return [gleitHours, gleitMins];
 };
 
-const roundStart = (startVal: Time): Time => {
-    const start = { ...startVal };
+/**
+ * Arbeitsbeginn auf 10er und 5er abrunden
+ * @param startTime Aktuelle Startzeit
+ * @return Die abgerundete Startzeit
+ */
+export const roundStart = (startTime: Time): Time => {
+    const startHours = startTime[0];
+    let startMins = startTime[1];
     let tens = 0;
 
-    while (start.minutes > 9) {
-        start.minutes = start.minutes - 10;
+    while (startMins > 9) {
+        startMins = startMins - 10;
         tens++;
     }
 
-    if (start.minutes >= 5) start.minutes = 5;
-    if (start.minutes <= 4) start.minutes = 0;
+    if (startMins >= 5) startMins = 5;
+    if (startMins <= 4) startMins = 0;
 
-    const startMins = start.minutes + tens * 10;
+    startMins = startMins + tens * 10;
 
-    return { hours: start.hours, minutes: startMins };
+    return [startHours, startMins];
 };
 
-const roundEnd = (endVal: Time): Time => {
-    const end = { ...endVal };
+/**
+ * Arbeitsende auf 10er und 5er aufrunden
+ * @param endTime Aktuelle Endzeit
+ * @return Das gerundete Ende
+ */
+export const roundEnd = (endTime: Time): Time => {
+    let [endHours, endMins] = endTime;
     let tens = 0;
 
-    if (end.minutes >= 56) {
-        end.minutes = 0;
-        end.hours++;
+    if (endMins >= 56) {
+        endMins = 0;
+        endHours++;
 
-        return { hours: end.hours, minutes: end.minutes };
+        return [endHours, endMins];
     }
 
-    while (end.minutes > 9) {
-        end.minutes = end.minutes - 10;
+    while (endMins > 9) {
+        endMins = endMins - 10;
         tens++;
     }
 
-    if (end.minutes >= 6) {
-        end.minutes = 0;
+    if (endMins >= 6) {
+        endMins = 0;
         tens++;
-    }
-    else if (end.minutes === 0) end.minutes = 0;
-    else if (end.minutes <= 4) end.minutes = 5;
+    } else if (endMins === 0) endMins = 0;
+    else if (endMins <= 4) endMins = 5;
 
-    end.minutes = end.minutes + tens * 10;
+    endMins = endMins + tens * 10;
 
-    return { hours: end.hours, minutes: end.minutes };
+    return [endHours, endMins];
 };
 
-export const calculateEndForFloat = (normalEndVal: Time, floatVal: FloatTime): Time => {
-    const normalEnd = { ...normalEndVal };
-    const float = { ...floatVal };
+/**
+ * Berechnet das Ende basierend auf dem eigentlichen Ende und der erwünschten Gleitzeit
+ * @param {Time} normalEnd Die eigentliche Endzeit
+ * @param {FloatTime} float Die gewünschte Gleitzeit
+ * @return {Time}  Das Ende zu übergebenen Werten
+ */
+export const calculateEndForFloat = (normalEnd: Time, float: FloatTime): Time => {
+    const [istEndHours, istEndMins] = normalEnd;
+    const floatVorzeichen: FloatTimeSign = float[0];
+
     let floatTimeRounded: Time;
 
-    if (float.positive)
-        floatTimeRounded = calculateTimeToAddForEndWithPositiveFloat(float);
-    else
-        floatTimeRounded = calculateTimeToAddForEndWithNegativeFloat(float);
+    if (floatVorzeichen === 1) floatTimeRounded = calculateTimeToAddForEndWithPositiveFloat(float);
+    else floatTimeRounded = calculateTimeToAddForEndWithNegativeFloat(float);
 
-    const gleitVorzeichen = float.positive ? 1 : -1;
-    const sollEndHours = normalEnd.hours + floatTimeRounded.hours * gleitVorzeichen;
-    const sollEndMins = normalEnd.minutes + floatTimeRounded.minutes * gleitVorzeichen;
+    const [floatHours, floatMins] = floatTimeRounded;
 
-    return { hours: sollEndHours, minutes: sollEndMins };
+    const sollEndHours = istEndHours + floatHours * floatVorzeichen;
+    const sollEndMins = istEndMins + floatMins * floatVorzeichen;
+
+    return [sollEndHours, sollEndMins];
 };
 
-const calculateTimeToAddForEndWithPositiveFloat = (float: FloatTime): Time => {
-    let { hours: floatHours, minutes: floatMins } = { ...float.time };
+/**
+ * Berechnet die Zeit, die dem normalen Ende hinzugefügt werden muss,
+ * um die gewünschte Gleitzeit zu bekommen, wenn diese positiv ist
+ * @param {FloatTime} float Die gewünschte Gleitzeit
+ * @return {Time} Zeit die zum Ende hinzugefügt werden muss
+ */
+export const calculateTimeToAddForEndWithPositiveFloat = (float: FloatTime): Time => {
+    const floatHours = float[1];
+    let floatMins = float[2];
     let tens = 0;
 
     if (floatHours !== 0 && floatMins === 0) {
         floatMins = 4;
         // Ausgleich, weil man normalerweise schon plus 4 Minuten macht
-        return { hours: floatHours, minutes: (floatMins - 4) };
+        return [floatHours, floatMins - 4];
     }
 
     while (floatMins > 9) {
@@ -223,179 +274,182 @@ const calculateTimeToAddForEndWithPositiveFloat = (float: FloatTime): Time => {
 
     floatMins = 10 * tens + floatMins;
 
-    return { hours: floatHours, minutes: (floatMins - 4) };
+    return [floatHours, floatMins - 4];
 };
 
-const calculateTimeToAddForEndWithNegativeFloat = (float: FloatTime): Time => {
-    let { hours: floatHours, minutes: floatMins } = { ...float.time };
+/**
+ * Berechnet die Zeit, die dem normalen Ende hinzugefügt werden muss,
+ * um die gewünschte Gleitzeit zu bekommen, wenn diese negative ist
+ * @param {FloatTime} float Die gewünschte Gleitzeit
+ * @return {Time} Zeit die zum Ende hinzugefügt werden muss
+ */
+export const calculateTimeToAddForEndWithNegativeFloat = (float: FloatTime): Time => {
+    let [, gleitHours, gleitMins] = float;
     let tens = 0;
 
-    if (floatHours !== 0 && floatMins === 0) {
-        floatMins = 56;
-        floatHours--;
+    if (gleitHours !== 0 && gleitMins === 0) {
+        gleitMins = 56;
+        gleitHours--;
 
         // Ausgleich, weil man normalerweise schon plus 4 Minuten macht
-        return { hours: floatHours, minutes: (floatMins + 4) };
+        return [gleitHours, gleitMins + 4];
+    } else if (gleitHours === 0 && gleitMins === 0) return [gleitHours, 5];
 
-    } else if (floatHours === 0 && floatMins === 0) {
-        floatMins = 1;
-
-        return { hours: floatHours, minutes: (floatMins + 4) };
-    }
-
-    while (floatMins > 9) {
-        floatMins = floatMins - 10;
+    while (gleitMins > 9) {
+        gleitMins = gleitMins - 10;
         tens++;
     }
 
-    if (floatMins === 0) {
-        floatMins = 6;
+    if (gleitMins === 0) {
+        gleitMins = 6;
         tens--;
-    }
-    else if (floatMins >= 6) floatMins = 6;
-    else if (floatMins <= 5) floatMins = 1;
+    } else if (gleitMins >= 6) gleitMins = 6;
+    else if (gleitMins <= 5) gleitMins = 1;
 
-    floatMins = 10 * tens + floatMins;
+    gleitMins = 10 * tens + gleitMins;
 
-    return { hours: floatHours, minutes: (floatMins + 4) };
+    return [gleitHours, gleitMins + 4];
 };
 
-export const calculateOptimizedEnd = (endVal: Time): Time => {
-    const end = { ...endVal };
+/**
+ * Nimmt die aktuelle Endezeit und gibt die Endezeit,
+ * mit der die gleiche Menge an Gleitzeit gemacht wird und die am wenigsten Arbeitszeit erfordert
+ * @param endTime Aktuelle Endezeit
+ * @return Das optimierte Ende mit der geringsten Arbeitszeit
+ */
+export const calculateOptimizedEnd = (endTime: Time): Time => {
+    let [endHours, endMins] = endTime;
     let tens = 0;
 
-    while (end.minutes > 9) {
-        end.minutes = end.minutes - 10;
+    while (endMins > 9) {
+        endMins = endMins - 10;
         tens++;
     }
 
-    if (end.minutes === 0 && tens === 0) {
-        end.minutes = 56;
-        end.hours--;
-    } else if (end.minutes === 0) {
-        end.minutes = 6;
+    if (endMins === 0 && tens === 0) {
+        endMins = 56;
+        endHours--;
+    } else if (endMins === 0) {
+        endMins = 6;
         tens--;
+    } else if (endMins >= 6) endMins = 6;
+    else if (endMins <= 5) endMins = 1;
+
+    endMins = 10 * tens + endMins;
+    // if (endMins <= 9) endMins = "0" + endMins; ToDo: Check if this has any real consqeuences
+
+    return [endHours, endMins];
+};
+
+/**
+ * Rechnet aus dem eigentlichen Ende und der Gleitzeit das Ende für diese Gleitzeit
+ * @param {Time} normalEnd Das eigentliche Ende
+ * @param {FloatTime} floatTime Die gewünschte Gleitzeit
+ * @return {Time} Das Ende, um diese Gleitzeit zu machen
+ */
+export const roundTimeForFloat = (normalEnd: Time, floatTime: FloatTime): Time => {
+    let [endHours, endMins] = calculateEndForFloat(normalEnd, floatTime);
+
+    while (endMins >= 60) {
+        endHours++;
+        endMins = endMins - 60;
     }
-    else if (end.minutes >= 6) end.minutes = 6;
-    else if (end.minutes <= 5) end.minutes = 1;
 
-    end.minutes = 10 * tens + end.minutes;
-
-    return { hours: end.hours, minutes: end.minutes };
-}
-
-export const roundTimeForFloat = (normalEnd: Time, float: FloatTime): Time => {
-    const endForFloat = calculateEndForFloat({ ...normalEnd }, { ...float });
-
-    while (endForFloat.minutes >= 60) {
-        endForFloat.hours++;
-        endForFloat.minutes = endForFloat.minutes - 60;
+    while (endMins < 0) {
+        endHours--;
+        endMins = endMins + 60;
     }
 
-    while (endForFloat.minutes < 0) {
-        endForFloat.hours--;
-        endForFloat.minutes = endForFloat.minutes + 60;
+    // if (endMins <= 9) endMins = "0" + endMins; ToDo: Check if this has any real consqeuences
+    return [endHours, endMins];
+};
+
+/**
+ * Gibt die nächst größere valide Gleitzeit zurück
+ * zum Beispiel: "+0.04" → "+0.09"
+ * @param {FloatTime} float Die aktuelle Gleitzeit
+ * @return {Time} Die nächst größere Gleitzeit
+ */
+export const calculateIncreasedValue = (float: FloatTime): Time => {
+    const floatVorzeichen = float[0];
+    let floatHours = float[1];
+    let floatMins = float[2];
+
+    floatHours = floatHours * floatVorzeichen;
+    floatMins = floatMins * floatVorzeichen;
+
+    if (Object.is(floatHours, -0)) floatHours = 0;
+
+    if (floatMins === 59) {
+        floatHours += 1;
+        floatMins = 4;
+
+        return [floatHours, floatMins];
     }
 
-    return { hours: endForFloat.hours, minutes: endForFloat.minutes };
-}
+    if (floatHours === 0 && floatMins === -1) return [floatHours, 4];
 
-export const calculateIncreasedValue = (float: FloatTime): FloatTime => {
-    const floatVorzeichen = float.positive ? 1 : -1;
-    const floatTime = { ...float.time };
+    if (floatHours <= 0 && floatMins === -1) {
+        floatHours += 1;
+        floatMins = -56;
+        return [floatHours, floatMins];
+    }
 
+    floatMins = floatMins + 5;
+    return [floatHours, floatMins];
+};
+
+/**
+ * Gibt die nächst kleinere valide Gleitzeit zurück
+ * zum Beispiel: "+0.09" → "+0.04"
+ * @param {FloatTime} float Die aktuelle Gleitzeit
+ * @return {Time} Die nächst kleinere Gleitzeit
+ */
+export const calculateDecreasedValue = (float: FloatTime): Time => {
+    const floatVorzeichen = float[0];
+    let floatHours = float[1];
+    let floatMins = float[2];
     // 1,0,4
-    floatTime.hours = floatTime.hours * floatVorzeichen;
-    floatTime.minutes = floatTime.minutes * floatVorzeichen;
 
-    if (floatTime.hours === -0) floatTime.hours = 0;
+    if (floatHours === 0 && floatMins === 4) return [floatHours, -1];
 
-    if (floatTime.minutes === 59) {
-        floatTime.hours += 1;
-        floatTime.minutes = 4;
+    floatHours = floatHours * floatVorzeichen;
+    floatMins = floatMins * floatVorzeichen;
 
-        return {
-            positive: isFloatPositive(floatTime),
-            time: { hours: floatTime.hours, minutes: floatTime.minutes }
-        };
+    if (Object.is(floatHours, -0)) floatHours = 0;
+
+    if (floatMins === 4 && floatHours === 0) return [floatHours, -1];
+
+    if (floatHours <= 0 && floatMins === -56) {
+        floatHours -= 1;
+        floatMins = -1;
+        return [floatHours, floatMins];
     }
 
-    if (floatTime.hours === 0 && floatTime.minutes === -1) {
-        floatTime.minutes = 4;
-        return {
-            positive: isFloatPositive(floatTime),
-            time: { hours: floatTime.hours, minutes: floatTime.minutes }
-        };
+    if (floatMins === 4) {
+        floatHours -= 1;
+        floatMins = 59;
+        return [floatHours, floatMins];
     }
 
-    if (floatTime.hours <= 0 && floatTime.minutes === -1) {
-        floatTime.hours += 1;
-        floatTime.minutes = -56;
-        return {
-            positive: isFloatPositive(floatTime),
-            time: { hours: floatTime.hours, minutes: floatTime.minutes }
-        };
-    }
+    floatMins = floatMins - 5;
+    return [floatHours, floatMins];
+};
 
-    floatTime.minutes = floatTime.minutes + 5;
-    return {
-        positive: isFloatPositive(floatTime),
-        time: { hours: floatTime.hours, minutes: floatTime.minutes }
-    };
-}
+/**
+ * Erzeugt einen lesbareren String, der zur Darstellung genutzt werden kann
+ * @param {Time} float Die Gleitzeit, die aktuell in dem Feld steht
+ * @return {string} Die Gleitzeit als lesbarer String
+ */
+export const createGleitzeitAusgabeFromFloat = (float: Time): string => {
+    let [gleitHours, gleitMins] = float;
 
-export const calculateDecreasedValue = (float: FloatTime): FloatTime => {
-    const floatVorzeichen = float.positive ? 1 : -1;
-    const floatTime = { ...float.time };
+    // Vorzeichen ermitteln
+    const sign = gleitHours < 0 || gleitMins < 0 ? '-' : '+';
 
-    // 1,0,4
-    if (floatTime.hours === 0 && floatTime.minutes === 4) {
-        floatTime.minutes = -1;
+    // Absolutwerte nehmen
+    gleitHours = Math.abs(gleitHours);
+    gleitMins = Math.abs(gleitMins);
 
-        return {
-            positive: isFloatPositive(floatTime),
-            time: { hours: floatTime.hours, minutes: floatTime.minutes }
-        };
-    }
-
-    floatTime.hours = floatTime.hours * floatVorzeichen;
-    floatTime.minutes = floatTime.minutes * floatVorzeichen;
-
-    if (floatTime.hours === -0) floatTime.hours = 0;
-
-    if (floatTime.minutes === 4 && floatTime.hours === 0) {
-        floatTime.minutes = -1
-        return {
-            positive: isFloatPositive(floatTime),
-            time: { hours: floatTime.hours, minutes: floatTime.minutes }
-        };
-    }
-
-    if (floatTime.hours <= 0 && floatTime.minutes === -56) {
-        floatTime.hours -= 1;
-        floatTime.minutes = -1;
-        return {
-            positive: isFloatPositive(floatTime),
-            time: { hours: floatTime.hours, minutes: floatTime.minutes }
-        };
-    }
-
-    if (floatTime.minutes === 4) {
-        floatTime.hours -= 1;
-        floatTime.minutes = 59;
-        return {
-            positive: isFloatPositive(floatTime),
-            time: { hours: floatTime.hours, minutes: floatTime.minutes }
-        };
-    }
-
-    floatTime.minutes = floatTime.minutes - 5;
-    return {
-        positive: isFloatPositive(floatTime),
-        time: { hours: floatTime.hours, minutes: floatTime.minutes }
-    };
-}
-
-const isFloatPositive = (time: Time): boolean => {
-    return (time.hours >= 0 && time.minutes >= 0);
+    return sign + gleitHours + '.' + formatNumber(gleitMins);
 };

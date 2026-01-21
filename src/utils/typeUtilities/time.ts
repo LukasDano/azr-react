@@ -1,65 +1,50 @@
 ﻿import type { Time } from '../../static/importantTypes';
-import { roundNumber } from '../formatting';
 
 export const getCurrentTime = (): Time => {
     const date = new Date();
 
-    return {
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-    };
-};
-
-export const addTimes = (a: Time, b: Time): Time => {
-    const minutes = a.minutes + b.minutes;
-    const hours = a.hours + b.hours + minutes / 60;
-
-    return { hours: roundNumber(hours), minutes: roundNumber(minutes % 60) };
+    return [date.getHours(), date.getMinutes()];
 };
 
 export const cleanTime = (time: Time): Time => {
-    const val = { ...time };
+    let [hours, mins] = time;
 
-    while (val.minutes > 60) {
-        val.hours++;
-        val.minutes = val.minutes - 60;
+    while (mins > 60) {
+        hours++;
+        mins = mins - 60;
     }
 
-    return val;
+    return [hours, mins];
 };
 
 export const parseTimeToDate = (time: Time): Date => {
     const date = new Date();
 
-    date.setHours(time.hours);
-    date.setMinutes(time.minutes);
+    date.setHours(time[0]);
+    date.setMinutes(time[1]);
 
     return date;
 };
 
 export const parseTimeToString = (time: Time): string => {
-    const h = String(time.hours).padStart(2, '0');
-    const m = String(time.minutes).padStart(2, '0');
+    const h = String(time[0]).padStart(2, '0');
+    const m = String(time[1]).padStart(2, '0');
     return `${h}:${m}`;
 };
 
 export const parseStringToTime = (timeAsString: string): Time => {
     const [newH, newMin] = timeAsString.split(':');
-
-    return {
-        hours: Number.parseInt(newH, 10),
-        minutes: Number.parseInt(newMin, 10),
-    };
+    return [Number.parseInt(newH, 10), Number.parseInt(newMin, 10)];
 };
 
 export const isValidTime = (time: Time): boolean => {
-    const { hours, minutes } = time;
+    const [hours, minutes] = time;
 
     return (
-        typeof hours === "number" &&
-        typeof minutes === "number" &&
-        !isNaN(hours) &&
-        !isNaN(minutes) &&
+        typeof hours === 'number' &&
+        typeof minutes === 'number' &&
+        !Number.isNaN(hours) &&
+        !Number.isNaN(minutes) &&
         hours >= 0 &&
         hours < 24 &&
         minutes >= 0 &&

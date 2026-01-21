@@ -1,12 +1,13 @@
-﻿import type { FloatTime, Time } from '../../static/importantTypes';
+﻿import { defaultFloatValue, emptyTimeValue } from '../../static/defaultValues.ts';
+import type { FloatTime, Time } from '../../static/importantTypes';
 
 type CookieKey = 'startTime' | 'floatTime';
 
 type CookieValue = Time | FloatTime;
 
 const defaultValues: Record<CookieKey, CookieValue> = {
-    startTime: { hours: 0, minutes: 0 },
-    floatTime: { positive: true, time: { hours: 0, minutes: 4 } },
+    startTime: emptyTimeValue,
+    floatTime: defaultFloatValue,
 };
 
 export const deleteCookie = (key: CookieKey): void => {

@@ -1,25 +1,30 @@
-﻿import { useContext, useEffect, useState } from 'react';
+﻿import { useContext, useState } from 'react';
 
+import { defaultFloatValue } from '../../static/defaultValues.ts';
 import type { FloatTime, Time } from '../../static/importantTypes';
-import { calculateCurrentNormalEnd, calculateGleitzeit, calculateIstTime, calculateNormalEnd, calculateOptimizedEnd, roundTimeForFloat } from '../../utils/calculatingTimes';
+import {
+    calculateGleitzeit,
+    calculateIstTime,
+    calculateNormalEnd,
+    calculateOptimizedEnd,
+    roundTimeForFloat,
+} from '../../utils/calculatingTimes';
+import { sendInfoMessage } from '../../utils/page/notifications';
 import { getStorageValue } from '../../utils/storage/localStorageManger';
+import { parseFloatTimeFromRawTimeValues } from '../../utils/typeUtilities/floatTime';
 import { parseTimeToDate } from '../../utils/typeUtilities/time';
 import { AppContext, type AppContextValues } from '../context/AppContext';
 import { Countdown } from './Countdown';
-import { TimeInputField } from './inputs/TimeInputField';
 import { FloatTimeInputField } from './inputs/FloatTimeInputField';
-import { sendInfoMessage } from '../../utils/page/notifications';
+import { TimeInputField } from './inputs/TimeInputField';
 
 export const Content = () => {
     const { startTime, updateStartTime, floatTime, updateFloatTime } = useContext<AppContextValues>(AppContext);
 
-    const [endTime, setEndTime] = useState<Time>({ hours: 0, minutes: 0 });
+    const [endTime, setEndTime] = useState<Time>([0, 0]);
 
-    const breakTime: Time = getStorageValue("breakTime");
-
-    useEffect(() => {
-        setEndTime(calculateCurrentNormalEnd(startTime));
-    }, [startTime]);
+    const breakTime: Time = getStorageValue('breakTime');
+    const workTime: Time = getStorageValue('workTime');
 
     const handleStartTimeChange = (val: Time): void => {
         const workTime = getStorageValue('workTime');
@@ -27,6 +32,7 @@ export const Content = () => {
 
         updateStartTime(val);
         handleEndUpdate(endTime);
+        updateFloatTime(defaultFloatValue);
     };
 
     const handleEndUpdate = (val: Time): void => {
@@ -34,15 +40,15 @@ export const Content = () => {
 
         const ist = calculateIstTime(startTime, val, breakTime);
         const float = calculateGleitzeit(ist);
-
-        updateFloatTime(float);
+        const parsed = parseFloatTimeFromRawTimeValues(float);
+        updateFloatTime(parsed);
     };
 
     const handleFloatUpdate = (val: FloatTime): void => {
-        const end = roundTimeForFloat(endTime, val);
-        setEndTime(end);
+        const normalEnd = calculateNormalEnd(startTime, breakTime, workTime);
+        const endForFloat = roundTimeForFloat(normalEnd, val);
+        const optimized = calculateOptimizedEnd(endForFloat);
 
-        const optimized = calculateOptimizedEnd(end);
         setEndTime(optimized);
         updateFloatTime(val);
     };
@@ -58,13 +64,13 @@ export const Content = () => {
             <TimeInputField
                 label="Arbeitszeit"
                 value={getStorageValue('workTime')}
-                onChange={() => { }}
+                onChange={() => {}}
                 disabled={true}
             />
 
             <FloatTimeInputField label="Gleitzeit" value={floatTime} onChange={handleFloatUpdate} />
 
-            <Countdown end={parseTimeToDate(endTime)} onEnd={() => sendInfoMessage("Ende der Arbeitszeit")} />
+            <Countdown end={parseTimeToDate(endTime)} onEnd={() => sendInfoMessage('Ende der Arbeitszeit')} />
         </>
     );
 };

@@ -1,7 +1,13 @@
 ﻿import type { FC, KeyboardEvent } from 'react';
+
 import type { FloatTime } from '../../../static/importantTypes';
-import { parseFloatTimeToString, parseStringToFloatTime } from '../../../utils/typeUtilities/floatTime';
 import { calculateDecreasedValue, calculateIncreasedValue } from '../../../utils/calculatingTimes';
+import {
+    isValidFloatTimeValue as isValidFloatTimeStr,
+    parseFloatTimeFromRawTimeValues,
+    parseFloatTimeToString,
+    parseStringToFloatTime,
+} from '../../../utils/typeUtilities/floatTime';
 
 type FloatTimeInputFieldProps = {
     label: string;
@@ -11,28 +17,27 @@ type FloatTimeInputFieldProps = {
 
 export const FloatTimeInputField: FC<FloatTimeInputFieldProps> = ({ label, value, onChange }) => {
     const handleChange = (val: string) => {
+        if (!isValidFloatTimeStr(val)) return;
+
         const time = parseStringToFloatTime(val);
-        onChange(time);
+        if (time) onChange(time);
     };
 
     const handleKeyDown = (evt: KeyboardEvent<HTMLInputElement>) => {
-        console.warn("PRE: ", JSON.stringify(value));
         let updatedValue: FloatTime;
 
-        if (evt.key === "ArrowUp") {
+        if (evt.key === 'ArrowUp') {
             evt.preventDefault();
-            updatedValue = calculateIncreasedValue(value)
+            const increased = calculateIncreasedValue(value);
+            updatedValue = parseFloatTimeFromRawTimeValues(increased);
 
             onChange(updatedValue);
-            console.warn("INCREASE: ", JSON.stringify(updatedValue));
-        }
-
-        else if (evt.key === "ArrowDown") {
+        } else if (evt.key === 'ArrowDown') {
             evt.preventDefault();
-            updatedValue = calculateDecreasedValue(value);
+            const decreased = calculateDecreasedValue(value);
+            updatedValue = parseFloatTimeFromRawTimeValues(decreased);
 
             onChange(updatedValue);
-            console.warn("DECREASE: ", JSON.stringify(updatedValue));
         }
     };
 
