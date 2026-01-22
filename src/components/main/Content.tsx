@@ -21,13 +21,12 @@ import { TimeInputField } from './inputs/TimeInputField';
 export const Content = () => {
     const { startTime, updateStartTime, floatTime, updateFloatTime } = useContext<AppContextValues>(AppContext);
 
-    const [endTime, setEndTime] = useState<Time>([0, 0]);
+    const breakTime = getStorageValue('breakTime') as Time;
+    const workTime = getStorageValue('workTime') as Time;
 
-    const breakTime: Time = getStorageValue('breakTime');
-    const workTime: Time = getStorageValue('workTime');
+    const [endTime, setEndTime] = useState<Time>(calculateNormalEnd(startTime, breakTime, workTime));
 
     const handleStartTimeChange = (val: Time): void => {
-        const workTime = getStorageValue('workTime');
         const endTime = calculateNormalEnd(val, breakTime, workTime);
 
         updateStartTime(val);
@@ -54,23 +53,41 @@ export const Content = () => {
     };
 
     return (
-        <>
-            <TimeInputField label="Arbeitsbeginn" value={startTime} onChange={handleStartTimeChange} />
+        <div className="mx-auto max-w-3xl w-full px-4 py-8">
+            <div className="flex flex-col lg:flex-row gap-4 mb-8 justify-center items-stretch">
+                <div className="flex-1">
+                    <TimeInputField label="Arbeitsbeginn" value={startTime} onChange={handleStartTimeChange} />
+                </div>
+                <div className="flex-1">
+                    <TimeInputField label="Arbeitsende" value={endTime} onChange={handleEndUpdate} />
+                </div>
+            </div>
 
-            <TimeInputField label="Pause" value={breakTime} disabled={true} />
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
+                <div className="flex-1 max-w-xs mx-auto sm:mx-0">
+                    <TimeInputField label="Pause" value={breakTime} disabled={true} />
+                </div>
+                <div className="flex-1 max-w-xs mx-auto sm:mx-0">
+                    <TimeInputField label="Arbeitszeit" value={workTime} disabled={true} />
+                </div>
+                <div className="flex-1 max-w-xs mx-auto sm:mx-0">
+                    <FloatTimeInputField
+                        label="Gleitzeit"
+                        value={floatTime}
+                        onChange={handleFloatUpdate}
+                        onClick={handleFloatUpdate}
+                    />
+                </div>
+            </div>
 
-            <TimeInputField label="Arbeitsende" value={endTime} onChange={handleEndUpdate} />
-
-            <TimeInputField
-                label="Arbeitszeit"
-                value={getStorageValue('workTime')}
-                onChange={() => {}}
-                disabled={true}
-            />
-
-            <FloatTimeInputField label="Gleitzeit" value={floatTime} onChange={handleFloatUpdate} />
-
-            <Countdown end={parseTimeToDate(endTime)} onEnd={() => sendInfoMessage('Ende der Arbeitszeit')} />
-        </>
+            <div className="pt-4">
+                <Countdown
+                    end={parseTimeToDate(endTime)}
+                    onEnd={() => {
+                        if (startTime[0] !== 0 && startTime[1] !== 0) sendInfoMessage('Ende der Arbeitszeit');
+                    }}
+                />
+            </div>
+        </div>
     );
 };

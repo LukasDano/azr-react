@@ -1,0 +1,90 @@
+﻿name: CI/CD
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+
+env:
+    frontend: ./frontend
+
+jobs:
+    tsc-check:
+        runs-on: windows-latest
+        steps:
+            - name: Checkout Node
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Install Dependencies
+              run: npm install
+              working-directory: ${{ env.frontend }}
+
+            - name: Check TypeScript Compile
+              run: npm run tsc
+              working-directory: ${{ env.frontend }}
+
+    prettier-check:
+        runs-on: windows-latest
+        needs: [tsc-check]
+        steps:
+            - name: Checkout Node
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Install Dependencies
+              run: npm install
+              working-directory: ${{ env.frontend }}
+
+            - name: Check Prettier formatting
+              run: npm run prettier:check
+              working-directory: ${{ env.frontend }}
+
+    eslint-ts:
+        runs-on: windows-latest
+        needs: [tsc-check, prettier-check]
+        steps:
+            - name: Checkout Node
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Install Dependencies
+              run: npm install
+              working-directory: ${{ env.frontend }}
+
+            - name: Check ESLint for ts files
+              run: npm run lint:ts
+              working-directory: ${{ env.frontend }}
+
+    eslint-tsx:
+        runs-on: windows-latest
+        needs: [tsc-check, prettier-check]
+        steps:
+            - name: Checkout Node
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Install Dependencies
+              run: npm install
+              working-directory: ${{ env.frontend }}
+
+            - name: Check ESLint for tsx files
+              run: npm run lint:tsx
+              working-directory: ${{ env.frontend }}

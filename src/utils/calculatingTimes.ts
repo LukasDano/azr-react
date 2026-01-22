@@ -146,7 +146,7 @@ export const calculateIstTime = (startTime: Time, endTime: Time, pauseTime: Time
  */
 export const calculateGleitzeit = (istTime: Time): Time => {
     const [istHours, istMins] = istTime;
-    const [sollHours, sollMins] = getStorageValue('workTime');
+    const [sollHours, sollMins] = getStorageValue('workTime') as Time;
 
     let gleitHours = istHours - sollHours;
     let gleitMins = istMins - sollMins;

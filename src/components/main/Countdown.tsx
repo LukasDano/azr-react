@@ -31,6 +31,7 @@ type CountdownProps = {
     onEnd?: () => void;
     showLabels?: boolean;
     colorTheme?: Record<keyof CountdownTime, string>;
+    showDays?: boolean;
 };
 
 export const Countdown: FC<CountdownProps> = ({
@@ -38,6 +39,7 @@ export const Countdown: FC<CountdownProps> = ({
     onEnd,
     showLabels = true,
     colorTheme = defaultCountdownTheme,
+    showDays = false,
 }) => {
     const [time, setTime] = useState<CountdownTime>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -101,16 +103,18 @@ export const Countdown: FC<CountdownProps> = ({
     };
 
     return (
-        <div className="flex items-center justify-center gap-6 p-6 bg-gray-900 rounded-2xl shadow-xl">
-            {createCountdownElements(time).map((unit) => (
-                <CountdownElement
-                    key={unit.key}
-                    color={colorTheme[unit.key]}
-                    unit={unit.key as CountdownUnit}
-                    value={unit.value}
-                    showLabel={showLabels}
-                />
-            ))}
+        <div className="bg-zinc-400 dark:bg-gray-800 flex items-center justify-center gap-6 p-6 rounded-2xl shadow-xl w-2/3 mx-auto h-32">
+            {createCountdownElements(time)
+                .filter((unit) => (showDays ? true : unit.key !== 'days'))
+                .map((unit) => (
+                    <CountdownElement
+                        key={unit.key}
+                        color={colorTheme[unit.key]}
+                        unit={unit.key as CountdownUnit}
+                        value={unit.value}
+                        showLabel={showLabels}
+                    />
+                ))}
         </div>
     );
 };
@@ -140,15 +144,17 @@ export const CountdownElement: FC<CountdownElementProps> = ({ unit, color, value
     const getPercent = (val: number, max: number) => (val / max) * 100;
 
     return (
-        <div key={unit} className="flex flex-col items-center">
+        <div key={unit} className="flex flex-col items-center pl-1 pr-1">
             <div className="relative flex items-center justify-center mb-1">
                 {renderCircle(getPercent(value, maxForUnit[unit]), color)}
-                <span className="absolute text-white text-2xl font-mono font-bold select-none">
+                <span className="absolute text-gray-700 dark:text-gray-400 text-2xl font-mono font-bold select-none">
                     {value < 10 ? `0${value}` : value}
                 </span>
             </div>
             {showLabel && (
-                <span className="text-xs uppercase tracking-widest text-gray-400">{defaultLabels[unit]}</span>
+                <span className="text-xs uppercase tracking-widest text-gray-700 dark:text-gray-400">
+                    {defaultLabels[unit]}
+                </span>
             )}
         </div>
     );

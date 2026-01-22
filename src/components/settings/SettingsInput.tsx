@@ -1,0 +1,83 @@
+﻿import Tippy from '@tippyjs/react';
+import { type FC, useState } from 'react';
+import { FaRegSave } from 'react-icons/fa';
+
+import { themeColorClasses } from '../../static/themes';
+import { sendInfoMessage, sendWarnMessage } from '../../utils/page/notifications';
+
+type SettingsInputValue = string | number;
+
+type SettingsInputProps = {
+    onSubmit: (value: SettingsInputValue) => void;
+    defaultValue: SettingsInputValue;
+    type: 'text' | 'number';
+    settingName: string;
+    description?: string;
+    max?: number;
+    min?: number;
+    onlyValues?: SettingsInputValue[];
+    useStringAsColor?: boolean;
+};
+
+export const SettingsInput: FC<SettingsInputProps> = ({
+    onSubmit,
+    defaultValue = '',
+    type,
+    settingName,
+    description,
+    onlyValues,
+    min,
+    max,
+    useStringAsColor = false,
+}) => {
+    const [value, setValue] = useState<SettingsInputValue>(defaultValue);
+
+    const handleChange = (evt: React.FormEvent<HTMLInputElement>) => {
+        if (type === 'text') setValue(evt.currentTarget.value);
+        else setValue(Number(evt.currentTarget.value));
+    };
+
+    const handleSave = (evt: React.FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+
+        if (onlyValues && !onlyValues.includes(value))
+            sendWarnMessage(`Dieser Wert wird für ${settingName} nicht unterstützt`);
+        else {
+            onSubmit(value);
+            sendInfoMessage(`Änderung and ${settingName} wurde gespeichert.`);
+        }
+    };
+
+    return (
+        <div className="flex flex-col gap-y-3">
+            <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                    <span className="font-medium text-gray-900 dark:text-gray-100">{settingName}</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-300">{description}</span>
+                </div>
+
+                <form onSubmit={handleSave} className="flex items-center gap-2">
+                    <input
+                        type={type}
+                        value={value}
+                        onChange={handleChange}
+                        min={min}
+                        max={max}
+                        className="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        style={{ color: useStringAsColor ? (value as string) : '' }}
+                    />
+                    {defaultValue !== value && (
+                        <Tippy content={`Änderung speichern`}>
+                            <button
+                                type="submit"
+                                className={`flex items-center justify-center h-10 px-4 text-white rounded-lg transition-colors duration-200 ${themeColorClasses}`}
+                            >
+                                <FaRegSave className="w-5 h-5" />
+                            </button>
+                        </Tippy>
+                    )}
+                </form>
+            </div>
+        </div>
+    );
+};

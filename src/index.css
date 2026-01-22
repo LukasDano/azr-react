@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import 'tippy.js/dist/tippy.css';
+@import 'tippy.js/animations/scale.css';
 
 :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
