@@ -24,7 +24,12 @@ export const Content = () => {
     const breakTime = getStorageValue('breakTime') as Time;
     const workTime = getStorageValue('workTime') as Time;
 
-    const [endTime, setEndTime] = useState<Time>(calculateNormalEnd(startTime, breakTime, workTime));
+    const [endTime, setEndTime] = useState<Time>(getInitialEndTime());
+
+    function getInitialEndTime(): Time {
+        const isDefaultStartTime = startTime[0] === 0 && startTime[1] === 0;
+        return isDefaultStartTime ? [0, 0] : calculateNormalEnd(startTime, breakTime, workTime);
+    }
 
     const handleStartTimeChange = (val: Time): void => {
         const endTime = calculateNormalEnd(val, breakTime, workTime);
