@@ -3,8 +3,8 @@ import { Toaster } from 'sonner';
 
 import { SettingContext } from './context/SettingContext';
 import type { SettingContextValues } from './context/SettingContext';
-import { Content } from './main/Content';
-import { Header } from './main/Header';
+import { Content } from './content/Content';
+import { Header } from './content/Header';
 import { SettingsModal } from './settings/SettingsModal';
 
 export const App = () => {
