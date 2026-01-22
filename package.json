@@ -2,6 +2,7 @@
     "name": "azr-react",
     "private": true,
     "version": "0.0.1",
+    "homepage": "https://LukasDano.github.io/azr-react",
     "type": "module",
     "scripts": {
         "dev": "vite",
