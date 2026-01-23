@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import { Toaster } from 'sonner';
 
-import { SettingContext } from './context/SettingContext';
-import type { SettingContextValues } from './context/SettingContext';
 import { Content } from './content/Content';
 import { Header } from './content/Header';
+import { SettingContext } from './context/SettingContext';
+import type { SettingContextValues } from './context/SettingContext';
 import { SettingsModal } from './settings/SettingsModal';
 
 export const App = () => {

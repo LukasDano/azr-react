@@ -1,7 +1,7 @@
 import { defaultBreakTime, defaultWorkTime } from '../../static/defaultValues.ts';
 import type { Time } from '../../static/importantTypes';
 
-type StorageKey =
+export type StorageKey =
     | 'breakTime'
     | 'workTime'
     | 'darkModeActive'

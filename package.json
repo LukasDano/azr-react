@@ -17,7 +17,7 @@
         "prettier:format": "npx prettier . --write",
         "vitest:verbose": "npx vitest --reporter=verbose",
         "local:ci": "npm run tsc && npm run lint:all && npm run prettier:check && npm run vitest:verbose",
-        "prepare-commit": "npm run tsc && npm run lint:all && npm run prettier:format"
+        "prepare-commit": "npm run tsc && npm run lint:all && npm run prettier:format && npm run vitest:verbose"
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.18",
@@ -41,7 +41,8 @@
         "globals": "^16.5.0",
         "typescript": "~5.9.3",
         "typescript-eslint": "^8.46.4",
-        "vite": "npm:rolldown-vite@7.3.1"
+        "vite": "npm:rolldown-vite@7.3.1",
+        "vitest": "^4.0.18"
     },
     "overrides": {
         "vite": "npm:rolldown-vite@7.3.1"
