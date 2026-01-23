@@ -1,4 +1,4 @@
-﻿import { type FC, useState } from 'react';
+import { type FC, useState } from 'react';
 
 import { themeColorClasses } from '../../static/themes';
 import { sendInfoMessage } from '../../utils/page/notifications';

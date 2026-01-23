@@ -1,4 +1,4 @@
-﻿import type { Time } from '../../static/importantTypes';
+import type { Time } from '../../static/importantTypes';
 
 export const getCurrentTime = (): Time => {
     const date = new Date();

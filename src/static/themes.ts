@@ -1,4 +1,4 @@
-﻿import type { CountdownUnit } from '../components/content/Countdown.tsx';
+import type { CountdownUnit } from '../components/content/Countdown.tsx';
 
 export const defaultCountdownTheme: Record<CountdownUnit, string> = {
     days: '#1abc9c',

@@ -1,4 +1,4 @@
-﻿import { defaultFloatValue, emptyTimeValue } from '../../static/defaultValues.ts';
+import { defaultFloatValue, emptyTimeValue } from '../../static/defaultValues.ts';
 import type { FloatTime, Time } from '../../static/importantTypes';
 
 type CookieKey = 'startTime' | 'floatTime';

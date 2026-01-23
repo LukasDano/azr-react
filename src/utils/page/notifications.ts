@@ -1,4 +1,4 @@
-﻿import { toast } from 'sonner';
+import { toast } from 'sonner';
 
 export const sendSuccessMessage = (msg: string, desc?: string) => {
     if (desc) toast.success(msg, { description: desc });

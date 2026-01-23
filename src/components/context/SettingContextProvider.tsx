@@ -1,4 +1,4 @@
-﻿import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 
 import { getStorageValue, setStorageValue } from '../../utils/storage/localStorageManger.ts';

@@ -1,4 +1,4 @@
-﻿import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
+import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
 import { formatNumber } from './formatting';
 import { getStorageValue } from './storage/localStorageManger';
 

@@ -1,4 +1,4 @@
-﻿import { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { defaultFloatValue } from '../../static/defaultValues.ts';
 import type { FloatTime, Time } from '../../static/importantTypes';

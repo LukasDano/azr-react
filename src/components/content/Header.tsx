@@ -1,4 +1,4 @@
-﻿import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';
 import { MdHelpOutline } from 'react-icons/md';
 import { PiGearDuotone } from 'react-icons/pi';

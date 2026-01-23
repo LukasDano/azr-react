@@ -1,4 +1,4 @@
-﻿import { useContext } from 'react';
+import { useContext } from 'react';
 
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
 import { SettingsInput } from './SettingsInput';

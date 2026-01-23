@@ -1,4 +1,4 @@
-﻿import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react';
 import { type FC, useState } from 'react';
 import { FaRegSave } from 'react-icons/fa';
 

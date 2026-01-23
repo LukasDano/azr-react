@@ -1,4 +1,4 @@
-﻿export type Time = {
+export type Time = {
     hours: number;
     minutes: number;
 };
