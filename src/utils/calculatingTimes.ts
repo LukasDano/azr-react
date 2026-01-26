@@ -336,7 +336,6 @@ export const calculateOptimizedEnd = (endTime: Time): Time => {
     else if (endMins <= 5) endMins = 1;
 
     endMins = 10 * tens + endMins;
-    // if (endMins <= 9) endMins = "0" + endMins; ToDo: Check if this has any real consqeuences
 
     return [endHours, endMins];
 };
@@ -360,7 +359,6 @@ export const roundTimeForFloat = (normalEnd: Time, floatTime: FloatTime): Time =
         endMins = endMins + 60;
     }
 
-    // if (endMins <= 9) endMins = "0" + endMins; ToDo: Check if this has any real consqeuences
     return [endHours, endMins];
 };
 

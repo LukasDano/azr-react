@@ -44,8 +44,6 @@ export const validateFloatString = (floatStr: string): boolean => {
     for (const char of floatStr)
         if (!validSymbols.has(char)) {
             isValid = false;
-            // ToDo das resten muss noch eingebaut werden
-            // if (["n", "a"].includes(char.toLowerCase())) resetPage();
             break;
         }
 
