@@ -39,14 +39,7 @@ export const parseStringToTime = (timeAsString: string): Time => {
 export const isValidTime = (time: Time): boolean => {
     const [hours, minutes] = time;
 
-    return (
-        !Number.isNaN(hours) &&
-        !Number.isNaN(minutes) &&
-        hours >= 0 &&
-        hours < 24 &&
-        minutes >= 0 &&
-        minutes < 60
-    );
+    return !Number.isNaN(hours) && !Number.isNaN(minutes) && hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
 };
 
 export const isDefaultTimeValue = (time: Time): boolean => {
