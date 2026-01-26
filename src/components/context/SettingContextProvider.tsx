@@ -1,6 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 
+import type { CountdownColors } from '../../static/themes.ts';
 import { getStorageValue, setStorageValue } from '../../utils/storage/localStorageManger.ts';
 import { SettingContext, type SettingContextValues } from './SettingContext.tsx';
 
@@ -10,14 +11,8 @@ type SettingContextProviderProps = {
 
 export const SettingContextProvider: FC<SettingContextProviderProps> = ({ children }) => {
     const [darkModeActive, setDarkModeActive] = useState<boolean>(getStorageValue('darkModeActive') as boolean);
-    const [hoursCountdownColor, setHoursCountdownColor] = useState<string>(
-        getStorageValue('hoursCountdownColor') as string,
-    );
-    const [minutesCountdownColor, setMinutesCountdownColor] = useState<string>(
-        getStorageValue('minutesCountdownColor') as string,
-    );
-    const [secondsCountdownColor, setSecondsCountdownColor] = useState<string>(
-        getStorageValue('secondsCountdownColor') as string,
+    const [countdownColors, setCountdownColors] = useState<CountdownColors>(
+        getStorageValue('countdownColors') as CountdownColors,
     );
 
     const updateDarkModeActive = (val: boolean): void => {
@@ -25,33 +20,19 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
         setStorageValue('darkModeActive', val);
     };
 
-    const updateHoursCountdownColor = (val: string): void => {
-        setHoursCountdownColor(val);
-        setStorageValue('hoursCountdownColor', val);
-    };
-
-    const updateMinutesCountdownColor = (val: string): void => {
-        setMinutesCountdownColor(val);
-        setStorageValue('minutesCountdownColor', val);
-    };
-
-    const updateSecondsCountdownColor = (val: string): void => {
-        setSecondsCountdownColor(val);
-        setStorageValue('secondsCountdownColor', val);
+    const updateCountdownColors = (val: CountdownColors): void => {
+        setCountdownColors(val);
+        setStorageValue('countdownColors', val);
     };
 
     const settingContextValues = useMemo<SettingContextValues>(
         () => ({
             darkModeActive,
             updateDarkModeActive,
-            hoursCountdownColor,
-            updateHoursCountdownColor,
-            minutesCountdownColor,
-            updateMinutesCountdownColor,
-            secondsCountdownColor,
-            updateSecondsCountdownColor,
+            countdownColors,
+            updateCountdownColors,
         }),
-        [darkModeActive, hoursCountdownColor, minutesCountdownColor, secondsCountdownColor],
+        [darkModeActive, countdownColors],
     );
 
     return <SettingContext.Provider value={settingContextValues}>{children}</SettingContext.Provider>;

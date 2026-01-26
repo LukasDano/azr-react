@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { defaultFloatValue } from '../../static/defaultValues.ts';
 import type { FloatTime, Time } from '../../static/importantTypes';
+import type { CountdownColors } from '../../static/themes.ts';
 import {
     calculateGleitzeit,
     calculateIstTime,
@@ -19,17 +20,11 @@ import { FloatTimeInputField } from './inputs/FloatTimeInputField';
 import { TimeInputField } from './inputs/TimeInputField';
 
 export const Content = () => {
-    const { startTime, updateStartTime, floatTime, updateFloatTime } = useContext<AppContextValues>(AppContext);
+    const { startTime, updateStartTime, floatTime, updateFloatTime, endTime, updateEndTime } =
+        useContext<AppContextValues>(AppContext);
 
     const breakTime = getStorageValue('breakTime') as Time;
     const workTime = getStorageValue('workTime') as Time;
-
-    const [endTime, setEndTime] = useState<Time>(getInitialEndTime());
-
-    function getInitialEndTime(): Time {
-        const isDefaultStartTime = startTime[0] === 0 && startTime[1] === 0;
-        return isDefaultStartTime ? [0, 0] : calculateNormalEnd(startTime, breakTime, workTime);
-    }
 
     const handleStartTimeChange = (val: Time): void => {
         const endTime = calculateNormalEnd(val, breakTime, workTime);
@@ -40,7 +35,7 @@ export const Content = () => {
     };
 
     const handleEndUpdate = (val: Time): void => {
-        setEndTime(val);
+        updateEndTime(val);
 
         const ist = calculateIstTime(startTime, val, breakTime);
         const float = calculateGleitzeit(ist);
@@ -53,7 +48,7 @@ export const Content = () => {
         const endForFloat = roundTimeForFloat(normalEnd, val);
         const optimized = calculateOptimizedEnd(endForFloat);
 
-        setEndTime(optimized);
+        updateEndTime(optimized);
         updateFloatTime(val);
     };
 
@@ -88,6 +83,7 @@ export const Content = () => {
             <div className="pt-4">
                 <Countdown
                     end={parseTimeToDate(endTime)}
+                    colorTheme={getStorageValue('countdownColors') as CountdownColors}
                     onEnd={() => {
                         if (startTime[0] !== 0 && startTime[1] !== 0) sendInfoMessage('Ende der Arbeitszeit');
                     }}

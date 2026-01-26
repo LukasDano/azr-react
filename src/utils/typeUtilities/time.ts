@@ -1,8 +1,9 @@
+import { emptyTimeValue } from '../../static/defaultValues.ts';
 import type { Time } from '../../static/importantTypes';
+import { formatNumber } from '../formatting';
 
 export const getCurrentTime = (): Time => {
     const date = new Date();
-
     return [date.getHours(), date.getMinutes()];
 };
 
@@ -27,9 +28,7 @@ export const parseTimeToDate = (time: Time): Date => {
 };
 
 export const parseTimeToString = (time: Time): string => {
-    const h = String(time[0]).padStart(2, '0');
-    const m = String(time[1]).padStart(2, '0');
-    return `${h}:${m}`;
+    return `${formatNumber(time[0])}:${formatNumber(time[1])}`;
 };
 
 export const parseStringToTime = (timeAsString: string): Time => {
@@ -41,8 +40,6 @@ export const isValidTime = (time: Time): boolean => {
     const [hours, minutes] = time;
 
     return (
-        typeof hours === 'number' &&
-        typeof minutes === 'number' &&
         !Number.isNaN(hours) &&
         !Number.isNaN(minutes) &&
         hours >= 0 &&
@@ -50,4 +47,11 @@ export const isValidTime = (time: Time): boolean => {
         minutes >= 0 &&
         minutes < 60
     );
+};
+
+export const isDefaultTimeValue = (time: Time): boolean => {
+    const [defaultHours, defaultMinutes] = emptyTimeValue;
+    const [compareHours, compareMinutes] = time;
+
+    return defaultHours === compareHours && defaultMinutes === compareMinutes;
 };

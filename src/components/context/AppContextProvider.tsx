@@ -12,6 +12,7 @@ type AppContextProviderProps = {
 export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) => {
     const [startTime, setStartTime] = useState<Time>(getCookie('startTime') as Time);
     const [floatTime, setFloatTime] = useState<FloatTime>(getCookie('floatTime') as FloatTime);
+    const [endTime, setEndTime] = useState<Time>(getCookie('endTime') as Time);
 
     const updateStartTime = (val: Time): void => {
         setStartTime(val);
@@ -23,14 +24,21 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
         setCookieUntilMidnight('floatTime', val);
     };
 
+    const updateEndTime = (val: Time): void => {
+        setEndTime(val);
+        setCookieUntilMidnight('endTime', val);
+    };
+
     const appContextValues = useMemo<AppContextValues>(
         () => ({
             startTime,
             updateStartTime,
             floatTime,
             updateFloatTime,
+            endTime,
+            updateEndTime,
         }),
-        [startTime, floatTime],
+        [startTime, floatTime, endTime],
     );
 
     return <AppContext.Provider value={appContextValues}>{children}</AppContext.Provider>;

@@ -7,6 +7,8 @@ export type AppContextValues = {
     updateStartTime: (val: Time) => void;
     floatTime: FloatTime;
     updateFloatTime: (val: FloatTime) => void;
+    endTime: Time;
+    updateEndTime: (val: Time) => void;
 };
 
 export const AppContext = createContext<AppContextValues>({} as AppContextValues);
