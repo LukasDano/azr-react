@@ -1,7 +1,8 @@
-﻿import type { FC } from 'react';
+import type { FC } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { renderCircle } from '../../helper/renderFunctions';
+import type { CountdownColors } from '../../static/themes.ts';
 import { defaultCountdownTheme } from '../../static/themes.ts';
 
 type TimeLabels = {
@@ -30,7 +31,7 @@ type CountdownProps = {
     end: Date;
     onEnd?: () => void;
     showLabels?: boolean;
-    colorTheme?: Record<keyof CountdownTime, string>;
+    colorTheme?: CountdownColors;
     showDays?: boolean;
 };
 

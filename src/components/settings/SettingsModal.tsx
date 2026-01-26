@@ -1,4 +1,4 @@
-﻿import type { FC } from 'react';
+import type { FC } from 'react';
 import { IoClose } from 'react-icons/io5';
 
 import { Settings } from './Settings';

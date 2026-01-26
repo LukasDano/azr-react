@@ -1,4 +1,4 @@
-﻿import type { FloatTime, FloatTimeSign, Time } from '../../static/importantTypes';
+import type { FloatTime, FloatTimeSign, Time } from '../../static/importantTypes';
 import { formatNumber } from '../formatting';
 
 export const parseFloatTimeToString = (floatTime: FloatTime): string => {
@@ -38,14 +38,12 @@ export const parseStringToFloatTime = (floatStr: string): FloatTime | void => {
 };
 
 export const validateFloatString = (floatStr: string): boolean => {
-    const validSymbols = ['+', '-', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const validSymbols = new Set(['+', '-', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
     let isValid = true;
 
     for (const char of floatStr)
-        if (!validSymbols.includes(char)) {
+        if (!validSymbols.has(char)) {
             isValid = false;
-            // ToDo das resten muss noch eingebaut werden
-            // if (["n", "a"].includes(char.toLowerCase())) resetPage();
             break;
         }
 
