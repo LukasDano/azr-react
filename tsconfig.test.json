@@ -1,0 +1,17 @@
+﻿{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "composite": true,
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
+        "types": [
+            "vitest/globals"
+            //            "@testing-library/jest-dom"
+        ],
+        "lib": ["ES2022", "DOM"],
+        "jsx": "react-jsx",
+        "moduleResolution": "node",
+        "allowImportingTsExtensions": true,
+        "noEmit": true
+    },
+    "include": ["test", "src/**/*"]
+}

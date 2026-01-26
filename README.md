@@ -7,3 +7,8 @@ Diese Anwendung wurde von einer [Anderen](https://github.com/iC0RE/arbeitszeitre
 Ursprünglich wurde das Tool mit plain HTML, CSS und JavaScript geschrieben, um die Entwicklung einfacher zu machen und alten obsoleten Code dabei zu entfernen, wirde diese Version mit React/TypeScript geschrieben. Außerdem soll die Oberfläche etwas überarbeitet werden.
 
 [Die Alte Version](https://github.com/LukasDano/arbeitszeitrechner) wird nicht gelöscht, aber auch nicht mehr weiter entwickelt.
+
+## Icon Library
+
+- [lucide](https://lucide.dev/icons/)
+- [react-icons](https://react-icons.github.io/react-icons/)

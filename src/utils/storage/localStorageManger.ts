@@ -1,23 +1,16 @@
-﻿import { defaultBreakTime, defaultWorkTime } from '../../static/defaultValues.ts';
+import { defaultBreakTime, defaultWorkTime } from '../../static/defaultValues.ts';
 import type { Time } from '../../static/importantTypes';
+import { type CountdownColors, defaultCountdownTheme } from '../../static/themes.ts';
 
-type StorageKey =
-    | 'breakTime'
-    | 'workTime'
-    | 'darkModeActive'
-    | 'hoursCountdownColor'
-    | 'minutesCountdownColor'
-    | 'secondsCountdownColor';
+export type StorageKey = 'breakTime' | 'workTime' | 'darkModeActive' | 'countdownColors';
 
-type StorageValue = Time | boolean | string;
+type StorageValue = Time | boolean | string | CountdownColors;
 
 const defaultValues: Record<StorageKey, StorageValue> = {
     breakTime: defaultBreakTime,
     workTime: defaultWorkTime,
     darkModeActive: false,
-    hoursCountdownColor: '#2980b9',
-    minutesCountdownColor: '#8e44ad',
-    secondsCountdownColor: '#f39c13',
+    countdownColors: defaultCountdownTheme,
 };
 
 export const getStorageValue = (key: StorageKey): StorageValue => {

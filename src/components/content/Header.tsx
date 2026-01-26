@@ -1,15 +1,18 @@
-﻿import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react';
+import { ClockFading } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
-import { MdHelpOutline } from 'react-icons/md';
+import { MdHelpOutline, MdOutlineResetTv } from 'react-icons/md';
 import { PiGearDuotone } from 'react-icons/pi';
 
 import { themeColorClasses } from '../../static/themes';
 
 type HeaderProps = {
     openSettings: () => void;
+    resetAction: () => void;
+    currentStatsAction: () => void;
 };
 
-export const Header: FC<HeaderProps> = ({ openSettings }) => {
+export const Header: FC<HeaderProps> = ({ openSettings, resetAction, currentStatsAction }) => {
     const openGitHubIssues = (): void => {
         open('https://github.com/LukasDano/azr-react/issues', '_blank');
     };
@@ -22,6 +25,16 @@ export const Header: FC<HeaderProps> = ({ openSettings }) => {
             <h1 className="text-4xl font-bold text-white">Arbeitszeitrechner</h1>
 
             <div className="flex items-center gap-6 flex-wrap justify-end">
+                <HeaderButton
+                    icon={<ClockFading className={'w-6 h-6'} />}
+                    tooltip={'Zeigt die Werte an, wenn jetzt die Arbeit beendet wird'}
+                    onClick={currentStatsAction}
+                />
+                <HeaderButton
+                    icon={<MdOutlineResetTv className={'w-6 h-6'} />}
+                    tooltip={'Eingaben zurücksetzen [F1]'}
+                    onClick={resetAction}
+                />
                 <HeaderButton
                     icon={<MdHelpOutline className={'w-6 h-6'} />}
                     tooltip={'Problem melden'}
