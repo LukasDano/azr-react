@@ -43,8 +43,21 @@ export const isValidTime = (time: Time): boolean => {
 };
 
 export const isDefaultTimeValue = (time: Time): boolean => {
-    const [defaultHours, defaultMinutes] = emptyTimeValue;
-    const [compareHours, compareMinutes] = time;
+    return compareTimes(time, emptyTimeValue);
+};
 
-    return defaultHours === compareHours && defaultMinutes === compareMinutes;
+export const getLaterTime = (timeOne: Time, timeTwo: Time): Time => {
+    for (let i = 0; i < Math.min(timeOne.length, timeTwo.length); i++) {
+        if (timeOne[i] < timeTwo[i]) return timeTwo;
+        if (timeOne[i] > timeTwo[i]) return timeOne;
+    }
+
+    return timeOne.length >= timeTwo.length ? timeOne : timeTwo;
+};
+
+export const compareTimes = (timeA: Time, timeB: Time): boolean => {
+    const [hoursA, minutesA] = timeA;
+    const [hoursB, minutesB] = timeB;
+
+    return hoursA === hoursB && minutesA === minutesB;
 };

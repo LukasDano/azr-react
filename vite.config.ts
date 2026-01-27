@@ -20,7 +20,7 @@ export default defineConfig({
         sourcemap: true,
     },
     test: {
-        // environment: 'jsdom',
+        environment: 'jsdom',
         globals: true,
         watch: false,
         include: ['test/**/*.{test,spec}.{js,ts,tsx}'],
