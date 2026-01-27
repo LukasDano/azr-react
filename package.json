@@ -15,9 +15,11 @@
         "lint:tsx": "eslint --ext .tsx src/",
         "prettier:check": "npx prettier . --check",
         "prettier:format": "npx prettier . --write",
-        "vitest:verbose": "npx vitest --reporter=verbose",
-        "local:ci": "npm run tsc && npm run lint:all && npm run prettier:check && npm run vitest:verbose",
-        "prepare-commit": "npm run tsc && npm run lint:all && npm run prettier:format && npm run vitest:verbose"
+        "vitest:all": "npm run vitest:component && npm run vitest:function",
+        "vitest:component": "npx vitest run test/component --reporter=verbose",
+        "vitest:function": "npx vitest run test/function --reporter=verbose",
+        "local:ci": "npm run tsc && npm run lint:all && npm run prettier:check && npm run vitest:all",
+        "prepare-commit": "npm run tsc && npm run lint:all && npm run prettier:format && npm run vitest:all"
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.18",

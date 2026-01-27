@@ -89,7 +89,7 @@ jobs:
               run: npm run lint:tsx
               working-directory: ${{ env.frontend }}
 
-    vitest:
+    vitest-function:
         runs-on: windows-latest
         needs: [tsc-check, prettier-check, eslint-ts, eslint-tsx]
         steps:
@@ -105,6 +105,26 @@ jobs:
               run: npm install
               working-directory: ${{ env.frontend }}
 
-            - name: Run Unit-Tests
-              run: npm run vitest:verbose
+            - name: Run Function-Tests
+              run: npm run vitest:function
               working-directory: ${{ env.frontend }}
+
+    vitest-component:
+      runs-on: windows-latest
+      needs: [tsc-check, prettier-check, eslint-ts, eslint-tsx]
+      steps:
+        - name: Checkout Node
+          uses: actions/checkout@v4
+
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20'
+
+        - name: Install Dependencies
+          run: npm install
+          working-directory: ${{ env.frontend }}
+
+        - name: Run Component-Tests
+          run: npm run vitest:component
+          working-directory: ${{ env.frontend }}
