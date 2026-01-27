@@ -13,7 +13,7 @@ import { sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
 import { getStorageValue } from '../utils/storage/localStorageManger';
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
 import { Content } from './content/Content';
-import { Header } from './content/Header';
+import { Header } from './content/header/Header';
 import { AppContext, type AppContextValues } from './context/AppContext';
 import { SettingContext } from './context/SettingContext';
 import type { SettingContextValues } from './context/SettingContext';

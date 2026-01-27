@@ -38,7 +38,9 @@ export const SettingsModal: FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                     <IoClose />
                 </button>
                 <h2 className="text-xl font-semibold mb-4">Settings</h2>
-                <Settings />
+                <div className={'overflow-auto max-h-150'}>
+                    <Settings />
+                </div>
             </div>
         </div>
     );

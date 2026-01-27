@@ -1,4 +1,4 @@
-﻿import { defaultBreakTime, defaultWorkTime } from '../../src/static/defaultValues.ts';
+import { defaultBreakTime, defaultWorkTime } from '../../src/static/defaultValues.ts';
 import type { FloatTime, Time } from '../../src/static/importantTypes.ts';
 import {
     calculateDecreasedValue,
@@ -17,8 +17,8 @@ import {
     roundEnd,
     roundStart,
     roundTimeForFloat,
-} from '../../src/utils/calculatingTimes';
-import * as storage from '../../src/utils/storage/localStorageManger';
+} from '../../src/utils/calculatingTimes.ts';
+import * as storage from '../../src/utils/storage/localStorageManger.ts';
 import { isValidTime } from '../../src/utils/typeUtilities/time.ts';
 
 describe('calculateStartEndeTimeDiff', () => {

@@ -1,4 +1,4 @@
-﻿import { type FC, useState } from 'react';
+import { type FC, useState } from 'react';
 import Select, { type SingleValue } from 'react-select';
 import makeAnimated from 'react-select/animated';
 
@@ -38,7 +38,7 @@ export const SettingsDropDown: FC<MultipleValueSelectorProps> = ({
     return (
         <div className={'flex justify-between mb-3'}>
             <div className={'mr-6 content-center'}>
-                <span className={'font-medium text-gray-600 dark:text-gray-100'}>{name}</span>
+                <span className={'font-medium text-gray-900 dark:text-gray-100'}>{name}</span>
                 <span className={'font-light text-gray-900 dark:text-gray-200 block max-w-[20vw]'}>{description}</span>
             </div>
             <div className={'inline-flex items-center cursor-pointer ms-auto'}>
@@ -64,6 +64,8 @@ export const SettingsDropDown: FC<MultipleValueSelectorProps> = ({
                     placeholder={'Select ...'}
                     onChange={(val) => handleChange(val?.label as string)}
                     noOptionsMessage={() => 'No selectable options'}
+                    aria-label={name}
+                    datatest-id={name}
                 />
             </div>
         </div>

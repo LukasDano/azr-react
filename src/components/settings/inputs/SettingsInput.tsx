@@ -1,9 +1,10 @@
 import Tippy from '@tippyjs/react';
-import { type FC, useState } from 'react';
+import { type FC, useContext, useState } from 'react';
 import { FaRegSave } from 'react-icons/fa';
 
-import { themeColorClasses } from '../../static/themes';
-import { sendInfoMessage, sendWarnMessage } from '../../utils/page/notifications';
+import { availableThemes } from '../../../static/themes';
+import { sendInfoMessage, sendWarnMessage } from '../../../utils/page/notifications';
+import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
 type SettingsInputValue = string | number;
 
@@ -30,7 +31,11 @@ export const SettingsInput: FC<SettingsInputProps> = ({
     max,
     useStringAsColor = false,
 }) => {
+    const { colorTheme } = useContext<SettingContextValues>(SettingContext);
+
     const [value, setValue] = useState<SettingsInputValue>(defaultValue);
+
+    const themeClasses = `${availableThemes[colorTheme].light} ${availableThemes[colorTheme].dark}`;
 
     const handleChange = (evt: React.FormEvent<HTMLInputElement>) => {
         if (type === 'text') setValue(evt.currentTarget.value);
@@ -65,12 +70,13 @@ export const SettingsInput: FC<SettingsInputProps> = ({
                         max={max}
                         className="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         style={{ color: useStringAsColor ? (value as string) : '' }}
+                        aria-label={settingName}
                     />
                     {defaultValue !== value && (
                         <Tippy content={`Änderung speichern`}>
                             <button
                                 type="submit"
-                                className={`flex items-center justify-center h-10 px-4 text-white rounded-lg transition-colors duration-200 ${themeColorClasses}`}
+                                className={`flex items-center justify-center h-10 px-4 text-white rounded-lg transition-colors duration-200 ${themeClasses}`}
                             >
                                 <FaRegSave className="w-5 h-5" />
                             </button>

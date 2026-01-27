@@ -1,7 +1,8 @@
-import { type FC, useState } from 'react';
+import { type FC, useContext, useState } from 'react';
 
-import { themeColorClasses } from '../../static/themes';
-import { sendInfoMessage } from '../../utils/page/notifications';
+import { availableThemes } from '../../../static/themes';
+import { sendInfoMessage } from '../../../utils/page/notifications';
+import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
 type SettingsToggleProps = {
     onToggle: (value: boolean) => void;
@@ -11,7 +12,11 @@ type SettingsToggleProps = {
 };
 
 export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle, description = '', defaultValue }) => {
+    const { colorTheme } = useContext<SettingContextValues>(SettingContext);
+
     const [value, setValue] = useState<boolean>(defaultValue);
+
+    const themeClasses = `${availableThemes[colorTheme].light} ${availableThemes[colorTheme].dark}`;
 
     const handleToggle = () => {
         const newValue = !value;
@@ -31,10 +36,11 @@ export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle,
                 type="button"
                 onClick={handleToggle}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                    value ? themeColorClasses : 'bg-gray-300'
+                    value ? themeClasses : 'bg-gray-300'
                 }`}
                 role="switch"
                 aria-checked={value}
+                aria-label={settingName}
             >
                 <span
                     className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ${

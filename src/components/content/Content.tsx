@@ -5,6 +5,7 @@ import type { FloatTime, Time } from '../../static/importantTypes';
 import type { CountdownColors } from '../../static/themes.ts';
 import {
     calculateGleitzeit,
+    calculateIncreasedValue,
     calculateIstTime,
     calculateNormalEnd,
     calculateOptimizedEnd,
@@ -13,15 +14,24 @@ import {
 import { sendInfoMessage } from '../../utils/page/notifications';
 import { getStorageValue } from '../../utils/storage/localStorageManger';
 import { parseFloatTimeFromRawTimeValues } from '../../utils/typeUtilities/floatTime';
-import { parseTimeToDate } from '../../utils/typeUtilities/time';
+import {
+    compareTimes,
+    getCurrentTime,
+    getLaterTime,
+    isDefaultTimeValue,
+    parseTimeToDate,
+} from '../../utils/typeUtilities/time';
 import { AppContext, type AppContextValues } from '../context/AppContext';
+import { SettingContext, type SettingContextValues } from '../context/SettingContext.tsx';
 import { Countdown } from './Countdown';
-import { FloatTimeInputField } from './inputs/FloatTimeInputField';
-import { TimeInputField } from './inputs/TimeInputField';
+import { FloatTimeInputField } from './miscellaneous/FloatTimeInputField.tsx';
+import { TimeInputField } from './miscellaneous/TimeInputField.tsx';
 
 export const Content = () => {
     const { startTime, updateStartTime, floatTime, updateFloatTime, endTime, updateEndTime } =
         useContext<AppContextValues>(AppContext);
+
+    const { overTimeAutomatic } = useContext<SettingContextValues>(SettingContext);
 
     const breakTime = getStorageValue('breakTime') as Time;
     const workTime = getStorageValue('workTime') as Time;
@@ -50,6 +60,27 @@ export const Content = () => {
 
         updateEndTime(optimized);
         updateFloatTime(val);
+    };
+
+    const handleWorkTimeEnd = (): void => {
+        if (!overTimeAutomatic) {
+            sendInfoMessage('Ende der Arbeitszeit');
+            return;
+        }
+
+        const currentTime = getCurrentTime();
+        const laterTime = getLaterTime(endTime, currentTime);
+
+        if (compareTimes(laterTime, currentTime)) {
+            sendInfoMessage('Deine Arbeitszeit ist vorbei');
+            sendInfoMessage('Arbeitszeit wird automatisch erhöht');
+
+            const increased = calculateIncreasedValue(floatTime);
+            const updatedValue = parseFloatTimeFromRawTimeValues(increased);
+
+            handleEndUpdate(currentTime);
+            handleFloatUpdate(updatedValue);
+        }
     };
 
     return (
@@ -85,7 +116,7 @@ export const Content = () => {
                     end={parseTimeToDate(endTime)}
                     colorTheme={getStorageValue('countdownColors') as CountdownColors}
                     onEnd={() => {
-                        if (startTime[0] !== 0 && startTime[1] !== 0) sendInfoMessage('Ende der Arbeitszeit');
+                        if (!isDefaultTimeValue(endTime)) handleWorkTimeEnd();
                     }}
                 />
             </div>
