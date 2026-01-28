@@ -13,8 +13,8 @@ export const parseFloatTimeToString = (floatTime: FloatTime): string => {
 /**
  * Erstellt ein FloatTime Value aus einem String,
  * wenn kein Wert übergeben wird, wird die UI zurück gesetz und nichts zurückgegeben
- * @param {string} floatStr Die Gleitzeit als String Array
- * @return {FloatTime | void} Die Gleitzeit als FloatTime Value oder nichts, wenn der Parameter ungültig ist
+ * @param floatStr Die Gleitzeit als String Array
+ * @return Die Gleitzeit als FloatTime Value oder nichts, wenn der Parameter ungültig ist
  */
 export const parseStringToFloatTime = (floatStr: string): FloatTime | void => {
     const floatArray = floatStr.split('');
@@ -65,7 +65,6 @@ export const isValidFloatTimeValue = (floatStr: string): boolean => {
     const floatStrParts = floatStr.split('.');
 
     if (sign !== 1 && sign !== -1) return false;
-    if (sign === 1 && (floatStrParts.at(-1)?.endsWith('4') || floatStrParts.at(-1)?.endsWith('9'))) return true;
-    if (sign === -1 && (floatStrParts.at(-1)?.endsWith('1') || floatStrParts.at(-1)?.endsWith('6'))) return true;
-    else return false;
+    else if (sign === 1 && (floatStrParts.at(-1)?.endsWith('4') || floatStrParts.at(-1)?.endsWith('9'))) return true;
+    else return !!(sign === -1 && (floatStrParts.at(-1)?.endsWith('1') || floatStrParts.at(-1)?.endsWith('6')));
 };

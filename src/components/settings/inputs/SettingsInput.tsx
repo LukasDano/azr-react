@@ -1,10 +1,8 @@
-import Tippy from '@tippyjs/react';
-import { type FC, useContext, useState } from 'react';
+import { type ChangeEvent, type FC, useState } from 'react';
 import { FaRegSave } from 'react-icons/fa';
 
-import { availableThemes } from '../../../static/themes';
 import { sendInfoMessage, sendWarnMessage } from '../../../utils/page/notifications';
-import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
+import { BaseButton } from '../../content/miscellaneous/BaseButton';
 
 type SettingsInputValue = string | number;
 
@@ -31,20 +29,14 @@ export const SettingsInput: FC<SettingsInputProps> = ({
     max,
     useStringAsColor = false,
 }) => {
-    const { colorTheme } = useContext<SettingContextValues>(SettingContext);
-
     const [value, setValue] = useState<SettingsInputValue>(defaultValue);
 
-    const themeClasses = `${availableThemes[colorTheme].light} ${availableThemes[colorTheme].dark}`;
-
-    const handleChange = (evt: React.FormEvent<HTMLInputElement>) => {
+    const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
         if (type === 'text') setValue(evt.currentTarget.value);
         else setValue(Number(evt.currentTarget.value));
     };
 
-    const handleSave = (evt: React.FormEvent<HTMLFormElement>) => {
-        evt.preventDefault();
-
+    const handleSave = () => {
         if (onlyValues && !onlyValues.includes(value))
             sendWarnMessage(`Dieser Wert wird für ${settingName} nicht unterstützt`);
         else {
@@ -61,7 +53,7 @@ export const SettingsInput: FC<SettingsInputProps> = ({
                     <span className="text-sm text-gray-500 dark:text-gray-300">{description}</span>
                 </div>
 
-                <form onSubmit={handleSave} className="flex items-center gap-2">
+                <form className="flex items-center gap-2">
                     <input
                         type={type}
                         value={value}
@@ -73,14 +65,11 @@ export const SettingsInput: FC<SettingsInputProps> = ({
                         aria-label={settingName}
                     />
                     {defaultValue !== value && (
-                        <Tippy content={`Änderung speichern`}>
-                            <button
-                                type="submit"
-                                className={`flex items-center justify-center h-10 px-4 text-white rounded-lg transition-colors duration-200 ${themeClasses}`}
-                            >
-                                <FaRegSave className="w-5 h-5" />
-                            </button>
-                        </Tippy>
+                        <BaseButton
+                            icon={<FaRegSave className="w-5 h-5" />}
+                            tooltip={`Änderung speichern`}
+                            onClick={handleSave}
+                        />
                     )}
                 </form>
             </div>

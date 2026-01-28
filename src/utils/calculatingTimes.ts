@@ -1,6 +1,6 @@
 import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
 import { formatNumber } from './formatting';
-import { getStorageValue } from './storage/localStorageManger';
+import { getCookie } from './storage/cookieManager';
 
 /**
  * Gibt die Differenz zwischen Start und Ende zurück
@@ -146,7 +146,7 @@ export const calculateIstTime = (startTime: Time, endTime: Time, pauseTime: Time
  */
 export const calculateGleitzeit = (istTime: Time): Time => {
     const [istHours, istMins] = istTime;
-    const [sollHours, sollMins] = getStorageValue('workTime') as Time;
+    const [sollHours, sollMins] = getCookie('workTime') as Time;
 
     let gleitHours = istHours - sollHours;
     let gleitMins = istMins - sollMins;
@@ -436,8 +436,8 @@ export const calculateDecreasedValue = (float: FloatTime): Time => {
 
 /**
  * Erzeugt einen lesbareren String, der zur Darstellung genutzt werden kann
- * @param {Time} float Die Gleitzeit, die aktuell in dem Feld steht
- * @return {string} Die Gleitzeit als lesbarer String
+ * @param float Die Gleitzeit, die aktuell in dem Feld steht
+ * @return Die Gleitzeit als lesbarer String
  */
 export const createGleitzeitAusgabeFromFloat = (float: Time): string => {
     let [gleitHours, gleitMins] = float;

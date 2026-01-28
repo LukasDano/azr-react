@@ -2,7 +2,7 @@ import { Palette, Pickaxe } from 'lucide-react';
 import { useContext } from 'react';
 
 import { availableThemes, type ThemeName } from '../../static/themes';
-import type { CountdownUnit } from '../content/miscellaneous/CountdownElement';
+import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
 import { SettingsDropDown } from './inputs/SettingsDropDown';
 import { SettingsInput } from './inputs/SettingsInput';
@@ -19,6 +19,8 @@ export const Settings = () => {
         updateColorTheme,
         overTimeAutomatic,
         updateOverTimeAutomatic,
+        showShortcuts,
+        updateShowShortcuts,
     } = useContext<SettingContextValues>(SettingContext);
 
     const handleCountdownColorChange = (key: CountdownUnit, val: string) => {
@@ -31,7 +33,7 @@ export const Settings = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 w-full p-4">
+        <div className="flex flex-col gap-4 w-full p-4 overflow-auto">
             <SettingsGroup title={'Design'} icon={<Palette className={'w-5 h-5'} />} defaultOpen={true}>
                 <SettingsToggle
                     settingName={'Dark Mode'}
@@ -65,11 +67,16 @@ export const Settings = () => {
                     options={Object.keys(availableThemes)}
                     onChange={(val) => updateColorTheme(val as ThemeName)}
                 />
+                <SettingsToggle
+                    settingName={'Zeige Shortcuts an'}
+                    defaultValue={showShortcuts}
+                    onToggle={updateShowShortcuts}
+                />
             </SettingsGroup>
 
             <SettingsGroup title={'Funktionen'} icon={<Pickaxe className={'w-5 h-5'} />} defaultOpen={false}>
                 <SettingsToggle
-                    settingName={'Überstunden automatisch erfassen'}
+                    settingName={'Nach Arbeitsende automatisch erhöhen'}
                     defaultValue={overTimeAutomatic}
                     onToggle={updateOverTimeAutomatic}
                 />

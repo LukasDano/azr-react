@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { CountdownCircle } from './CountdownCircle';
+import { CountdownCircle } from './CountdownCircle.tsx';
 
 type TimeLabels = {
     days: string;

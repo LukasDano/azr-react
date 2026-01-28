@@ -30,6 +30,8 @@ describe('Settings Component', () => {
         updateColorTheme: vi.fn(),
         overTimeAutomatic: false,
         updateOverTimeAutomatic: vi.fn(),
+        showShortcuts: false,
+        updateShowShortcuts: vi.fn(),
     };
 
     const renderWithContext = (contextValues: Partial<SettingContextValues> = {}) => {
@@ -75,7 +77,7 @@ describe('Settings Component', () => {
 
         renderWithContext({ updateOverTimeAutomatic: mockUpdateOverTime });
 
-        const overtimeToggle = screen.getByRole('switch', { name: /Überstunden/i });
+        const overtimeToggle = screen.getByRole('switch', { name: /Arbeitsende/i });
         fireEvent.click(overtimeToggle);
 
         expect(mockLocalStorageSetItem).toHaveBeenCalledWith('overTimeAutomatic', 'true');

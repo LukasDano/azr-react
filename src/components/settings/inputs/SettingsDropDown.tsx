@@ -43,11 +43,11 @@ export const SettingsDropDown: FC<MultipleValueSelectorProps> = ({
             </div>
             <div className={'inline-flex items-center cursor-pointer ms-auto'}>
                 <Select
-                    className={'min-w-[12vw]'}
+                    className={'w-46'}
                     classNames={{
-                        control: () => 'bg-gray-50 border-gray-300 text-gray-900',
-                        menu: () => 'bg-gray-50 border-gray-300 text-gray-900',
-                        multiValue: () => 'dark:bg-gray-300 dark:text-gray-700',
+                        control: () => 'bg-gray-50 border-gray-300 text-gray-900 min-w-full',
+                        menu: () => 'bg-gray-50 border-gray-300 text-gray-900 min-w-full',
+                        multiValue: () => 'dark:bg-gray-300 dark:text-gray-700 min-w-full',
                     }}
                     styles={{
                         option: (base, state) => ({
@@ -57,6 +57,7 @@ export const SettingsDropDown: FC<MultipleValueSelectorProps> = ({
                         }),
                     }}
                     closeMenuOnSelect={true}
+                    menuPosition="fixed"
                     components={animatedComponents}
                     value={{ value: selectedOption, label: selectedOption }}
                     isMulti={false}

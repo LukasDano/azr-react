@@ -1,7 +1,7 @@
 {
     "name": "azr-react",
     "private": true,
-    "version": "0.0.1",
+    "version": "0.0.2",
     "homepage": "https://LukasDano.github.io/azr-react",
     "type": "module",
     "scripts": {
@@ -22,6 +22,7 @@
         "prepare-commit": "npm run tsc && npm run lint:all && npm run prettier:format && npm run vitest:all"
     },
     "dependencies": {
+        "@headlessui/react": "^2.2.9",
         "@tailwindcss/vite": "^4.1.18",
         "@tippyjs/react": "^4.2.6",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",

@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
 import { Toaster } from 'sonner';
 
-import { defaultFloatValue, emptyTimeValue } from '../static/defaultValues';
-import type { Time } from '../static/importantTypes';
+import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from '../static/defaultValues';
 import {
     calculateGleitzeit,
     calculateIstTime,
@@ -10,26 +9,38 @@ import {
     createGleitzeitAusgabeFromFloat,
 } from '../utils/calculatingTimes';
 import { sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
-import { getStorageValue } from '../utils/storage/localStorageManger';
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
-import { Content } from './content/Content';
+import { Content } from './content/Calculator';
 import { Header } from './content/header/Header';
+import { BaseModal } from './content/miscellaneous/BaseModal';
+import { WeekTimeCalculator } from './content/weekTime/WeekTimeCalculator.tsx';
 import { AppContext, type AppContextValues } from './context/AppContext';
 import { SettingContext } from './context/SettingContext';
 import type { SettingContextValues } from './context/SettingContext';
-import { SettingsModal } from './settings/SettingsModal';
+import { Settings } from './settings/Settings';
 
 export const App = () => {
     const { darkModeActive } = useContext<SettingContextValues>(SettingContext);
-    const { startTime, updateStartTime, updateFloatTime, endTime, updateEndTime } =
-        useContext<AppContextValues>(AppContext);
+    const {
+        startTime,
+        updateStartTime,
+        updateFloatTime,
+        endTime,
+        updateEndTime,
+        breakTime,
+        updateWorkTime,
+        updateBreakTime,
+    } = useContext<AppContextValues>(AppContext);
 
     const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
+    const [weekTimeOpen, setWeekTimeOpen] = useState<boolean>(false);
 
     const resetTimeValues = (): void => {
         updateStartTime(emptyTimeValue);
         updateFloatTime(defaultFloatValue);
         updateEndTime(emptyTimeValue);
+        updateWorkTime(defaultWorkTime);
+        updateBreakTime(defaultBreakTime);
     };
 
     const sendMsgWithCurrentStats = (): void => {
@@ -39,8 +50,8 @@ export const App = () => {
         }
 
         const [diffHours] = calculateStartEndeTimeDiff(startTime, endTime);
-        let currentBreak = getStorageValue('breakTime') as Time;
-        if (diffHours < 6) currentBreak = [0, 0];
+        let currentBreak = breakTime;
+        if (diffHours < 6) currentBreak = emptyTimeValue;
 
         const currentTime = getCurrentTime();
         const currentIst = calculateIstTime(startTime, currentTime, currentBreak);
@@ -53,7 +64,8 @@ export const App = () => {
     };
 
     document.addEventListener('keyup', (evt) => {
-        if (evt.ctrlKey && evt.key === 'i') setSettingsOpen(true);
+        if (evt.altKey && evt.key === 'i') setSettingsOpen(true);
+        if (evt.altKey && evt.key === 'w') setWeekTimeOpen(true);
         if (evt.altKey && evt.key === 'c') sendMsgWithCurrentStats();
 
         if (evt.key === 'F1') {
@@ -65,10 +77,19 @@ export const App = () => {
     return (
         <div className={`${darkModeActive ? 'dark' : 'light'}`}>
             <div className="dark:bg-gray-900 h-screen">
-                <SettingsModal isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
+                <BaseModal modalTitle={'Einstellungen'} isOpen={settingsOpen} onClose={() => setSettingsOpen(false)}>
+                    <Settings />
+                </BaseModal>
+
+                <WeekTimeCalculator
+                    key={weekTimeOpen ? 'open' : 'closed'}
+                    isOpen={weekTimeOpen}
+                    onClose={() => setWeekTimeOpen(false)}
+                />
 
                 <Header
                     openSettings={() => setSettingsOpen(true)}
+                    openWeekTime={() => setWeekTimeOpen(true)}
                     resetAction={resetTimeValues}
                     currentStatsAction={sendMsgWithCurrentStats}
                 />

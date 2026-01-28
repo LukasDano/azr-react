@@ -18,6 +18,7 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
     const [overTimeAutomatic, setOverTimeAutomatic] = useState<boolean>(
         getStorageValue('overTimeAutomatic') as boolean,
     );
+    const [showShortcuts, setShowShortcuts] = useState<boolean>(getStorageValue('showShortcuts') as boolean);
 
     const updateDarkModeActive = (val: boolean): void => {
         setDarkModeActive(val);
@@ -39,6 +40,11 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
         setStorageValue('overTimeAutomatic', val);
     };
 
+    const updateShowShortcuts = (val: boolean): void => {
+        setShowShortcuts(val);
+        setStorageValue('showShortcuts', val);
+    };
+
     const settingContextValues = useMemo<SettingContextValues>(
         () => ({
             darkModeActive,
@@ -49,8 +55,10 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
             updateColorTheme,
             overTimeAutomatic,
             updateOverTimeAutomatic,
+            showShortcuts,
+            updateShowShortcuts,
         }),
-        [darkModeActive, countdownColors, colorTheme, overTimeAutomatic],
+        [darkModeActive, countdownColors, colorTheme, overTimeAutomatic, showShortcuts],
     );
 
     return <SettingContext.Provider value={settingContextValues}>{children}</SettingContext.Provider>;
