@@ -11,6 +11,8 @@ export type SettingContextValues = {
     updateColorTheme: (val: ThemeName) => void;
     overTimeAutomatic: boolean;
     updateOverTimeAutomatic: (val: boolean) => void;
+    showShortcuts: boolean;
+    updateShowShortcuts: (val: boolean) => void;
 };
 
 export const SettingContext = createContext<SettingContextValues>({} as SettingContextValues);

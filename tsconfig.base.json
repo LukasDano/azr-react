@@ -14,6 +14,7 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true,
         "erasableSyntaxOnly": true,
+        "resolveJsonModule": true,
         "esModuleInterop": true
     }
 }

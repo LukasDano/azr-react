@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import type { CountdownColors } from '../../static/themes.ts';
-import { defaultCountdownTheme } from '../../static/themes.ts';
-import { CountdownElement, type CountdownUnit } from './miscellaneous/CountdownElement.tsx';
+import type { CountdownColors } from '../../../static/themes.ts';
+import { defaultCountdownTheme } from '../../../static/themes.ts';
+import { CountdownElement, type CountdownUnit } from './CountdownElement.tsx';
 
 type CountdownTime = {
     days: number;

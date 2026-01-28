@@ -17,7 +17,7 @@ export const SettingsGroup: FC<SettingsGroupProps> = ({ title, icon, children, d
             <button
                 className="flex flex-row items-center justify-between p-3 mb-2 cursor-pointer
                           bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700
-                          transition-all duration-200 w-full"
+                          transition-all duration-200 w-full z-10"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex flex-row items-baseline">
@@ -31,7 +31,7 @@ export const SettingsGroup: FC<SettingsGroupProps> = ({ title, icon, children, d
             </button>
 
             <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out
+                className={`transition-all duration-300 ease-in-out
                 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
             >
                 <div className="p-4 pt-0 space-y-3">{children}</div>

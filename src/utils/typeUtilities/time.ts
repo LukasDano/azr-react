@@ -1,5 +1,5 @@
 import { emptyTimeValue } from '../../static/defaultValues.ts';
-import type { Time } from '../../static/importantTypes';
+import type { Time, TimeBalance } from '../../static/importantTypes';
 import { formatNumber } from '../formatting';
 
 export const getCurrentTime = (): Time => {
@@ -10,7 +10,7 @@ export const getCurrentTime = (): Time => {
 export const cleanTime = (time: Time): Time => {
     let [hours, mins] = time;
 
-    while (mins > 60) {
+    while (mins >= 60) {
         hours++;
         mins = mins - 60;
     }
@@ -43,7 +43,7 @@ export const isValidTime = (time: Time): boolean => {
 };
 
 export const isDefaultTimeValue = (time: Time): boolean => {
-    return compareTimes(time, emptyTimeValue);
+    return isSameTime(time, emptyTimeValue);
 };
 
 export const getLaterTime = (timeOne: Time, timeTwo: Time): Time => {
@@ -55,9 +55,19 @@ export const getLaterTime = (timeOne: Time, timeTwo: Time): Time => {
     return timeOne.length >= timeTwo.length ? timeOne : timeTwo;
 };
 
-export const compareTimes = (timeA: Time, timeB: Time): boolean => {
+export const isSameTime = (timeA: Time, timeB: Time): boolean => {
     const [hoursA, minutesA] = timeA;
     const [hoursB, minutesB] = timeB;
 
     return hoursA === hoursB && minutesA === minutesB;
+};
+
+export const getTimeBalanceFor = (time: Time): TimeBalance => {
+    const [hours, mins] = time;
+
+    const totalMinutes = hours * 60 + mins;
+
+    if (totalMinutes > 0) return 'positiv';
+    else if (totalMinutes < 0) return 'negativ';
+    else return 'neutral';
 };

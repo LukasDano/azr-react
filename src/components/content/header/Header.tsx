@@ -1,19 +1,45 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useContext, useState } from 'react';
 import { MdHelpOutline } from 'react-icons/md';
 import { PiGearDuotone } from 'react-icons/pi';
 
+import {
+    defaultBreakTime,
+    defaultWorkTime,
+    defaultWorkTimeForSixHourMode,
+    emptyTimeValue,
+} from '../../../static/defaultValues';
+import { parseTimeToString } from '../../../utils/typeUtilities/time';
+import { AppContext, type AppContextValues } from '../../context/AppContext';
+import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
+import { DropDownSelect } from '../inputs/DropDownSelect.tsx';
 import { ActionHeader } from './ActionHeader';
 import { HeaderButton } from './HeaderButton';
 
 type HeaderProps = {
     openSettings: () => void;
+    openWeekTime: () => void;
     resetAction: () => void;
     currentStatsAction: () => void;
 };
 
-export const Header: FC<HeaderProps> = ({ openSettings, resetAction, currentStatsAction }) => {
+export const Header: FC<HeaderProps> = ({ openSettings, openWeekTime, resetAction, currentStatsAction }) => {
+    const { showShortcuts } = useContext<SettingContextValues>(SettingContext);
+    const { updateBreakTime, workTime, updateWorkTime } = useContext<AppContextValues>(AppContext);
     const [actionHeaderOpen, setActionHeaderOpen] = useState<boolean>(false);
+
+    const availableWorkTimes = [defaultWorkTime, defaultWorkTimeForSixHourMode].map(parseTimeToString);
+
+    const handleWorkTimeModeChange = (workTimeStr: string): void => {
+        if (workTimeStr === '06:00') {
+            updateWorkTime(defaultWorkTimeForSixHourMode);
+            updateBreakTime(emptyTimeValue);
+        } else {
+            updateWorkTime(defaultWorkTime);
+            updateBreakTime(defaultBreakTime);
+        }
+    };
 
     const openGitHubIssues = (): void => {
         open('https://github.com/LukasDano/azr-react/issues', '_blank');
@@ -28,6 +54,11 @@ export const Header: FC<HeaderProps> = ({ openSettings, resetAction, currentStat
                 <h1 className="text-4xl font-bold text-white">Arbeitszeitrechner</h1>
 
                 <div className="flex items-center gap-6 flex-wrap justify-end">
+                    <DropDownSelect
+                        selectedItem={parseTimeToString(workTime)}
+                        items={availableWorkTimes}
+                        onChange={(val) => handleWorkTimeModeChange(val)}
+                    />
                     <HeaderButton
                         icon={<MdHelpOutline className={'w-6 h-6'} />}
                         tooltip={'Problem melden'}
@@ -35,7 +66,7 @@ export const Header: FC<HeaderProps> = ({ openSettings, resetAction, currentStat
                     />
                     <HeaderButton
                         icon={<PiGearDuotone className={'w-6 h-6'} />}
-                        tooltip={'Einstellungen'}
+                        tooltip={`Einstellungen ${showShortcuts ? '[alt + i]' : ''}`}
                         onClick={openSettings}
                     />
                     <HeaderButton
@@ -51,7 +82,13 @@ export const Header: FC<HeaderProps> = ({ openSettings, resetAction, currentStat
                     />
                 </div>
             </nav>
-            {actionHeaderOpen && <ActionHeader currentStatsAction={currentStatsAction} resetAction={resetAction} />}
+            {actionHeaderOpen && (
+                <ActionHeader
+                    currentStatsAction={currentStatsAction}
+                    resetAction={resetAction}
+                    openWeekTimeAction={openWeekTime}
+                />
+            )}
         </>
     );
 };

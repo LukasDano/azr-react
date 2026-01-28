@@ -1,4 +1,4 @@
-import type { CountdownUnit } from '../components/content/miscellaneous/CountdownElement.tsx';
+import type { CountdownUnit } from '../components/content/countdown/CountdownElement.tsx';
 
 export type CountdownColors = Record<CountdownUnit, string>;
 

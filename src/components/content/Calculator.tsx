@@ -1,7 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
-import { defaultFloatValue } from '../../static/defaultValues.ts';
-import type { FloatTime, Time } from '../../static/importantTypes';
+import {
+    defaultBreakTime,
+    defaultFloatForSixHourMode,
+    defaultFloatValue,
+    defaultWorkTime,
+    defaultWorkTimeForSixHourMode,
+    emptyTimeValue,
+} from '../../static/defaultValues.ts';
+import type { FloatTime, Time } from '../../static/importantTypes.ts';
 import type { CountdownColors } from '../../static/themes.ts';
 import {
     calculateGleitzeit,
@@ -10,31 +17,38 @@ import {
     calculateNormalEnd,
     calculateOptimizedEnd,
     roundTimeForFloat,
-} from '../../utils/calculatingTimes';
-import { sendInfoMessage } from '../../utils/page/notifications';
-import { getStorageValue } from '../../utils/storage/localStorageManger';
-import { parseFloatTimeFromRawTimeValues } from '../../utils/typeUtilities/floatTime';
+} from '../../utils/calculatingTimes.ts';
+import { sendInfoMessage } from '../../utils/page/notifications.ts';
+import { getStorageValue } from '../../utils/storage/localStorageManger.ts';
+import { parseFloatTimeFromRawTimeValues } from '../../utils/typeUtilities/floatTime.ts';
 import {
-    compareTimes,
     getCurrentTime,
     getLaterTime,
     isDefaultTimeValue,
+    isSameTime,
     parseTimeToDate,
-} from '../../utils/typeUtilities/time';
-import { AppContext, type AppContextValues } from '../context/AppContext';
+} from '../../utils/typeUtilities/time.ts';
+import { AppContext, type AppContextValues } from '../context/AppContext.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext.tsx';
-import { Countdown } from './Countdown';
-import { FloatTimeInputField } from './miscellaneous/FloatTimeInputField.tsx';
-import { TimeInputField } from './miscellaneous/TimeInputField.tsx';
+import { Countdown } from './countdown/Countdown.tsx';
+import { FloatTimeInputField } from './inputs/FloatTimeInputField.tsx';
+import { TimeInputField } from './inputs/TimeInputField.tsx';
 
 export const Content = () => {
-    const { startTime, updateStartTime, floatTime, updateFloatTime, endTime, updateEndTime } =
-        useContext<AppContextValues>(AppContext);
+    const {
+        startTime,
+        updateStartTime,
+        floatTime,
+        updateFloatTime,
+        endTime,
+        updateEndTime,
+        breakTime,
+        updateBreakTime,
+        workTime,
+        updateWorkTime,
+    } = useContext<AppContextValues>(AppContext);
 
     const { overTimeAutomatic } = useContext<SettingContextValues>(SettingContext);
-
-    const breakTime = getStorageValue('breakTime') as Time;
-    const workTime = getStorageValue('workTime') as Time;
 
     const handleStartTimeChange = (val: Time): void => {
         const endTime = calculateNormalEnd(val, breakTime, workTime);
@@ -51,10 +65,15 @@ export const Content = () => {
         const float = calculateGleitzeit(ist);
         const parsed = parseFloatTimeFromRawTimeValues(float);
         updateFloatTime(parsed);
+
+        if (!isSameTime(defaultWorkTimeForSixHourMode, getLaterTime(ist, defaultWorkTimeForSixHourMode))) {
+            updateBreakTime(defaultBreakTime);
+            updateWorkTime(defaultWorkTime);
+        }
     };
 
     const handleFloatUpdate = (val: FloatTime): void => {
-        const normalEnd = calculateNormalEnd(startTime, breakTime, workTime);
+        const normalEnd = calculateNormalEnd(startTime, breakTime, defaultWorkTime);
         const endForFloat = roundTimeForFloat(normalEnd, val);
         const optimized = calculateOptimizedEnd(endForFloat);
 
@@ -71,7 +90,7 @@ export const Content = () => {
         const currentTime = getCurrentTime();
         const laterTime = getLaterTime(endTime, currentTime);
 
-        if (compareTimes(laterTime, currentTime)) {
+        if (isSameTime(laterTime, currentTime)) {
             sendInfoMessage('Deine Arbeitszeit ist vorbei');
             sendInfoMessage('Arbeitszeit wird automatisch erhöht');
 
@@ -82,6 +101,14 @@ export const Content = () => {
             handleFloatUpdate(updatedValue);
         }
     };
+
+    useEffect(() => {
+        const floatForBreakTime = isSameTime(breakTime, defaultBreakTime)
+            ? defaultFloatValue
+            : defaultFloatForSixHourMode;
+
+        if (!isSameTime(startTime, emptyTimeValue)) handleFloatUpdate(floatForBreakTime);
+    }, [breakTime]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="mx-auto max-w-3xl w-full px-4 py-8">

@@ -8,9 +8,10 @@ type TimeInputFieldProps = {
     value: Time;
     onChange?: (val: Time) => void;
     disabled?: boolean;
+    className?: string;
 };
 
-export const TimeInputField: FC<TimeInputFieldProps> = ({ label, value, onChange, disabled = false }) => {
+export const TimeInputField: FC<TimeInputFieldProps> = ({ label, value, onChange, disabled = false, className }) => {
     const handleChange = (val: string) => {
         const time = parseStringToTime(val);
         const cleaned = cleanTime(time);
@@ -19,7 +20,7 @@ export const TimeInputField: FC<TimeInputFieldProps> = ({ label, value, onChange
     };
 
     return (
-        <div className="flex flex-col gap-1">
+        <div className={`flex flex-col gap-1 ${className}`}>
             <label className="text-sm font-medium text-slate-700 dark:text-white">{label}</label>
 
             <input

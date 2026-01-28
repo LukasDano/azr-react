@@ -1,14 +1,14 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { IoClose } from 'react-icons/io5';
 
-import { Settings } from './Settings';
-
-type SettingsModalProps = {
+type BaseModalProps = {
+    modalTitle: string;
     isOpen: boolean;
     onClose: () => void;
+    children: ReactNode;
 };
 
-export const SettingsModal: FC<SettingsModalProps> = ({ isOpen, onClose }) => {
+export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children }) => {
     if (!isOpen) return null;
 
     document.addEventListener('keydown', (evt) => {
@@ -37,10 +37,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                 >
                     <IoClose />
                 </button>
-                <h2 className="text-xl font-semibold mb-4">Settings</h2>
-                <div className={'overflow-auto max-h-150'}>
-                    <Settings />
-                </div>
+                <h2 className="text-xl font-semibold mb-4">{modalTitle}</h2>
+                <div className={'max-h-150'}>{children}</div>
             </div>
         </div>
     );
