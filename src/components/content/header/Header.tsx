@@ -13,18 +13,25 @@ import {
 import { parseTimeToString } from '../../../utils/typeUtilities/time';
 import { AppContext, type AppContextValues } from '../../context/AppContext';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
-import { DropDownSelect } from '../inputs/DropDownSelect.tsx';
 import { ActionHeader } from './ActionHeader';
 import { HeaderButton } from './HeaderButton';
+import { HeaderDropDownSelect } from './HeaderDropDownSelect.tsx';
 
 type HeaderProps = {
     openSettings: () => void;
     openWeekTime: () => void;
+    openFlexOffice: () => void;
     resetAction: () => void;
     currentStatsAction: () => void;
 };
 
-export const Header: FC<HeaderProps> = ({ openSettings, openWeekTime, resetAction, currentStatsAction }) => {
+export const Header: FC<HeaderProps> = ({
+    openSettings,
+    openWeekTime,
+    openFlexOffice,
+    resetAction,
+    currentStatsAction,
+}) => {
     const { showShortcuts } = useContext<SettingContextValues>(SettingContext);
     const { updateBreakTime, workTime, updateWorkTime } = useContext<AppContextValues>(AppContext);
     const [actionHeaderOpen, setActionHeaderOpen] = useState<boolean>(false);
@@ -54,7 +61,7 @@ export const Header: FC<HeaderProps> = ({ openSettings, openWeekTime, resetActio
                 <h1 className="text-4xl font-bold text-white">Arbeitszeitrechner</h1>
 
                 <div className="flex items-center gap-6 flex-wrap justify-end">
-                    <DropDownSelect
+                    <HeaderDropDownSelect
                         selectedItem={parseTimeToString(workTime)}
                         items={availableWorkTimes}
                         onChange={(val) => handleWorkTimeModeChange(val)}
@@ -87,6 +94,7 @@ export const Header: FC<HeaderProps> = ({ openSettings, openWeekTime, resetActio
                     currentStatsAction={currentStatsAction}
                     resetAction={resetAction}
                     openWeekTimeAction={openWeekTime}
+                    openFlexOfficeAction={openFlexOffice}
                 />
             )}
         </>

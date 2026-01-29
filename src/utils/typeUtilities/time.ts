@@ -71,3 +71,32 @@ export const getTimeBalanceFor = (time: Time): TimeBalance => {
     else if (totalMinutes < 0) return 'negativ';
     else return 'neutral';
 };
+
+/**
+ * Konvertiert Minuten in Stunden und Minuten
+ *
+ * @param minutes Die Minuten, die konvertiert werden sollen
+ * @returns Die Minuten im Time Format
+ */
+export const minutesToTime = (minutes: number): Time => {
+    let hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    if (remainingMinutes < 0) hours++;
+
+    return [hours, remainingMinutes];
+};
+
+/**
+ * Prüft, ob ein Time Value unter 0 ist.
+ * Wenn der Wert nicht unter 0 ist, wird die Zeit einfach wieder zurückgegeben.
+ * Wenn der Wert unter 0 ist, wird der Wert für 0 Stunden und 0 Minuten zurückgegeben.
+ *
+ * @param time Die Zeit, die geprüft werden soll
+ * @returns "time" oder 0 Stunden und 0 Minuten
+ */
+export const checkIfTimeIsBelowZero = (time: Time): Time => {
+    const [hours, mins] = time;
+
+    if (hours < 0 || mins < 0) return [0, 0];
+    return time;
+};

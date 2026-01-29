@@ -11,6 +11,7 @@ import {
 import { sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
 import { Content } from './content/Calculator';
+import { FlexOfficeCalculator } from './content/flexOffice/FlexOfficeCalculator.tsx';
 import { Header } from './content/header/Header';
 import { BaseModal } from './content/miscellaneous/BaseModal';
 import { WeekTimeCalculator } from './content/weekTime/WeekTimeCalculator.tsx';
@@ -34,6 +35,7 @@ export const App = () => {
 
     const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
     const [weekTimeOpen, setWeekTimeOpen] = useState<boolean>(false);
+    const [flexOfficeOpen, setFlexOfficeOpen] = useState<boolean>(false);
 
     const resetTimeValues = (): void => {
         updateStartTime(emptyTimeValue);
@@ -66,6 +68,7 @@ export const App = () => {
     document.addEventListener('keyup', (evt) => {
         if (evt.altKey && evt.key === 'i') setSettingsOpen(true);
         if (evt.altKey && evt.key === 'w') setWeekTimeOpen(true);
+        if (evt.altKey && evt.key === 'h') setFlexOfficeOpen(true);
         if (evt.altKey && evt.key === 'c') sendMsgWithCurrentStats();
 
         if (evt.key === 'F1') {
@@ -87,9 +90,16 @@ export const App = () => {
                     onClose={() => setWeekTimeOpen(false)}
                 />
 
+                <FlexOfficeCalculator
+                    key={flexOfficeOpen ? 'open' : 'closed'}
+                    isOpen={flexOfficeOpen}
+                    onClose={() => setFlexOfficeOpen(false)}
+                />
+
                 <Header
                     openSettings={() => setSettingsOpen(true)}
                     openWeekTime={() => setWeekTimeOpen(true)}
+                    openFlexOffice={() => setFlexOfficeOpen(true)}
                     resetAction={resetTimeValues}
                     currentStatsAction={sendMsgWithCurrentStats}
                 />
