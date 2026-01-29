@@ -17,7 +17,7 @@ export default defineConfig({
         host: 'localhost',
     },
     build: {
-        sourcemap: true,
+        sourcemap: false,
     },
     test: {
         environment: 'jsdom',

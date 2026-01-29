@@ -7,9 +7,9 @@ import {
 } from '../../static/defaultValues.ts';
 import type { FloatTime, Time, WeekTime } from '../../static/importantTypes';
 
-type CookieKey = 'startTime' | 'floatTime' | 'endTime' | 'weekTime' | 'breakTime' | 'workTime';
+type CookieKey = 'startTime' | 'floatTime' | 'endTime' | 'weekTime' | 'breakTime' | 'workTime' | 'flexOffice';
 
-type CookieValue = Time | FloatTime | WeekTime | string;
+type CookieValue = Time | FloatTime | WeekTime | string | Record<string, number>[];
 
 const defaultValues: Record<CookieKey, CookieValue> = {
     startTime: emptyTimeValue,
@@ -18,6 +18,7 @@ const defaultValues: Record<CookieKey, CookieValue> = {
     weekTime: defaultWeekTime,
     breakTime: defaultBreakTime,
     workTime: defaultWorkTime,
+    flexOffice: [],
 };
 
 export const deleteCookie = (key: CookieKey): void => {

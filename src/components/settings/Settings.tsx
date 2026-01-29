@@ -3,8 +3,8 @@ import { useContext } from 'react';
 
 import { availableThemes, type ThemeName } from '../../static/themes';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
+import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
-import { SettingsDropDown } from './inputs/SettingsDropDown';
 import { SettingsInput } from './inputs/SettingsInput';
 import { SettingsToggle } from './inputs/SettingsToggle';
 import { SettingsGroup } from './SettingsGroup';
@@ -61,7 +61,7 @@ export const Settings = () => {
                     defaultValue={countdownColors.seconds}
                     onSubmit={(val) => handleCountdownColorChange('seconds', val as string)}
                 />
-                <SettingsDropDown
+                <DropDownSelect
                     name={'Theme'}
                     defaultOption={colorTheme}
                     options={Object.keys(availableThemes)}

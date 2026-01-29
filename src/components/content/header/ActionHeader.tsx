@@ -1,4 +1,4 @@
-import { CalendarDays, ClockFading } from 'lucide-react';
+import { CalendarDays, ClockFading, HouseWifi } from 'lucide-react';
 import { type FC, useContext } from 'react';
 import { MdOutlineResetTv } from 'react-icons/md';
 
@@ -9,9 +9,15 @@ type ActionHeaderProps = {
     currentStatsAction: () => void;
     resetAction: () => void;
     openWeekTimeAction: () => void;
+    openFlexOfficeAction: () => void;
 };
 
-export const ActionHeader: FC<ActionHeaderProps> = ({ currentStatsAction, resetAction, openWeekTimeAction }) => {
+export const ActionHeader: FC<ActionHeaderProps> = ({
+    currentStatsAction,
+    resetAction,
+    openWeekTimeAction,
+    openFlexOfficeAction,
+}) => {
     const { showShortcuts } = useContext<SettingContextValues>(SettingContext);
 
     return (
@@ -24,6 +30,11 @@ export const ActionHeader: FC<ActionHeaderProps> = ({ currentStatsAction, resetA
                     icon={<CalendarDays className={'w-6 h-6'} />}
                     tooltip={`Wochenzeitrechner öffnen ${showShortcuts ? '[alt + w]' : ''}`}
                     onClick={openWeekTimeAction}
+                />
+                <HeaderButton
+                    icon={<HouseWifi className={'w-6 h-6'} />}
+                    tooltip={`Flexofficerechner ${showShortcuts ? '[alt + h]' : ''}`}
+                    onClick={openFlexOfficeAction}
                 />
                 <HeaderButton
                     icon={<ClockFading className={'w-6 h-6'} />}
