@@ -5,7 +5,7 @@ import { availableThemes, type ThemeName } from '../../static/themes';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
 import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
-import { SettingsInput } from './inputs/SettingsInput';
+import { ColorPicker } from './inputs/ColorSelector.tsx';
 import { SettingsToggle } from './inputs/SettingsToggle';
 import { SettingsGroup } from './SettingsGroup';
 
@@ -40,26 +40,20 @@ export const Settings = () => {
                     defaultValue={darkModeActive}
                     onToggle={updateDarkModeActive}
                 />
-                <SettingsInput
-                    type={'text'}
-                    useStringAsColor={true}
-                    settingName={'Countdown Frabe für Stunden'}
-                    defaultValue={countdownColors.hours}
-                    onSubmit={(val) => handleCountdownColorChange('hours', val as string)}
+                <ColorPicker
+                    label={'Countdown Farbe für Stunden'}
+                    color={countdownColors.hours}
+                    onColorChange={(val) => handleCountdownColorChange('hours', val as string)}
                 />
-                <SettingsInput
-                    type={'text'}
-                    useStringAsColor={true}
-                    settingName={'Countdown Frabe für Minuten'}
-                    defaultValue={countdownColors.minutes}
-                    onSubmit={(val) => handleCountdownColorChange('minutes', val as string)}
+                <ColorPicker
+                    label={'Countdown Farbe für Minuten'}
+                    color={countdownColors.minutes}
+                    onColorChange={(val) => handleCountdownColorChange('minutes', val as string)}
                 />
-                <SettingsInput
-                    type={'text'}
-                    useStringAsColor={true}
-                    settingName={'Countdown Frabe für Sekunden'}
-                    defaultValue={countdownColors.seconds}
-                    onSubmit={(val) => handleCountdownColorChange('seconds', val as string)}
+                <ColorPicker
+                    label={'Countdown Farbe für Sekunden'}
+                    color={countdownColors.seconds}
+                    onColorChange={(val) => handleCountdownColorChange('seconds', val as string)}
                 />
                 <DropDownSelect
                     name={'Theme'}
