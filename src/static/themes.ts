@@ -9,49 +9,37 @@ export const defaultCountdownTheme: CountdownColors = {
     seconds: '#f39c13',
 };
 
-type Theme = 'light' | 'dark';
-type ColorTheme = Record<Theme, string>;
-export type ThemeName =
-    | 'skyViolet'
-    | 'emeraldAmber'
-    | 'oceanRose'
-    | 'limeIndigo'
-    | 'tealOrange'
-    | 'slatePink'
-    | 'greenPurple'
-    | 'blueYellow';
+export type ThemeType = 'light' | 'dark';
+export type ColorTheme = Record<ThemeType, string>;
 
-export const availableThemes: Record<string, ColorTheme> = {
-    skyViolet: {
-        light: 'bg-sky-400 hover:bg-sky-500',
-        dark: 'dark:bg-violet-500 hover:dark:bg-violet-600',
-    },
-    emeraldAmber: {
-        light: 'bg-emerald-400 hover:bg-emerald-500',
-        dark: 'dark:bg-amber-500 hover:dark:bg-amber-600',
-    },
-    oceanRose: {
-        light: 'bg-cyan-400 hover:bg-cyan-500',
-        dark: 'dark:bg-rose-500 hover:dark:bg-rose-600',
-    },
-    limeIndigo: {
-        light: 'bg-lime-400 hover:bg-lime-500',
-        dark: 'dark:bg-indigo-500 hover:dark:bg-indigo-600',
-    },
-    tealOrange: {
-        light: 'bg-teal-400 hover:bg-teal-500',
-        dark: 'dark:bg-orange-500 hover:dark:bg-orange-600',
-    },
-    slatePink: {
-        light: 'bg-slate-400 hover:bg-slate-500',
-        dark: 'dark:bg-pink-500 hover:dark:bg-pink-600',
-    },
-    greenPurple: {
-        light: 'bg-green-400 hover:bg-green-500',
-        dark: 'dark:bg-purple-500 hover:dark:bg-purple-600',
-    },
-    blueYellow: {
-        light: 'bg-blue-400 hover:bg-blue-500',
-        dark: 'dark:bg-yellow-500 hover:dark:bg-yellow-600',
-    },
+export type LightThemeName = 'cyan' | 'sky' | 'emerald' | 'ocean' | 'lime' | 'teal' | 'slate' | 'green' | 'blue';
+
+export const availableLightThemes: Record<string, string> = {
+    cyan: 'bg-cyan-400 hover:bg-cyan-500',
+    sky: 'bg-sky-400 hover:bg-sky-500',
+    emerald: 'bg-emerald-400 hover:bg-emerald-500',
+    ocean: 'bg-cyan-400 hover:bg-cyan-500',
+    lime: 'bg-lime-400 hover:bg-lime-500',
+    teal: 'bg-teal-400 hover:bg-teal-500',
+    slate: 'bg-slate-400 hover:bg-slate-500',
+    green: 'bg-green-400 hover:bg-green-500',
+    blue: 'bg-blue-400 hover:bg-blue-500',
+};
+
+export type DarkThemeName = 'violet' | 'amber' | 'rose' | 'indigo' | 'orange' | 'pink' | 'purple' | 'yellow';
+
+export const availableDarkThemes: Record<string, string> = {
+    violet: 'dark:bg-violet-500 hover:dark:bg-violet-600',
+    amber: 'dark:bg-amber-500 hover:dark:bg-amber-600',
+    rose: 'dark:bg-rose-500 hover:dark:bg-rose-600',
+    indigo: 'dark:bg-indigo-500 hover:dark:bg-indigo-600',
+    orange: 'dark:bg-orange-500 hover:dark:bg-orange-600',
+    pink: 'dark:bg-pink-500 hover:dark:bg-pink-600',
+    purple: 'dark:bg-purple-500 hover:dark:bg-purple-600',
+    yellow: 'dark:bg-yellow-500 hover:dark:bg-yellow-600',
+};
+
+export const defaultColorTheme: ColorTheme = {
+    light: availableLightThemes.sky,
+    dark: availableDarkThemes.violet,
 };

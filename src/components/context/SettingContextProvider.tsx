@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 
-import type { CountdownColors, ThemeName } from '../../static/themes.ts';
+import type { ColorTheme, CountdownColors } from '../../static/themes.ts';
 import { getStorageValue, setStorageValue } from '../../utils/storage/localStorageManger.ts';
 import { SettingContext, type SettingContextValues } from './SettingContext.tsx';
 
@@ -14,7 +14,7 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
     const [countdownColors, setCountdownColors] = useState<CountdownColors>(
         getStorageValue('countdownColors') as CountdownColors,
     );
-    const [colorTheme, setColorTheme] = useState<ThemeName>(getStorageValue('colorTheme') as ThemeName);
+    const [colorTheme, setColorTheme] = useState<ColorTheme>(getStorageValue('colorTheme') as ColorTheme);
     const [overTimeAutomatic, setOverTimeAutomatic] = useState<boolean>(
         getStorageValue('overTimeAutomatic') as boolean,
     );
@@ -30,7 +30,7 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
         setStorageValue('countdownColors', val);
     };
 
-    const updateColorTheme = (val: ThemeName): void => {
+    const updateColorTheme = (val: ColorTheme): void => {
         setColorTheme(val);
         setStorageValue('colorTheme', val);
     };

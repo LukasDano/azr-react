@@ -1,6 +1,6 @@
 import { type FC, useContext, useState } from 'react';
 
-import { availableThemes } from '../../../static/themes';
+import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
 import { sendInfoMessage } from '../../../utils/page/notifications';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
@@ -16,7 +16,7 @@ export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle,
 
     const [value, setValue] = useState<boolean>(defaultValue);
 
-    const themeClasses = `${availableThemes[colorTheme].light} ${availableThemes[colorTheme].dark}`;
+    const themeClasses = `${availableLightThemes[colorTheme.light]} ${availableDarkThemes[colorTheme.dark]}`;
 
     const handleToggle = () => {
         const newValue = !value;

@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { SettingContextValues } from '../../src/components/context/SettingContext';
 import { SettingContext } from '../../src/components/context/SettingContext';
 import { Settings } from '../../src/components/settings/Settings';
-import { defaultCountdownTheme } from '../../src/static/themes';
+import { defaultColorTheme, defaultCountdownTheme } from '../../src/static/themes';
 
 const mockLocalStorageSetItem = vi.fn();
 const mockLocalStorageGetItem = vi.fn();
@@ -26,7 +26,7 @@ describe('Settings Component', () => {
         updateDarkModeActive: vi.fn(),
         countdownColors: defaultCountdownTheme,
         updateCountdownColors: vi.fn(),
-        colorTheme: 'skyViolet',
+        colorTheme: defaultColorTheme,
         updateColorTheme: vi.fn(),
         overTimeAutomatic: false,
         updateOverTimeAutomatic: vi.fn(),
