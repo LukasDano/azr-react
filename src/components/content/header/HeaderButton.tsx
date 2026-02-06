@@ -1,7 +1,7 @@
 import Tippy from '@tippyjs/react';
 import { type FC, type ReactNode, useContext } from 'react';
 
-import { availableThemes } from '../../../static/themes';
+import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
 type HeaderButtonProps = {
@@ -13,7 +13,7 @@ type HeaderButtonProps = {
 export const HeaderButton: FC<HeaderButtonProps> = ({ icon, onClick, tooltip }) => {
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
 
-    const themeClasses = `${availableThemes[colorTheme].light} ${availableThemes[colorTheme].dark}`;
+    const themeClasses = `${availableLightThemes[colorTheme.light]} ${availableDarkThemes[colorTheme.dark]}`;
 
     return (
         <Tippy content={tooltip}>

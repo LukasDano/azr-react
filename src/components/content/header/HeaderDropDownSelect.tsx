@@ -1,9 +1,11 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
 import { ChevronsUpDown } from 'lucide-react';
-import { type FC, useContext } from 'react';
+import type { FC } from 'react';
+import { useContext } from 'react';
 
-import { availableThemes } from '../../../static/themes.ts';
-import { SettingContext, type SettingContextValues } from '../../context/SettingContext.tsx';
+import { availableDarkThemes, availableLightThemes } from '../../../static/themes.ts';
+import type { SettingContextValues } from '../../context/SettingContext.tsx';
+import { SettingContext } from '../../context/SettingContext.tsx';
 
 type HeaderDropDownSelectProps = {
     items: string[];
@@ -15,7 +17,7 @@ type HeaderDropDownSelectProps = {
 export const HeaderDropDownSelect: FC<HeaderDropDownSelectProps> = ({ items, selectedItem, onChange, minWidth }) => {
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
 
-    const themeClasses = `${availableThemes[colorTheme].light} ${availableThemes[colorTheme].dark}`;
+    const themeClasses = `${availableLightThemes[colorTheme.light]} ${availableDarkThemes[colorTheme.dark]}`;
 
     return (
         <div className="shrink-0 w-fit" style={{ minWidth: minWidth ? `${minWidth}px` : '150px' }}>

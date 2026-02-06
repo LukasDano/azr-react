@@ -1,7 +1,8 @@
 import { Palette, Pickaxe } from 'lucide-react';
 import { useContext } from 'react';
 
-import { availableThemes, type ThemeName } from '../../static/themes';
+import type { ThemeType } from '../../static/themes';
+import { availableDarkThemes, availableLightThemes } from '../../static/themes';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
 import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
@@ -32,6 +33,15 @@ export const Settings = () => {
         updateCountdownColors(updatedColors);
     };
 
+    const handleThemeChange = (key: ThemeType, val: string) => {
+        const updatedTheme = {
+            ...colorTheme,
+            [key]: val,
+        };
+
+        updateColorTheme(updatedTheme);
+    };
+
     return (
         <div className="flex flex-col gap-4 w-full p-4 overflow-auto">
             <SettingsGroup title={'Design'} icon={<Palette className={'w-5 h-5'} />} defaultOpen={true}>
@@ -43,23 +53,29 @@ export const Settings = () => {
                 <ColorPicker
                     label={'Countdown Farbe für Stunden'}
                     color={countdownColors.hours}
-                    onColorChange={(val) => handleCountdownColorChange('hours', val as string)}
+                    onColorChange={(val) => handleCountdownColorChange('hours', val)}
                 />
                 <ColorPicker
                     label={'Countdown Farbe für Minuten'}
                     color={countdownColors.minutes}
-                    onColorChange={(val) => handleCountdownColorChange('minutes', val as string)}
+                    onColorChange={(val) => handleCountdownColorChange('minutes', val)}
                 />
                 <ColorPicker
                     label={'Countdown Farbe für Sekunden'}
                     color={countdownColors.seconds}
-                    onColorChange={(val) => handleCountdownColorChange('seconds', val as string)}
+                    onColorChange={(val) => handleCountdownColorChange('seconds', val)}
                 />
                 <DropDownSelect
-                    name={'Theme'}
-                    defaultOption={colorTheme}
-                    options={Object.keys(availableThemes)}
-                    onChange={(val) => updateColorTheme(val as ThemeName)}
+                    name={'Lightmode Theme'}
+                    defaultOption={colorTheme.light}
+                    options={Object.keys(availableLightThemes)}
+                    onChange={(val) => handleThemeChange('light', val as string)}
+                />
+                <DropDownSelect
+                    name={'Darkmode Theme'}
+                    defaultOption={colorTheme.dark}
+                    options={Object.keys(availableDarkThemes)}
+                    onChange={(val) => handleThemeChange('dark', val as string)}
                 />
                 <SettingsToggle
                     settingName={'Zeige Shortcuts an'}

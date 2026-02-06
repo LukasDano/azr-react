@@ -1,7 +1,7 @@
 import Tippy from '@tippyjs/react';
 import { type FC, type ReactNode, useContext } from 'react';
 
-import { availableThemes } from '../../../static/themes';
+import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
 type BaseButtonProps = {
@@ -13,12 +13,11 @@ type BaseButtonProps = {
 
 export const BaseButton: FC<BaseButtonProps> = ({ icon, tooltip, onClick, text }) => {
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
-    const themeClasses = `${availableThemes[colorTheme].light} ${availableThemes[colorTheme].dark}`;
+    const themeClasses = `${availableLightThemes[colorTheme.light]} ${availableDarkThemes[colorTheme.dark]}`;
 
     return (
         <Tippy content={tooltip}>
             <button
-                type="submit"
                 onClick={onClick}
                 className={`flex items-center justify-center h-10 px-4 text-white rounded-lg transition-colors duration-200 ${themeClasses}`}
             >

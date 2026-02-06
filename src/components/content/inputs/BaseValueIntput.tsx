@@ -1,4 +1,4 @@
-﻿import type { FC } from 'react';
+import type { FC } from 'react';
 
 type FormInputProps = {
     label: string;
