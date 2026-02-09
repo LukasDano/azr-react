@@ -33,7 +33,7 @@ export const calculateWeekOverTime = (weekWorkTime: Time): Time => {
  */
 export const parseWeekWorkTimeToString = (weekTime: Time): string => {
     let [weekHours, weekMins] = weekTime;
-    let weekTimeAusgabe;
+    let weekTimeAusgabe: string;
 
     let weekHoursStr: string;
     let weekMinsStr: string;
@@ -44,13 +44,13 @@ export const parseWeekWorkTimeToString = (weekTime: Time): string => {
 
         if (weekMins < 10 && weekMins >= 0) {
             weekHoursStr = weekHours.toString();
-            weekMinsStr = '0' + weekMins;
+            weekMinsStr = `0${weekMins}`;
         } else {
             weekHoursStr = weekHours.toString();
             weekMinsStr = weekMins.toString();
         }
 
-        weekTimeAusgabe = weekHoursStr + '.' + weekMinsStr + ' h';
+        weekTimeAusgabe = `${weekHoursStr}.${weekMinsStr} h`;
     } else weekTimeAusgabe = '0.0 h';
 
     return weekTimeAusgabe;
@@ -64,26 +64,26 @@ export const parseWeekWorkTimeToString = (weekTime: Time): string => {
  */
 export const parseWeekOverTimeToString = (weekOverTime: Time): string => {
     const [weekOverTimeHours, weekOverTimeMins] = weekOverTime;
-    let weekOverTimeAusgabe;
+    let weekOverTimeAusgabe: string;
 
     let weekOverTimeHoursStr: string;
     let weekOverTimeMinsStr: string;
 
     if (weekOverTimeHours <= 9 && weekOverTimeHours > 0) {
-        weekOverTimeHoursStr = '0' + weekOverTimeHours;
+        weekOverTimeHoursStr = `0${weekOverTimeHours}`;
     }
 
     if (weekOverTimeMins <= 9 && weekOverTimeHours > 0) {
-        weekOverTimeMinsStr = '0' + weekOverTimeMins;
+        weekOverTimeMinsStr = `0${weekOverTimeMins}`;
     }
 
     if (weekOverTimeHours < 0 || weekOverTimeMins < 0) {
         weekOverTimeHoursStr = Math.abs(weekOverTimeHours).toString();
         weekOverTimeMinsStr = Math.abs(weekOverTimeMins).toString();
 
-        weekOverTimeAusgabe = '-' + weekOverTimeHoursStr + '.' + weekOverTimeMinsStr + ' h';
+        weekOverTimeAusgabe = `-${weekOverTimeHoursStr}.${weekOverTimeMinsStr} h`;
     } else if (weekOverTimeHours > 0 || weekOverTimeMins > 0)
-        weekOverTimeAusgabe = '+' + weekOverTimeHours + '.' + weekOverTimeMins + ' h';
+        weekOverTimeAusgabe = `+${weekOverTimeHours}.${weekOverTimeMins} h`;
     else weekOverTimeAusgabe = '0.0 h';
 
     return weekOverTimeAusgabe;

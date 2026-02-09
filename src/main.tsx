@@ -1,7 +1,6 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-
 import { name, version } from '../package.json';
+import { createRoot } from 'react-dom/client';
 import { App } from './components/App.tsx';
 import { AppContextProvider } from './components/context/AppContextProvider.tsx';
 import { SettingContextProvider } from './components/context/SettingContextProvider.tsx';

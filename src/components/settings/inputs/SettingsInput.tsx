@@ -1,6 +1,5 @@
 import { type ChangeEvent, type FC, useState } from 'react';
 import { FaRegSave } from 'react-icons/fa';
-
 import { sendInfoMessage, sendWarnMessage } from '../../../utils/page/notifications';
 import { BaseButton } from '../../content/miscellaneous/BaseButton';
 

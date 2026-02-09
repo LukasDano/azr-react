@@ -22,12 +22,12 @@ const defaultValues: Record<CookieKey, CookieValue> = {
 };
 
 export const deleteCookie = (key: CookieKey): void => {
-    document.cookie = key + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    document.cookie = `${key}=;·expires=Thu,·01·Jan·1970·00:00:00·UTC;·path=/`;
 };
 
 export const getCookie = (key: CookieKey): CookieValue => {
     const cookies = document.cookie.split(';');
-    let result;
+    let result = '';
 
     for (const cookie of cookies) {
         const [cookieName, cookieValue] = cookie.trim().split('=');
@@ -35,15 +35,15 @@ export const getCookie = (key: CookieKey): CookieValue => {
         if (cookieName === key) result = JSON.parse(decodeURIComponent(cookieValue));
     }
 
-    return result || defaultValues[key];
+    return result === '' ? defaultValues[key] : result;
 };
 
 export const setCookie = (key: CookieKey, val: CookieValue, expirationDate: Date | undefined = undefined): void => {
     let expires = '';
     const valStr = JSON.stringify(val);
 
-    if (expirationDate instanceof Date) expires = '; expires=' + expirationDate.toUTCString();
-    document.cookie = key + '=' + encodeURIComponent(valStr) + expires + '; path=/';
+    if (expirationDate instanceof Date) expires = `;·expires=${expirationDate.toUTCString()}`;
+    document.cookie = `${key}=${encodeURIComponent(valStr)}${expires};·path=/`;
 };
 
 export const setCookieFor10Minutes = (key: CookieKey, val: CookieValue): void => {

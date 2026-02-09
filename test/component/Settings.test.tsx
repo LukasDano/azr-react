@@ -1,7 +1,6 @@
 ﻿import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
+import { fireEvent, render, screen } from '@testing-library/react';
 import type { SettingContextValues } from '../../src/components/context/SettingContext';
 import { SettingContext } from '../../src/components/context/SettingContext';
 import { Settings } from '../../src/components/settings/Settings';

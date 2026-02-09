@@ -1,5 +1,5 @@
-﻿import type { Time } from '../static/importantTypes';
-import { getMonthName, getValidDateString } from './dateUtility';
+﻿import { getMonthName, getValidDateString } from './dateUtility';
+import type { Time } from '../static/importantTypes';
 import { minutesToTime } from './typeUtilities/time';
 
 /**

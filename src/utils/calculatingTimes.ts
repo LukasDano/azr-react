@@ -1,5 +1,5 @@
-import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
 import { formatNumber } from './formatting';
+import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
 import { getCookie } from './storage/cookieManager';
 
 /**
@@ -35,7 +35,7 @@ export const calculateIstSollTimeDiff = (workTime: Time, sollTime: Time): [numbe
     const [sollHours, sollMins] = sollTime;
 
     let diffHours = workHours - sollHours;
-    let diffMins;
+    let diffMins: number;
 
     if (diffHours === 0 && workMins > sollMins) diffMins = workMins - sollMins;
     else if (diffHours > 0) {
@@ -449,5 +449,5 @@ export const createGleitzeitAusgabeFromFloat = (float: Time): string => {
     gleitHours = Math.abs(gleitHours);
     gleitMins = Math.abs(gleitMins);
 
-    return sign + gleitHours + '.' + formatNumber(gleitMins);
+    return `${sign + gleitHours}.${formatNumber(gleitMins)}`;
 };

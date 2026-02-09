@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import { Toaster } from 'sonner';
-
 import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from '../static/defaultValues';
 import {
     calculateGleitzeit,
@@ -16,8 +15,8 @@ import { Header } from './content/header/Header';
 import { BaseModal } from './content/miscellaneous/BaseModal';
 import { WeekTimeCalculator } from './content/weekTime/WeekTimeCalculator.tsx';
 import { AppContext, type AppContextValues } from './context/AppContext';
-import { SettingContext } from './context/SettingContext';
 import type { SettingContextValues } from './context/SettingContext';
+import { SettingContext } from './context/SettingContext';
 import { Settings } from './settings/Settings';
 
 export const App = () => {

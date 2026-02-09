@@ -11,5 +11,5 @@ export const getMonthName = (date: Date, lang: string = 'de-DE') => {
 export const getValidDateString = (date: Date): string => {
     const correctedMonth = formatNumber(date.getMonth() + 1);
     const correctedDate = formatNumber(date.getDate());
-    return date.getFullYear() + '-' + correctedMonth + '-' + correctedDate;
+    return `${date.getFullYear()}-${correctedMonth}-${correctedDate}`;
 };

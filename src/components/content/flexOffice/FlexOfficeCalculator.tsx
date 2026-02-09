@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-
+import { FlexOfficeResult } from './FlexOfficeResult';
 import { defaultQuote, emptyTimeValue, flexOfficeQuoten } from '../../../static/defaultValues';
 import type { Time } from '../../../static/importantTypes';
 import {
@@ -21,7 +21,6 @@ import { BaseFormInput } from '../inputs/BaseValueIntput';
 import { DropDownSelect } from '../inputs/DropDownSelect';
 import { BaseButton } from '../miscellaneous/BaseButton';
 import { BaseModal } from '../miscellaneous/BaseModal';
-import { FlexOfficeResult } from './FlexOfficeResult';
 
 type FlexOfficeCalculatorProps = {
     isOpen: boolean;
@@ -80,7 +79,7 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
                         name={'Quote'}
                         options={flexOfficeQuoten.map((q) => `${q}%`)}
                         defaultOption={`${selectedFlexQuote}%`}
-                        onChange={(val) => setSelectedFlexQuote(Number.parseInt(val?.split('%')[0] as string))}
+                        onChange={(val) => setSelectedFlexQuote(Number.parseInt(val?.split('%')[0] as string, 10))}
                     />
 
                     <DropDownSelect
@@ -103,7 +102,7 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
                                 type={'number'}
                                 label={'Abwesenheitstage'}
                                 value={offDays}
-                                onChange={(val) => setOffDays(Number.parseInt(val))}
+                                onChange={(val) => setOffDays(Number.parseInt(val, 10))}
                                 max={caluclateMaxDaysForMonthByString(selectedMonth)}
                             />
                         </div>
@@ -113,7 +112,7 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
                                 type={'number'}
                                 label={'Monats Stunden'}
                                 value={flexHours}
-                                onChange={(val) => setFlexHours(Number.parseInt(val))}
+                                onChange={(val) => setFlexHours(Number.parseInt(val, 10))}
                             />
                         </div>
 
@@ -122,7 +121,7 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
                                 type={'number'}
                                 label={'Monats Minuten'}
                                 value={flexMins}
-                                onChange={(val) => setFlexMins(Number.parseInt(val))}
+                                onChange={(val) => setFlexMins(Number.parseInt(val, 10))}
                                 max={60}
                             />
                         </div>
