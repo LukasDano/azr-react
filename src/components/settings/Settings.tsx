@@ -1,6 +1,6 @@
 import { Palette, Pickaxe } from 'lucide-react';
 import { useContext } from 'react';
-
+import { SettingsGroup } from './SettingsGroup';
 import type { ThemeType } from '../../static/themes';
 import { availableDarkThemes, availableLightThemes } from '../../static/themes';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
@@ -8,7 +8,6 @@ import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
 import { ColorPicker } from './inputs/ColorSelector.tsx';
 import { SettingsToggle } from './inputs/SettingsToggle';
-import { SettingsGroup } from './SettingsGroup';
 
 export const Settings = () => {
     const {

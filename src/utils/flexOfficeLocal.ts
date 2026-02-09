@@ -1,5 +1,5 @@
-import type { FeiertageHamburg } from '../static/importantTypes.ts';
 import { isWorkDay } from './flexOfficeUtility.ts';
+import type { FeiertageHamburg } from '../static/importantTypes.ts';
 
 /**
  * Berechnet die Anzahl der Arbeitstage für den aktuellen Monat

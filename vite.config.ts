@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vitest/config';
 
-// https://vite.dev/config/
+// biome-ignore lint/style/noDefaultExport: Vite config requires default export
 export default defineConfig({
     plugins: [react(), tailwindcss()],
     base: '/azr-react/',

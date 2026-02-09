@@ -1,5 +1,5 @@
 import { type FC, useEffect, useState } from 'react';
-
+import { WeekTimeResult } from './WeekTimeResult.tsx';
 import { emptyTimeValue } from '../../../static/defaultValues.ts';
 import type { Time, WeekDay, WeekTime } from '../../../static/importantTypes.ts';
 import { getCookie, setCookieUntilEndOfWeek } from '../../../utils/storage/cookieManager.ts';
@@ -8,7 +8,6 @@ import { calculateWeekOverTime } from '../../../utils/weekTimeCalculatingUtility
 import { TimeInputField } from '../inputs/TimeInputField.tsx';
 import { BaseButton } from '../miscellaneous/BaseButton.tsx';
 import { BaseModal } from '../miscellaneous/BaseModal.tsx';
-import { WeekTimeResult } from './WeekTimeResult.tsx';
 
 type WeekTimeCalculatorProps = {
     isOpen: boolean;

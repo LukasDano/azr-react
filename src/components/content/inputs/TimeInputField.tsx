@@ -1,5 +1,4 @@
 import type { FC } from 'react';
-
 import type { Time } from '../../../static/importantTypes';
 import { cleanTime, parseStringToTime, parseTimeToString } from '../../../utils/typeUtilities/time';
 
@@ -24,6 +23,7 @@ export const TimeInputField: FC<TimeInputFieldProps> = ({ label, value, onChange
             <label className="text-sm font-medium text-slate-700 dark:text-white">{label}</label>
 
             <input
+                id={`${label}-time-input`}
                 type="time"
                 value={parseTimeToString(value)}
                 onChange={(evt) => handleChange(evt.target.value)}

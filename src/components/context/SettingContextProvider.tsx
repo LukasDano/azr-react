@@ -1,9 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import { useMemo, useState } from 'react';
-
+import { SettingContext, type SettingContextValues } from './SettingContext.tsx';
 import type { ColorTheme, CountdownColors } from '../../static/themes.ts';
 import { getStorageValue, setStorageValue } from '../../utils/storage/localStorageManger.ts';
-import { SettingContext, type SettingContextValues } from './SettingContext.tsx';
 
 type SettingContextProviderProps = {
     children: ReactNode;

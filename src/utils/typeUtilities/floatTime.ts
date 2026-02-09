@@ -1,5 +1,5 @@
-import type { FloatTime, FloatTimeSign, Time } from '../../static/importantTypes';
 import { formatNumber } from '../formatting';
+import type { FloatTime, FloatTimeSign, Time } from '../../static/importantTypes';
 
 export const parseFloatTimeToString = (floatTime: FloatTime): string => {
     const [sign, hours, mins] = floatTime;
@@ -16,7 +16,7 @@ export const parseFloatTimeToString = (floatTime: FloatTime): string => {
  * @param floatStr Die Gleitzeit als String Array
  * @return Die Gleitzeit als FloatTime Value oder nichts, wenn der Parameter ungültig ist
  */
-export const parseStringToFloatTime = (floatStr: string): FloatTime | void => {
+export const parseStringToFloatTime = (floatStr: string): FloatTime | undefined => {
     const floatArray = floatStr.split('');
     let vorzeichen: FloatTimeSign = 1;
 

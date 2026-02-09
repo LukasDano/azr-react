@@ -29,69 +29,27 @@ jobs:
               run: npm run tsc
               working-directory: ${{ env.frontend }}
 
-    prettier-check:
+    biome-check:
         runs-on: windows-latest
         needs: [tsc-check]
         steps:
-            - name: Checkout Node
-              uses: actions/checkout@v4
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
+            - name: Checkout
+              uses: actions/checkout@v5
               with:
-                  node-version: '20'
+                persist-credentials: false
 
-            - name: Install Dependencies
-              run: npm install
-              working-directory: ${{ env.frontend }}
-
-            - name: Check Prettier formatting
-              run: npm run prettier:check
-              working-directory: ${{ env.frontend }}
-
-    eslint-ts:
-        runs-on: windows-latest
-        needs: [tsc-check, prettier-check]
-        steps:
-            - name: Checkout Node
-              uses: actions/checkout@v4
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
+            - name: Setup Biome
+              uses: biomejs/setup-biome@v2
               with:
-                  node-version: '20'
+                  version: latest
 
-            - name: Install Dependencies
-              run: npm install
-              working-directory: ${{ env.frontend }}
-
-            - name: Check ESLint for ts files
-              run: npm run lint:ts
-              working-directory: ${{ env.frontend }}
-
-    eslint-tsx:
-        runs-on: windows-latest
-        needs: [tsc-check, prettier-check]
-        steps:
-            - name: Checkout Node
-              uses: actions/checkout@v4
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '20'
-
-            - name: Install Dependencies
-              run: npm install
-              working-directory: ${{ env.frontend }}
-
-            - name: Check ESLint for tsx files
-              run: npm run lint:tsx
+            - name: Run Biome
+              run: npm run biome:ci
               working-directory: ${{ env.frontend }}
 
     vitest-function:
         runs-on: windows-latest
-        needs: [tsc-check, prettier-check, eslint-ts, eslint-tsx]
+        needs: [tsc-check, biome-check]
         steps:
             - name: Checkout Node
               uses: actions/checkout@v4
@@ -111,7 +69,7 @@ jobs:
 
     vitest-component:
         runs-on: windows-latest
-        needs: [tsc-check, prettier-check, eslint-ts, eslint-tsx]
+        needs: [tsc-check, biome-check]
         steps:
             - name: Checkout Node
               uses: actions/checkout@v4

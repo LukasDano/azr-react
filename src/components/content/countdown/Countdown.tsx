@@ -1,9 +1,8 @@
 import type { FC } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-
+import { CountdownElement, type CountdownUnit } from './CountdownElement.tsx';
 import type { CountdownColors } from '../../../static/themes.ts';
 import { defaultCountdownTheme } from '../../../static/themes.ts';
-import { CountdownElement, type CountdownUnit } from './CountdownElement.tsx';
 
 type CountdownTime = {
     days: number;
@@ -83,7 +82,7 @@ export const Countdown: FC<CountdownProps> = ({
         return () => {
             if (intervalRef.current) clearInterval(intervalRef.current);
         };
-    }, [end]); //eslint-disable-line react-hooks/exhaustive-deps
+    }, [end, update]);
 
     const createCountdownElements = (time: CountdownTime): CountdownElementConfig[] => {
         return [

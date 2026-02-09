@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-
 import {
     defaultBreakTime,
     defaultFloatForSixHourMode,
@@ -108,7 +107,7 @@ export const Content = () => {
             : defaultFloatForSixHourMode;
 
         if (!isSameTime(startTime, emptyTimeValue)) handleFloatUpdate(floatForBreakTime);
-    }, [breakTime]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [breakTime, startTime]);
 
     return (
         <div className="mx-auto max-w-3xl w-full px-4 py-8">

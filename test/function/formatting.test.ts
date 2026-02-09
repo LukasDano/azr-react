@@ -1,5 +1,4 @@
 ﻿import { describe, expect, it } from 'vitest';
-
 import { formatNumber, parseStringToRoundedNumber, roundNumber } from '../../src/utils/formatting';
 
 describe('parseStringToRoundedNumber', () => {

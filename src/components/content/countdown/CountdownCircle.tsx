@@ -8,7 +8,7 @@ type CountdownCircleProps = {
 
 export const CountdownCircle: FC<CountdownCircleProps> = ({ percent, color = '#1abc9c', thickness = 3 }) => {
     return (
-        <svg className="w-16 h-16" viewBox="0 0 36 36">
+        <svg className="w-16 h-16" viewBox="0 0 36 36" role={'img'} aria-label={color}>
             <circle className="opacity-20" cx="18" cy="18" r="16" stroke={color} strokeWidth={thickness} fill="none" />
             <circle
                 className="transition-all duration-200"

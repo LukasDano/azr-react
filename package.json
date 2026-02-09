@@ -7,25 +7,22 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
-        "lint": "eslint .",
         "preview": "vite preview",
         "tsc": "tsc -b",
-        "lint:all": "npm run lint:ts && npm run lint:tsx",
-        "lint:ts": "eslint --ext .ts src/",
-        "lint:tsx": "eslint --ext .tsx src/",
-        "prettier:check": "npx prettier . --check",
-        "prettier:format": "npx prettier . --write",
+        "biome:check": "biome check --write",
+        "biome:lint:ci": "biome lint --write",
+        "biome:format": "biome format --write",
+        "biome:ci": "biome ci",
         "vitest:all": "npm run vitest:component && npm run vitest:function",
         "vitest:component": "npx vitest run test/component --reporter=verbose",
         "vitest:function": "npx vitest run test/function --reporter=verbose",
-        "local:ci": "npm run tsc && npm run lint:all && npm run prettier:check && npm run vitest:all",
-        "prepare-commit": "npm run tsc && npm run lint:all && npm run prettier:format && npm run vitest:all"
+        "local:ci": "npm run tsc && npm run biome:ci && npm run vitest:all",
+        "prepare-commit": "npm run tsc && npm run biome:check && npm run vitest:all"
     },
     "dependencies": {
         "@headlessui/react": "^2.2.9",
         "@tailwindcss/vite": "^4.1.18",
         "@tippyjs/react": "^4.2.6",
-        "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "@uiw/react-color": "^2.9.4",
         "lucide-react": "^0.563.0",
         "react": "^19.2.0",
@@ -36,20 +33,15 @@
         "tailwindcss": "^4.1.18"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.1",
+        "@biomejs/biome": "2.3.14",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
         "@types/node": "^24.10.1",
         "@types/react": "^19.2.5",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react-swc": "^4.2.2",
-        "eslint": "^9.39.1",
-        "eslint-plugin-react-hooks": "^7.0.1",
-        "eslint-plugin-react-refresh": "^0.4.24",
-        "globals": "^16.5.0",
         "jsdom": "^27.4.0",
         "typescript": "~5.9.3",
-        "typescript-eslint": "^8.46.4",
         "vite": "^7.3.1",
         "vitest": "^4.0.18"
     }

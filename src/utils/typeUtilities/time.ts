@@ -1,6 +1,6 @@
+import { formatNumber } from '../formatting';
 import { emptyTimeValue } from '../../static/defaultValues.ts';
 import type { Time, TimeBalance } from '../../static/importantTypes';
-import { formatNumber } from '../formatting';
 
 export const getCurrentTime = (): Time => {
     const date = new Date();

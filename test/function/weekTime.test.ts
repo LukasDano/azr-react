@@ -1,5 +1,4 @@
 ﻿import { describe, expect, it } from 'vitest';
-
 import type { WeekTime } from '../../src/static/importantTypes';
 import { parseWeekTimeToTime } from '../../src/utils/typeUtilities/weekTime';
 

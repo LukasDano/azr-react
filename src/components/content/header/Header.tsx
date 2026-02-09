@@ -1,9 +1,11 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import type { FC } from 'react';
 import { useContext, useState } from 'react';
+import { ActionHeader } from './ActionHeader';
+import { HeaderButton } from './HeaderButton';
+import { HeaderDropDownSelect } from './HeaderDropDownSelect.tsx';
 import { MdHelpOutline } from 'react-icons/md';
 import { PiGearDuotone } from 'react-icons/pi';
-
 import {
     defaultBreakTime,
     defaultWorkTime,
@@ -13,9 +15,6 @@ import {
 import { parseTimeToString } from '../../../utils/typeUtilities/time';
 import { AppContext, type AppContextValues } from '../../context/AppContext';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
-import { ActionHeader } from './ActionHeader';
-import { HeaderButton } from './HeaderButton';
-import { HeaderDropDownSelect } from './HeaderDropDownSelect.tsx';
 
 type HeaderProps = {
     openSettings: () => void;
