@@ -44,7 +44,7 @@ jobs:
                   version: latest
 
             - name: Run Biome
-              run: biome:ci
+              run: npm run biome:ci
               working-directory: ${{ env.frontend }}
 
     vitest-function:
