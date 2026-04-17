@@ -1,7 +1,7 @@
 {
     "name": "azr-react",
     "private": true,
-    "version": "0.0.2",
+    "version": "0.0.3",
     "homepage": "https://LukasDano.github.io/azr-react",
     "type": "module",
     "scripts": {
@@ -20,29 +20,29 @@
         "prepare-commit": "npm run tsc && npm run biome:check && npm run vitest:all"
     },
     "dependencies": {
-        "@headlessui/react": "^2.2.9",
-        "@tailwindcss/vite": "^4.1.18",
+        "@headlessui/react": "^2.2.10",
+        "@tailwindcss/vite": "^4.2.2",
         "@tippyjs/react": "^4.2.6",
-        "@uiw/react-color": "^2.9.4",
-        "lucide-react": "^0.563.0",
-        "react": "^19.2.0",
-        "react-dom": "^19.2.0",
-        "react-icons": "^5.5.0",
+        "@uiw/react-color": "^2.10.1",
+        "lucide-react": "^1.8.0",
+        "react": "^19.2.5",
+        "react-dom": "^19.2.5",
+        "react-icons": "^5.6.0",
         "react-select": "^5.10.2",
         "sonner": "^2.0.7",
-        "tailwindcss": "^4.1.18"
+        "tailwindcss": "^4.2.2"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.3.14",
+        "@biomejs/biome": "^2.4.12",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
-        "@types/node": "^24.10.1",
-        "@types/react": "^19.2.5",
+        "@types/node": "^25.6.0",
+        "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
-        "@vitejs/plugin-react-swc": "^4.2.2",
-        "jsdom": "^27.4.0",
+        "@vitejs/plugin-react-swc": "^4.3.0",
+        "jsdom": "^29.0.2",
         "typescript": "~5.9.3",
-        "vite": "^7.3.1",
-        "vitest": "^4.0.18"
+        "vite": "^8.0.8",
+        "vitest": "^4.1.4"
     }
 }
