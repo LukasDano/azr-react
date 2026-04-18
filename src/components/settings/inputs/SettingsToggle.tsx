@@ -1,4 +1,5 @@
 import { type FC, useContext, useState } from 'react';
+
 import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
 import { sendInfoMessage } from '../../../utils/page/notifications';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';

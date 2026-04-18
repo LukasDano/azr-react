@@ -1,14 +1,6 @@
 import { useContext, useState } from 'react';
 import { Toaster } from 'sonner';
-import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from '../static/defaultValues';
-import {
-    calculateGleitzeit,
-    calculateIstTime,
-    calculateStartEndeTimeDiff,
-    createGleitzeitAusgabeFromFloat,
-} from '../utils/calculatingTimes';
-import { sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
-import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
+
 import { Content } from './content/Calculator';
 import { FlexOfficeCalculator } from './content/flexOffice/FlexOfficeCalculator.tsx';
 import { Header } from './content/header/Header';
@@ -18,6 +10,15 @@ import { AppContext, type AppContextValues } from './context/AppContext';
 import type { SettingContextValues } from './context/SettingContext';
 import { SettingContext } from './context/SettingContext';
 import { Settings } from './settings/Settings';
+import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from '../static/defaultValues';
+import {
+    calculateGleitzeit,
+    calculateIstTime,
+    calculateStartEndeTimeDiff,
+    createGleitzeitAusgabeFromFloat,
+} from '../utils/calculatingTimes';
+import { sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
+import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
 
 export const App = () => {
     const { darkModeActive } = useContext<SettingContextValues>(SettingContext);

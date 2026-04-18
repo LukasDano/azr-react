@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+
 import { CountdownCircle } from './CountdownCircle.tsx';
 
 type TimeLabels = {

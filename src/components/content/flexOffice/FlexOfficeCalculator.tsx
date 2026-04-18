@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+
 import { FlexOfficeResult } from './FlexOfficeResult';
 import { defaultQuote, emptyTimeValue, flexOfficeQuoten } from '../../../static/defaultValues';
 import type { Time } from '../../../static/importantTypes';

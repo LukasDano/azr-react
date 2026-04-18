@@ -1,4 +1,5 @@
 import type { FC, KeyboardEvent } from 'react';
+
 import type { FloatTime } from '../../../static/importantTypes';
 import { calculateDecreasedValue, calculateIncreasedValue } from '../../../utils/calculatingTimes';
 import {

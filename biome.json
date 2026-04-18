@@ -64,7 +64,7 @@
                 "organizeImports": {
                     "level": "on",
                     "options": {
-                        "groups": [["*"], ["./*", "../*"]]
+                        "groups": [":PACKAGE:", ":BLANK_LINE:", ["./**"]]
                     }
                 }
             }

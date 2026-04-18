@@ -1,6 +1,6 @@
 ﻿import { getMonthName, getValidDateString } from './dateUtility';
-import type { Time } from '../static/importantTypes';
 import { minutesToTime } from './typeUtilities/time';
+import type { Time } from '../static/importantTypes';
 
 /**
  * Prüft, ob ein übergebenes Datum ein Arbeitstag ist

@@ -1,5 +1,6 @@
-import { type FC, type ReactNode, useContext } from 'react';
 import Tippy from '@tippyjs/react';
+import { type FC, type ReactNode, useContext } from 'react';
+
 import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 

@@ -1,4 +1,5 @@
 import { type FC, useEffect, useState } from 'react';
+
 import { WeekTimeResult } from './WeekTimeResult.tsx';
 import { emptyTimeValue } from '../../../static/defaultValues.ts';
 import type { Time, WeekDay, WeekTime } from '../../../static/importantTypes.ts';

@@ -1,4 +1,8 @@
 import { useContext, useEffect } from 'react';
+
+import { Countdown } from './countdown/Countdown.tsx';
+import { FloatTimeInputField } from './inputs/FloatTimeInputField.tsx';
+import { TimeInputField } from './inputs/TimeInputField.tsx';
 import {
     defaultBreakTime,
     defaultFloatForSixHourMode,
@@ -29,9 +33,6 @@ import {
 } from '../../utils/typeUtilities/time.ts';
 import { AppContext, type AppContextValues } from '../context/AppContext.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext.tsx';
-import { Countdown } from './countdown/Countdown.tsx';
-import { FloatTimeInputField } from './inputs/FloatTimeInputField.tsx';
-import { TimeInputField } from './inputs/TimeInputField.tsx';
 
 export const Content = () => {
     const {

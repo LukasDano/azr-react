@@ -1,7 +1,8 @@
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
 import { ChevronsUpDown } from 'lucide-react';
 import type { FC } from 'react';
 import { useContext } from 'react';
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
+
 import { availableDarkThemes, availableLightThemes } from '../../../static/themes.ts';
 import type { SettingContextValues } from '../../context/SettingContext.tsx';
 import { SettingContext } from '../../context/SettingContext.tsx';

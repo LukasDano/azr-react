@@ -1,5 +1,5 @@
-import { formatNumber } from '../formatting';
 import type { FloatTime, FloatTimeSign, Time } from '../../static/importantTypes';
+import { formatNumber } from '../formatting';
 
 export const parseFloatTimeToString = (floatTime: FloatTime): string => {
     const [sign, hours, mins] = floatTime;

@@ -1,4 +1,5 @@
 ﻿import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { Time } from '../../src/static/importantTypes';
 import {
     calculateWeekOverTime,

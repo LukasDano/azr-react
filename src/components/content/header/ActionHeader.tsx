@@ -1,7 +1,8 @@
 import { CalendarDays, ClockFading, HouseWifi } from 'lucide-react';
 import { type FC, useContext } from 'react';
-import { HeaderButton } from './HeaderButton';
 import { MdOutlineResetTv } from 'react-icons/md';
+
+import { HeaderButton } from './HeaderButton';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
 type ActionHeaderProps = {

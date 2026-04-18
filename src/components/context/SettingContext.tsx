@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+
 import type { ColorTheme, CountdownColors } from '../../static/themes';
 
 export type SettingContextValues = {

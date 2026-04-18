@@ -1,11 +1,12 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import type { FC } from 'react';
 import { useContext, useState } from 'react';
+import { MdHelpOutline } from 'react-icons/md';
+import { PiGearDuotone } from 'react-icons/pi';
+
 import { ActionHeader } from './ActionHeader';
 import { HeaderButton } from './HeaderButton';
 import { HeaderDropDownSelect } from './HeaderDropDownSelect.tsx';
-import { MdHelpOutline } from 'react-icons/md';
-import { PiGearDuotone } from 'react-icons/pi';
 import {
     defaultBreakTime,
     defaultWorkTime,

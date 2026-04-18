@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { CountdownElement, type CountdownUnit } from './CountdownElement.tsx';
 import type { CountdownColors } from '../../../static/themes.ts';
 import { defaultCountdownTheme } from '../../../static/themes.ts';
@@ -70,7 +71,6 @@ export const Countdown: FC<CountdownProps> = ({
             intervalRef.current = null;
         }
 
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         update(end.getTime());
 
         if (end.getTime() > Date.now()) {
