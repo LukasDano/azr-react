@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+
 import { FlexOfficeResult } from './FlexOfficeResult';
 import { defaultQuote, emptyTimeValue, flexOfficeQuoten } from '../../../static/defaultValues';
 import type { Time } from '../../../static/importantTypes';
@@ -74,7 +75,7 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
     return (
         <BaseModal modalTitle={'Flexofficerechner'} isOpen={isOpen} onClose={onClose}>
             <div className="flex flex-col gap-6">
-                <div className="flex flex-col space-y-4 w-full">
+                <div className="flex w-full flex-col space-y-4">
                     <DropDownSelect
                         name={'Quote'}
                         options={flexOfficeQuoten.map((q) => `${q}%`)}
@@ -96,7 +97,7 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
                         }}
                     />
 
-                    <div className="flex flex-row space-x-4 w-full">
+                    <div className="flex w-full flex-row space-x-4">
                         <div className="flex-1">
                             <BaseFormInput
                                 type={'number'}
@@ -135,7 +136,7 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
                         restFlexOfficeTime={restFlexTime}
                     />
 
-                    <div className="flex w-full justify-center items-center">
+                    <div className="flex w-full items-center justify-center">
                         <BaseButton
                             text="Berechnen"
                             tooltip="Flexoffice Zeit berechnen"

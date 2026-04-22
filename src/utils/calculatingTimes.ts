@@ -1,6 +1,6 @@
 import { formatNumber } from './formatting';
-import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
 import { getCookie } from './storage/cookieManager';
+import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
 
 /**
  * Gibt die Differenz zwischen Start und Ende zurück

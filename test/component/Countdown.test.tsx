@@ -1,5 +1,6 @@
-﻿import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { act, render, screen } from '@testing-library/react';
+﻿import { act, render, screen } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { Countdown } from '../../src/components/content/countdown/Countdown.tsx';
 
 const advanceSeconds = async (seconds: number) => {

@@ -1,13 +1,14 @@
 import { Palette, Pickaxe } from 'lucide-react';
 import { useContext } from 'react';
+
+import { ColorPicker } from './inputs/ColorSelector.tsx';
+import { SettingsToggle } from './inputs/SettingsToggle';
 import { SettingsGroup } from './SettingsGroup';
 import type { ThemeType } from '../../static/themes';
 import { availableDarkThemes, availableLightThemes } from '../../static/themes';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
 import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
-import { ColorPicker } from './inputs/ColorSelector.tsx';
-import { SettingsToggle } from './inputs/SettingsToggle';
 
 export const Settings = () => {
     const {
@@ -42,8 +43,8 @@ export const Settings = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 w-full p-4 overflow-auto">
-            <SettingsGroup title={'Design'} icon={<Palette className={'w-5 h-5'} />} defaultOpen={true}>
+        <div className="flex w-full flex-col gap-4 overflow-auto p-4">
+            <SettingsGroup title={'Design'} icon={<Palette className={'h-5 w-5'} />} defaultOpen={true}>
                 <SettingsToggle
                     settingName={'Dark Mode'}
                     defaultValue={darkModeActive}
@@ -83,7 +84,7 @@ export const Settings = () => {
                 />
             </SettingsGroup>
 
-            <SettingsGroup title={'Funktionen'} icon={<Pickaxe className={'w-5 h-5'} />} defaultOpen={false}>
+            <SettingsGroup title={'Funktionen'} icon={<Pickaxe className={'h-5 w-5'} />} defaultOpen={false}>
                 <SettingsToggle
                     settingName={'Nach Arbeitsende automatisch erhöhen'}
                     defaultValue={overTimeAutomatic}

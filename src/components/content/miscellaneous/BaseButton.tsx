@@ -1,5 +1,6 @@
-import { type FC, type ReactNode, useContext } from 'react';
 import Tippy from '@tippyjs/react';
+import { type FC, type ReactNode, useContext } from 'react';
+
 import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
@@ -18,7 +19,7 @@ export const BaseButton: FC<BaseButtonProps> = ({ icon, tooltip, onClick, text }
         <Tippy content={tooltip}>
             <button
                 onClick={onClick}
-                className={`flex items-center justify-center h-10 px-4 text-white rounded-lg transition-colors duration-200 ${themeClasses}`}
+                className={`flex h-10 items-center justify-center rounded-lg px-4 text-white transition-colors duration-200 ${themeClasses}`}
             >
                 {text ?? icon}
             </button>

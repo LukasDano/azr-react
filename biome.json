@@ -8,14 +8,6 @@
     "files": {
         "ignoreUnknown": false
     },
-    "formatter": {
-        "enabled": true,
-        "formatWithErrors": false,
-        "indentStyle": "space",
-        "indentWidth": 4,
-        "lineEnding": "auto",
-        "lineWidth": 120
-    },
     "linter": {
         "enabled": true,
         "includes": ["**/*.{ts,tsx}"],
@@ -42,14 +34,29 @@
                 "noStaticElementInteractions": "off",
                 "noLabelWithoutControl": "off",
                 "useKeyWithClickEvents": "off"
+            },
+            "nursery": {
+                "useSortedClasses": {
+                    "level": "error",
+                    "fix": "safe"
+                }
             }
         }
+    },
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": false,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineEnding": "auto",
+        "lineWidth": 120
     },
     "javascript": {
         "formatter": {
             "quoteStyle": "single",
             "semicolons": "always",
-            "trailingCommas": "all"
+            "trailingCommas": "all",
+            "trailingNewline": true
         }
     },
     "css": {
@@ -64,7 +71,7 @@
                 "organizeImports": {
                     "level": "on",
                     "options": {
-                        "groups": [["*"], ["./*", "../*"]]
+                        "groups": [":PACKAGE:", ":BLANK_LINE:", ["./**"]]
                     }
                 }
             }

@@ -1,7 +1,8 @@
 import { CalendarDays, ClockFading, HouseWifi } from 'lucide-react';
 import { type FC, useContext } from 'react';
-import { HeaderButton } from './HeaderButton';
 import { MdOutlineResetTv } from 'react-icons/md';
+
+import { HeaderButton } from './HeaderButton';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
 type ActionHeaderProps = {
@@ -21,27 +22,26 @@ export const ActionHeader: FC<ActionHeaderProps> = ({
 
     return (
         <nav
-            className={`bg-zinc-600 dark:bg-gray-700 border-slate-500 dark:border-slate-900
-                p-2 border-b flex justify-center sticky top-0 z-39 shadow-sm rounded-b-xl`}
+            className={`sticky top-0 z-39 flex justify-center rounded-b-xl border-slate-500 border-b bg-zinc-600 p-2 shadow-sm dark:border-slate-900 dark:bg-gray-700`}
         >
-            <div className="flex items-center gap-5 flex-wrap justify-center">
+            <div className="flex flex-wrap items-center justify-center gap-5">
                 <HeaderButton
-                    icon={<CalendarDays className={'w-6 h-6'} />}
+                    icon={<CalendarDays className={'h-6 w-6'} />}
                     tooltip={`Wochenzeitrechner öffnen ${showShortcuts ? '[alt + w]' : ''}`}
                     onClick={openWeekTimeAction}
                 />
                 <HeaderButton
-                    icon={<HouseWifi className={'w-6 h-6'} />}
+                    icon={<HouseWifi className={'h-6 w-6'} />}
                     tooltip={`Flexofficerechner ${showShortcuts ? '[alt + h]' : ''}`}
                     onClick={openFlexOfficeAction}
                 />
                 <HeaderButton
-                    icon={<ClockFading className={'w-6 h-6'} />}
+                    icon={<ClockFading className={'h-6 w-6'} />}
                     tooltip={`Werte wenn jetzt ausgetragen wird ${showShortcuts ? '[alt + c]' : ''}`}
                     onClick={currentStatsAction}
                 />
                 <HeaderButton
-                    icon={<MdOutlineResetTv className={'w-6 h-6'} />}
+                    icon={<MdOutlineResetTv className={'h-6 w-6'} />}
                     tooltip={`Eingaben zurücksetzen ${showShortcuts ? '[F1]' : ''}`}
                     onClick={resetAction}
                 />

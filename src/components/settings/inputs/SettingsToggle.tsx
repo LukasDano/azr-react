@@ -1,4 +1,5 @@
 import { type FC, useContext, useState } from 'react';
+
 import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
 import { sendInfoMessage } from '../../../utils/page/notifications';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
@@ -28,7 +29,7 @@ export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle,
         <div className="flex items-center justify-between py-2">
             <div className="flex flex-col">
                 <span className="font-medium text-gray-900 dark:text-gray-100">{settingName}</span>
-                <span className="text-sm text-gray-500 dark:text-gray-300">{description}</span>
+                <span className="text-gray-500 text-sm dark:text-gray-300">{description}</span>
             </div>
 
             <button

@@ -15,29 +15,26 @@ export const SettingsGroup: FC<SettingsGroupProps> = ({ title, icon, children, d
     return (
         <div className="w-full">
             <button
-                className="flex flex-row items-center justify-between p-3 mb-2 cursor-pointer
-                          bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700
-                          transition-all duration-200 w-full z-10"
+                className="z-10 mb-2 flex w-full cursor-pointer flex-row items-center justify-between rounded-lg bg-gray-50 p-3 transition-all duration-200 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex flex-row items-baseline">
-                    <span className="text-lg mr-3">{icon}</span>
-                    <span className="text-lg font-bold text-gray-900 dark:text-gray-100">{title}</span>
+                    <span className="mr-3 text-lg">{icon}</span>
+                    <span className="font-bold text-gray-900 text-lg dark:text-gray-100">{title}</span>
                 </div>
 
                 <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-                    <Play className={'w-5 h-5 rotate-90'} />
+                    <Play className={'h-5 w-5 rotate-90'} />
                 </div>
             </button>
 
             <div
-                className={`transition-all duration-300 ease-in-out
-                ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
             >
-                <div className="p-4 pt-0 space-y-3">{children}</div>
+                <div className="space-y-3 p-4 pt-0">{children}</div>
             </div>
 
-            {!isOpen && <hr className="border-t border-gray-200 dark:border-gray-600 my-6" />}
+            {!isOpen && <hr className="my-6 border-gray-200 border-t dark:border-gray-600" />}
         </div>
     );
 };

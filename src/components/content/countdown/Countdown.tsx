@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { CountdownElement, type CountdownUnit } from './CountdownElement.tsx';
 import type { CountdownColors } from '../../../static/themes.ts';
 import { defaultCountdownTheme } from '../../../static/themes.ts';
@@ -94,7 +95,7 @@ export const Countdown: FC<CountdownProps> = ({
     };
 
     return (
-        <div className="bg-zinc-400 dark:bg-gray-800 flex items-center justify-center gap-6 p-6 rounded-2xl shadow-xl w-2/3 mx-auto h-32">
+        <div className="mx-auto flex h-32 w-2/3 items-center justify-center gap-6 rounded-2xl bg-zinc-400 p-6 shadow-xl dark:bg-gray-800">
             {createCountdownElements(time)
                 .filter((unit) => (showDays ? true : unit.key !== 'days'))
                 .map((unit) => (

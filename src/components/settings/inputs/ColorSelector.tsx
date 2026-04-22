@@ -1,7 +1,7 @@
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
 import type { ColorResult } from '@uiw/react-color';
 import { Chrome, ChromeInputType } from '@uiw/react-color';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 
 type ColorPickerProps = {
     color?: string;
@@ -49,12 +49,12 @@ export const ColorPicker: FC<ColorPickerProps> = ({
         <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col">
                 {label && <span className="font-medium text-gray-900 dark:text-gray-100">{label}</span>}
-                {description && <span className="text-sm text-gray-500 dark:text-gray-300">{description}</span>}
+                {description && <span className="text-gray-500 text-sm dark:text-gray-300">{description}</span>}
             </div>
 
             <button
                 onClick={() => setOpen(true)}
-                className="px-4 py-2 rounded-md text-white text-sm font-medium transition shadow-md hover:opacity-90"
+                className="rounded-md px-4 py-2 font-medium text-sm text-white shadow-md transition hover:opacity-90"
                 style={{ backgroundColor: currentColor, minWidth: '80px' }}
                 aria-label={label}
             >
@@ -64,24 +64,24 @@ export const ColorPicker: FC<ColorPickerProps> = ({
             {open && (
                 <div
                     onClick={handleClose}
-                    className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50"
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
                 >
                     <div
-                        className="bg-white p-6 rounded-xl shadow-xl w-80 relative flex flex-col items-center text-center"
+                        className="relative flex w-80 flex-col items-center rounded-xl bg-white p-6 text-center shadow-xl"
                         onClick={(evt) => evt.stopPropagation()}
                     >
                         <Chrome color={tempColor} onChange={handleChange} inputType={ChromeInputType.HEXA} />
 
-                        <div className="mt-6 flex justify-center gap-3 w-full">
+                        <div className="mt-6 flex w-full justify-center gap-3">
                             <button
                                 onClick={handleClose}
-                                className="px-3 py-1.5 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-800"
+                                className="rounded-md bg-gray-100 px-3 py-1.5 text-gray-800 hover:bg-gray-200"
                             >
                                 Abbrechen
                             </button>
                             <button
                                 onClick={handleConfirm}
-                                className="px-3 py-1.5 rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                                className="rounded-md bg-blue-600 px-3 py-1.5 text-white hover:bg-blue-700"
                             >
                                 Bestätigen
                             </button>

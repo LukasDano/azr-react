@@ -1,5 +1,6 @@
-import { type FC, type ReactNode, useContext } from 'react';
 import Tippy from '@tippyjs/react';
+import { type FC, type ReactNode, useContext } from 'react';
+
 import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
@@ -17,7 +18,7 @@ export const HeaderButton: FC<HeaderButtonProps> = ({ icon, onClick, tooltip }) 
     return (
         <Tippy content={tooltip}>
             <button
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg shadow transition ${themeClasses}`}
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 shadow transition ${themeClasses}`}
                 onClick={onClick}
             >
                 {icon}

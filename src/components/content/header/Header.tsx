@@ -1,11 +1,12 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import type { FC } from 'react';
 import { useContext, useState } from 'react';
+import { MdHelpOutline } from 'react-icons/md';
+import { PiGearDuotone } from 'react-icons/pi';
+
 import { ActionHeader } from './ActionHeader';
 import { HeaderButton } from './HeaderButton';
 import { HeaderDropDownSelect } from './HeaderDropDownSelect.tsx';
-import { MdHelpOutline } from 'react-icons/md';
-import { PiGearDuotone } from 'react-icons/pi';
 import {
     defaultBreakTime,
     defaultWorkTime,
@@ -54,33 +55,32 @@ export const Header: FC<HeaderProps> = ({
     return (
         <>
             <nav
-                className={`bg-zinc-700 dark:bg-gray-800 border-slate-300 dark:border-slate-900
-                p-4 border-b flex items-center justify-between sticky top-0 shadow z-40`}
+                className={`sticky top-0 z-40 flex items-center justify-between border-slate-300 border-b bg-zinc-700 p-4 shadow dark:border-slate-900 dark:bg-gray-800`}
             >
-                <h1 className="text-4xl font-bold text-white">Arbeitszeitrechner</h1>
+                <h1 className="font-bold text-4xl text-white">Arbeitszeitrechner</h1>
 
-                <div className="flex items-center gap-6 flex-wrap justify-end">
+                <div className="flex flex-wrap items-center justify-end gap-6">
                     <HeaderDropDownSelect
                         selectedItem={parseTimeToString(workTime)}
                         items={availableWorkTimes}
                         onChange={(val) => handleWorkTimeModeChange(val)}
                     />
                     <HeaderButton
-                        icon={<MdHelpOutline className={'w-6 h-6'} />}
+                        icon={<MdHelpOutline className={'h-6 w-6'} />}
                         tooltip={'Problem melden'}
                         onClick={openGitHubIssues}
                     />
                     <HeaderButton
-                        icon={<PiGearDuotone className={'w-6 h-6'} />}
+                        icon={<PiGearDuotone className={'h-6 w-6'} />}
                         tooltip={`Einstellungen ${showShortcuts ? '[alt + i]' : ''}`}
                         onClick={openSettings}
                     />
                     <HeaderButton
                         icon={
                             actionHeaderOpen ? (
-                                <ChevronUp className={'w-6 h-6'} />
+                                <ChevronUp className={'h-6 w-6'} />
                             ) : (
-                                <ChevronDown className={'w-6 h-6'} />
+                                <ChevronDown className={'h-6 w-6'} />
                             )
                         }
                         tooltip={'Zusätzliche Funktionen'}

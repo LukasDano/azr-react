@@ -1,6 +1,6 @@
-import babel from 'vite-plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import babel from 'vite-plugin-babel';
 import { defineConfig } from 'vitest/config';
 
 // biome-ignore lint/style/noDefaultExport: Vite config requires default export
