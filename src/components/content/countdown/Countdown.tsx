@@ -71,7 +71,6 @@ export const Countdown: FC<CountdownProps> = ({
             intervalRef.current = null;
         }
 
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         update(end.getTime());
 
         if (end.getTime() > Date.now()) {
