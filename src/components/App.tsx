@@ -80,7 +80,12 @@ export const App = () => {
     return (
         <div className={`${darkModeActive ? 'dark' : 'light'}`}>
             <div className="h-screen dark:bg-gray-900">
-                <BaseModal modalTitle={'Settings'} isOpen={settingsOpen} onClose={() => setSettingsOpen(false)}>
+                <BaseModal
+                    modalTitle={'Settings'}
+                    size={'md'}
+                    isOpen={settingsOpen}
+                    onClose={() => setSettingsOpen(false)}
+                >
                     <Settings />
                 </BaseModal>
 

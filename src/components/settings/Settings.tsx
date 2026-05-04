@@ -3,6 +3,7 @@ import { useContext, useState } from 'react';
 import { ColorPicker } from './inputs/ColorSelector.tsx';
 import { SettingsToggle } from './inputs/SettingsToggle';
 import { settingTabs } from './settingConfig.tsx';
+import { name, version } from '../../../package.json';
 import { availableThemes, type ThemeType } from '../../static/themes';
 import { notificationPositions, type ToastPosition } from '../../utils/page/notifications.ts';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
@@ -108,6 +109,13 @@ export const Settings = () => {
                         onToggle={updateOverTimeAutomatic}
                     />
                 )}
+            </div>
+
+            <div className={'flex flex-col rounded-2xl bg-gray-200 p-3 shadow-sm dark:bg-gray-600'}>
+                <div className="flex flex-col items-center">
+                    <span className="font-bold text-gray-900 text-xl dark:text-gray-100">{name}</span>
+                    <span className="text-gray-500 text-sm dark:text-gray-300">Version {version}</span>
+                </div>
             </div>
         </div>
     );

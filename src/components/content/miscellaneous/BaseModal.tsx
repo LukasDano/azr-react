@@ -1,31 +1,39 @@
 import type { FC, ReactNode } from 'react';
 import { IoClose } from 'react-icons/io5';
 
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'xl2' | 'xl3' | 'full';
+
 type BaseModalProps = {
-    modalTitle: string;
     isOpen: boolean;
     onClose: () => void;
     children: ReactNode;
+    modalTitle: string;
+    modalHeader?: ReactNode;
+    size?: ModalSize;
 };
 
-export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children }) => {
+export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children, modalHeader, size = 'md' }) => {
     if (!isOpen) return null;
 
-    document.addEventListener('keydown', (evt) => {
-        if (evt.key === 'Escape') onClose();
-    });
+    const sizeClasses: Record<ModalSize, string> = {
+        sm: 'max-w-md max-h-[60vh]',
+        md: 'max-w-xl max-h-[70vh]',
+        lg: 'max-w-3xl max-h-[80vh]',
+        xl: 'max-w-5xl max-h-[85vh]',
+        xl2: 'max-w-6xl min-h-[80vh] max-h-[90vh]',
+        xl3: 'max-w-6xl min-h-[80vh] max-h-[90vh]',
+        full: 'w-full h-full',
+    };
 
     return (
         <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-3 py-2 text-white backdrop-blur-sm transition-opacity duration-300"
-            onKeyDown={(evt) => {
-                if (evt.key === 'Escape') onClose();
-            }}
+            onClick={onClose}
         >
             <div
-                className="relative w-full max-w-2xl rounded-lg bg-white p-6 text-black shadow-lg dark:bg-gray-800 dark:text-white"
+                className={`relative w-full rounded-lg bg-white p-6 text-black shadow-lg dark:bg-gray-800 dark:text-white ${sizeClasses[size]}
+                `}
                 onClick={(evt) => evt.stopPropagation()}
-                onKeyDown={(evt) => evt.stopPropagation()}
             >
                 <button
                     onClick={onClose}
@@ -34,8 +42,10 @@ export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, chi
                 >
                     <IoClose />
                 </button>
-                <h2 className="mb-4 font-semibold text-xl">{modalTitle}</h2>
-                <div className={'max-h-150'}>{children}</div>
+
+                {modalHeader || <h2 className="mb-4 font-semibold text-xl">{modalTitle}</h2>}
+
+                {children}
             </div>
         </div>
     );
