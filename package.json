@@ -1,7 +1,7 @@
 {
     "name": "azr-react",
     "private": true,
-    "version": "0.0.3",
+    "version": "0.0.4",
     "homepage": "https://LukasDano.github.io/azr-react",
     "type": "module",
     "scripts": {
