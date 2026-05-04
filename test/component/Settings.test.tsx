@@ -32,6 +32,8 @@ describe('Settings Component', () => {
         updateOverTimeAutomatic: vi.fn(),
         showShortcuts: false,
         updateShowShortcuts: vi.fn(),
+        toastPosition: 'bottomRight',
+        updateToastPosition: vi.fn(),
     };
 
     const renderWithContext = (contextValues: Partial<SettingContextValues> = {}) => {

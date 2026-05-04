@@ -17,11 +17,11 @@ import {
     calculateStartEndeTimeDiff,
     createGleitzeitAusgabeFromFloat,
 } from '../utils/calculatingTimes';
-import { sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
+import { notificationPositions, sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
 
 export const App = () => {
-    const { darkModeActive } = useContext<SettingContextValues>(SettingContext);
+    const { darkModeActive, toastPosition } = useContext<SettingContextValues>(SettingContext);
     const {
         startTime,
         updateStartTime,
@@ -107,7 +107,7 @@ export const App = () => {
                 <Content />
 
                 <Toaster
-                    position="bottom-right"
+                    position={notificationPositions[toastPosition]}
                     closeButton={true}
                     richColors={true}
                     theme={`${darkModeActive ? 'dark' : 'light'}`}

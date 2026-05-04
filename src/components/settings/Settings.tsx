@@ -5,6 +5,7 @@ import { ColorPicker } from './inputs/ColorSelector.tsx';
 import { SettingsToggle } from './inputs/SettingsToggle';
 import { SettingsGroup } from './SettingsGroup';
 import { availableThemes, type ThemeType } from '../../static/themes';
+import { notificationPositions, type ToastPosition } from '../../utils/page/notifications.ts';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
 import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
@@ -21,6 +22,8 @@ export const Settings = () => {
         updateOverTimeAutomatic,
         showShortcuts,
         updateShowShortcuts,
+        toastPosition,
+        updateToastPosition,
     } = useContext<SettingContextValues>(SettingContext);
 
     const handleCountdownColorChange = (key: CountdownUnit, val: string) => {
@@ -75,6 +78,12 @@ export const Settings = () => {
                     defaultOption={colorTheme.dark}
                     options={Object.keys(availableThemes)}
                     onChange={(val) => handleThemeChange('dark', val as string)}
+                />
+                <DropDownSelect
+                    name={'Benachrichtigungs Position'}
+                    defaultOption={toastPosition}
+                    options={Object.keys(notificationPositions)}
+                    onChange={(val) => updateToastPosition(val as ToastPosition)}
                 />
                 <SettingsToggle
                     settingName={'Zeige Shortcuts an'}
