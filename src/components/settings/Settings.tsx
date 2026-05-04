@@ -34,7 +34,7 @@ export const Settings = () => {
         updateBackgroundTheme,
     } = useContext<SettingContextValues>(SettingContext);
 
-    const [activeTabId, setActiveTabId] = useState<number>(settingTabsByName.design.id);
+    const [activeTabId, setActiveTabId] = useState<number>(settingTabsByName.Design.id);
     const [error, setError] = useState<SettingsError | null>(null);
 
     const handleCountdownColorChange = (key: CountdownUnit, val: string) => {
