@@ -14,7 +14,7 @@ import {
 } from 'react-spinners';
 
 import type { ColorTheme, ThemeName } from '../../../static/themes.ts';
-import type {  SettingContextValues } from '../../context/SettingContext.tsx';
+import type { SettingContextValues } from '../../context/SettingContext.tsx';
 import { SettingContext } from '../../context/SettingContext.tsx';
 
 type LoaderIcon = 'bounce' | 'climbing' | 'clock' | 'fade' | 'gird' | 'hash' | 'ring' | 'pulse' | 'scale' | 'puff';

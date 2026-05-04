@@ -36,8 +36,7 @@ export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, chi
             onClick={onClose}
         >
             <div
-                className={`relative w-full rounded-lg bg-white p-6 text-black shadow-lg ${getBackgroundTheme(backgroundTheme).modalBg} dark:text-white ${sizeClasses[size]}
-                `}
+                className={`relative w-full rounded-lg bg-white p-6 text-black shadow-lg ${getBackgroundTheme(backgroundTheme).modalBg} dark:text-white ${sizeClasses[size]} flex flex-col`}
                 onClick={(evt) => evt.stopPropagation()}
             >
                 <button

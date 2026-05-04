@@ -148,7 +148,7 @@ export const Settings = () => {
     );
 
     return (
-        <div className="flex w-full flex-col gap-4 overflow-auto p-4">
+        <div className="flex h-full w-full flex-col gap-4 overflow-auto p-4">
             <div className="flex w-full justify-center">
                 <TabBar tabs={settingTabs} activeTabId={activeTabId} onTabChange={setActiveTabId} />
             </div>
