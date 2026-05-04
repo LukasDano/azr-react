@@ -4,8 +4,7 @@ import { useContext } from 'react';
 import { ColorPicker } from './inputs/ColorSelector.tsx';
 import { SettingsToggle } from './inputs/SettingsToggle';
 import { SettingsGroup } from './SettingsGroup';
-import type { ThemeType } from '../../static/themes';
-import { availableDarkThemes, availableLightThemes } from '../../static/themes';
+import { availableThemes, type ThemeType } from '../../static/themes';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
 import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
@@ -68,13 +67,13 @@ export const Settings = () => {
                 <DropDownSelect
                     name={'Lightmode Theme'}
                     defaultOption={colorTheme.light}
-                    options={Object.keys(availableLightThemes)}
+                    options={Object.keys(availableThemes)}
                     onChange={(val) => handleThemeChange('light', val as string)}
                 />
                 <DropDownSelect
                     name={'Darkmode Theme'}
                     defaultOption={colorTheme.dark}
-                    options={Object.keys(availableDarkThemes)}
+                    options={Object.keys(availableThemes)}
                     onChange={(val) => handleThemeChange('dark', val as string)}
                 />
                 <SettingsToggle
