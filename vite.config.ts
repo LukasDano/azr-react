@@ -1,19 +1,11 @@
-import babel from 'vite-plugin-babel';
+import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 // biome-ignore lint/style/noDefaultExport: Vite config requires default export
 export default defineConfig({
-    plugins: [
-        react(),
-        babel({
-            babelConfig: {
-                plugins: ['babel-plugin-react-compiler'],
-            },
-        }),
-        tailwindcss(),
-    ],
+    plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss({ optimize: { minify: true } })],
     base: '/azr-react/',
     server: {
         port: 3807,
@@ -26,7 +18,26 @@ export default defineConfig({
         host: 'localhost',
     },
     build: {
-        sourcemap: false,
+        sourcemap: true,
+        rolldownOptions: {
+            output: {
+                codeSplitting: {
+                    minSize: 100000, // 100KB global minimum chunk size to avoid small artifacts
+                    groups: [
+                        {
+                            name: 'react',
+                            test: /node_modules[\\/]react/,
+                            priority: 10,
+                        },
+                        {
+                            name: 'lib',
+                            test: /[\\/]node_modules[\\/]/,
+                            priority: 10,
+                        },
+                    ],
+                },
+            },
+        },
     },
     test: {
         environment: 'jsdom',

@@ -21,7 +21,7 @@ export const BaseFormInput: FC<FormInputProps> = ({
 }) => {
     return (
         <>
-            <label htmlFor={id} className="block font-medium mb-1">
+            <label htmlFor={id} className="mb-1 block font-medium">
                 {label}
             </label>
             <input
@@ -32,7 +32,7 @@ export const BaseFormInput: FC<FormInputProps> = ({
                 onChange={(evt) => onChange(evt.target.value)}
                 min={min}
                 max={max}
-                className="w-full border bg-gray-100 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                className="w-full rounded border border-gray-300 bg-gray-100 px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="..."
                 autoComplete="off"
             />

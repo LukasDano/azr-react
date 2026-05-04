@@ -1,4 +1,8 @@
 import { useContext, useEffect } from 'react';
+
+import { Countdown } from './countdown/Countdown.tsx';
+import { FloatTimeInputField } from './inputs/FloatTimeInputField.tsx';
+import { TimeInputField } from './inputs/TimeInputField.tsx';
 import {
     defaultBreakTime,
     defaultFloatForSixHourMode,
@@ -29,11 +33,8 @@ import {
 } from '../../utils/typeUtilities/time.ts';
 import { AppContext, type AppContextValues } from '../context/AppContext.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext.tsx';
-import { Countdown } from './countdown/Countdown.tsx';
-import { FloatTimeInputField } from './inputs/FloatTimeInputField.tsx';
-import { TimeInputField } from './inputs/TimeInputField.tsx';
 
-export const Content = () => {
+const Calculator = () => {
     const {
         startTime,
         updateStartTime,
@@ -110,8 +111,8 @@ export const Content = () => {
     }, [breakTime, startTime]);
 
     return (
-        <div className="mx-auto max-w-3xl w-full px-4 py-8">
-            <div className="flex flex-col lg:flex-row gap-4 mb-8 justify-center items-stretch">
+        <div className="mx-auto w-full max-w-3xl px-4 py-8">
+            <div className="mb-8 flex flex-col items-stretch justify-center gap-4 lg:flex-row">
                 <div className="flex-1">
                     <TimeInputField label="Arbeitsbeginn" value={startTime} onChange={handleStartTimeChange} />
                 </div>
@@ -120,14 +121,14 @@ export const Content = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
-                <div className="flex-1 max-w-xs mx-auto sm:mx-0">
+            <div className="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
+                <div className="mx-auto max-w-xs flex-1 sm:mx-0">
                     <TimeInputField label="Pause" value={breakTime} disabled={true} />
                 </div>
-                <div className="flex-1 max-w-xs mx-auto sm:mx-0">
+                <div className="mx-auto max-w-xs flex-1 sm:mx-0">
                     <TimeInputField label="Arbeitszeit" value={workTime} disabled={true} />
                 </div>
-                <div className="flex-1 max-w-xs mx-auto sm:mx-0">
+                <div className="mx-auto max-w-xs flex-1 sm:mx-0">
                     <FloatTimeInputField
                         label="Gleitzeit"
                         value={floatTime}
@@ -149,3 +150,6 @@ export const Content = () => {
         </div>
     );
 };
+
+// biome-ignore lint/style/noDefaultExport: should be used to split the js code
+export default Calculator;

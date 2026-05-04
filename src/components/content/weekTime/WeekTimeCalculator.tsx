@@ -1,4 +1,5 @@
 import { type FC, useEffect, useState } from 'react';
+
 import { WeekTimeResult } from './WeekTimeResult.tsx';
 import { emptyTimeValue } from '../../../static/defaultValues.ts';
 import type { Time, WeekDay, WeekTime } from '../../../static/importantTypes.ts';
@@ -14,7 +15,7 @@ type WeekTimeCalculatorProps = {
     onClose: () => void;
 };
 
-export const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClose }) => {
+const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClose }) => {
     const [weekTime, setWeekTime] = useState<WeekTime>(getCookie('weekTime') as WeekTime);
     const [weekWorkTime, setWeekWorkTime] = useState<Time>(emptyTimeValue);
     const [weekOverTime, setWeekOverTime] = useState<Time>(emptyTimeValue);
@@ -41,7 +42,7 @@ export const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClos
     return (
         <BaseModal modalTitle={'Wochenzeitrechner'} isOpen={isOpen} onClose={onClose}>
             <div className="flex flex-col gap-6">
-                <div className="flex flex-col space-y-4 w-full">
+                <div className="flex w-full flex-col space-y-4">
                     <div className="flex w-full gap-4">
                         <TimeInputField
                             label="Montag"
@@ -80,7 +81,7 @@ export const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClos
 
                     <WeekTimeResult show={showResult} weekOverTime={weekOverTime} weekWorkTime={weekWorkTime} />
 
-                    <div className="flex w-full justify-center items-center">
+                    <div className="flex w-full items-center justify-center">
                         <BaseButton
                             text="Berechnen"
                             tooltip="Wochenzeit berechnen"
@@ -92,3 +93,6 @@ export const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClos
         </BaseModal>
     );
 };
+
+// biome-ignore lint/style/noDefaultExport: should be used to split the js code
+export default WeekTimeCalculator;

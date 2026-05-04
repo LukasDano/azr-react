@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+
 import { CountdownCircle } from './CountdownCircle.tsx';
 
 type TimeLabels = {
@@ -35,15 +36,15 @@ export const CountdownElement: FC<CountdownElementProps> = ({ unit, color, value
     const getPercent = (val: number, max: number) => (val / max) * 100;
 
     return (
-        <div key={unit} className="flex flex-col items-center pl-1 pr-1">
-            <div className="relative flex items-center justify-center mb-1">
+        <div key={unit} className="flex flex-col items-center pr-1 pl-1">
+            <div className="relative mb-1 flex items-center justify-center">
                 <CountdownCircle percent={getPercent(value, maxForUnit[unit])} color={color} thickness={3} />
-                <span className="absolute text-gray-700 dark:text-gray-400 text-2xl font-mono font-bold select-none">
+                <span className="absolute select-none font-bold font-mono text-2xl text-gray-700 dark:text-gray-400">
                     {value < 10 ? `0${value}` : value}
                 </span>
             </div>
             {showLabel && (
-                <span className="text-xs uppercase tracking-widest text-gray-700 dark:text-gray-400">
+                <span className="text-gray-700 text-xs uppercase tracking-widest dark:text-gray-400">
                     {defaultLabels[unit]}
                 </span>
             )}

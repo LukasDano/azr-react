@@ -1,5 +1,7 @@
 import { createContext } from 'react';
-import type { ColorTheme, CountdownColors } from '../../static/themes';
+
+import type { BackgroundTheme, ColorTheme, CountdownColors } from '../../static/themes';
+import type { ToastPosition } from '../../utils/page/notifications';
 
 export type SettingContextValues = {
     darkModeActive: boolean;
@@ -12,6 +14,10 @@ export type SettingContextValues = {
     updateOverTimeAutomatic: (val: boolean) => void;
     showShortcuts: boolean;
     updateShowShortcuts: (val: boolean) => void;
+    toastPosition: ToastPosition;
+    updateToastPosition: (val: ToastPosition) => void;
+    backgroundTheme: BackgroundTheme;
+    updateBackgroundTheme: (val: BackgroundTheme) => void;
 };
 
 export const SettingContext = createContext<SettingContextValues>({} as SettingContextValues);
