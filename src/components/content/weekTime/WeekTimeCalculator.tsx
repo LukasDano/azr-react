@@ -15,7 +15,7 @@ type WeekTimeCalculatorProps = {
     onClose: () => void;
 };
 
-export const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClose }) => {
+const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClose }) => {
     const [weekTime, setWeekTime] = useState<WeekTime>(getCookie('weekTime') as WeekTime);
     const [weekWorkTime, setWeekWorkTime] = useState<Time>(emptyTimeValue);
     const [weekOverTime, setWeekOverTime] = useState<Time>(emptyTimeValue);
@@ -93,3 +93,6 @@ export const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClos
         </BaseModal>
     );
 };
+
+// biome-ignore lint/style/noDefaultExport: should be used to split the js code
+export default WeekTimeCalculator;

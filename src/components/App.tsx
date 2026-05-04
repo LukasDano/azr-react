@@ -1,14 +1,13 @@
-import { useContext, useState } from 'react';
+import { lazy, Suspense, useContext, useState } from 'react';
 import { Toaster } from 'sonner';
 
 import { ErrorBoundary } from './boundaries/ErrorBoundary.tsx';
 import { PanelErrorBoundary } from './boundaries/PanelErrorBoundary.tsx';
-import { Content } from './content/Calculator';
-import { FlexOfficeCalculator } from './content/flexOffice/FlexOfficeCalculator.tsx';
 import { Header } from './content/header/Header';
 import { BaseModal } from './content/miscellaneous/BaseModal';
-import { WeekTimeCalculator } from './content/weekTime/WeekTimeCalculator.tsx';
-import { AppContext, type AppContextValues } from './context/AppContext';
+import { Loader } from './content/miscellaneous/Loader.tsx';
+import type { AppContextValues } from './context/AppContext';
+import { AppContext } from './context/AppContext';
 import type { SettingContextValues } from './context/SettingContext';
 import { SettingContext } from './context/SettingContext';
 import { Settings } from './settings/Settings';
@@ -22,6 +21,10 @@ import {
 } from '../utils/calculatingTimes';
 import { notificationPositions, sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
+
+const Calculator = lazy(() => import('./content/Calculator.tsx'));
+const FlexOfficeCalculator = lazy(() => import('./content/flexOffice/FlexOfficeCalculator.tsx'));
+const WeekTimeCalculator = lazy(() => import('./content/weekTime/WeekTimeCalculator.tsx'));
 
 export const App = () => {
     const { darkModeActive, toastPosition, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
@@ -96,18 +99,6 @@ export const App = () => {
                     </ErrorBoundary>
                 </BaseModal>
 
-                <WeekTimeCalculator
-                    key={weekTimeOpen ? 'open' : 'closed'}
-                    isOpen={weekTimeOpen}
-                    onClose={() => setWeekTimeOpen(false)}
-                />
-
-                <FlexOfficeCalculator
-                    key={flexOfficeOpen ? 'open' : 'closed'}
-                    isOpen={flexOfficeOpen}
-                    onClose={() => setFlexOfficeOpen(false)}
-                />
-
                 <Header
                     openSettings={() => setSettingsOpen(true)}
                     openWeekTime={() => setWeekTimeOpen(true)}
@@ -116,7 +107,25 @@ export const App = () => {
                     currentStatsAction={sendMsgWithCurrentStats}
                 />
 
-                <Content />
+                <Suspense fallback={<Loader />}>
+                    <WeekTimeCalculator
+                        key={weekTimeOpen ? 'open' : 'closed'}
+                        isOpen={weekTimeOpen}
+                        onClose={() => setWeekTimeOpen(false)}
+                    />
+                </Suspense>
+
+                <Suspense fallback={<Loader />}>
+                    <FlexOfficeCalculator
+                        key={flexOfficeOpen ? 'open' : 'closed'}
+                        isOpen={flexOfficeOpen}
+                        onClose={() => setFlexOfficeOpen(false)}
+                    />
+                </Suspense>
+
+                <Suspense fallback={<Loader />}>
+                    <Calculator />
+                </Suspense>
 
                 <Toaster
                     position={notificationPositions[toastPosition]}

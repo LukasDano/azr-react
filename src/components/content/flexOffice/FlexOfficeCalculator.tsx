@@ -28,7 +28,7 @@ type FlexOfficeCalculatorProps = {
     onClose: () => void;
 };
 
-export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }) => {
+const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }) => {
     const [showResult, setShowResult] = useState<boolean>(false);
 
     const [offDays, setOffDays] = useState<number>(getValueForKeyFromCookie('offDays'));
@@ -151,3 +151,6 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
         </BaseModal>
     );
 };
+
+// biome-ignore lint/style/noDefaultExport: should be used to split the js code
+export default FlexOfficeCalculator;

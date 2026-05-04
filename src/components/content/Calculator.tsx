@@ -34,7 +34,7 @@ import {
 import { AppContext, type AppContextValues } from '../context/AppContext.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext.tsx';
 
-export const Content = () => {
+const Calculator = () => {
     const {
         startTime,
         updateStartTime,
@@ -150,3 +150,6 @@ export const Content = () => {
         </div>
     );
 };
+
+// biome-ignore lint/style/noDefaultExport: should be used to split the js code
+export default Calculator;
