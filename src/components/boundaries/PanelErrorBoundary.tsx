@@ -1,8 +1,7 @@
-import { History, MailPlus, RotateCcw } from 'lucide-react';
 import type { FC } from 'react';
 
+import { CreateIssueButton, ReloadPageButton, UseTheOldVersionButton } from './ErrorBoundaryButtons.tsx';
 import type { DefaultErrorBoundaryProps } from './ModalErrorBoundary.tsx';
-import { FromFunctionButton } from '../content/miscellaneous/BaseButton.tsx';
 
 export const PanelErrorBoundary: FC<DefaultErrorBoundaryProps> = ({ title, description }) => {
     return (
@@ -17,21 +16,9 @@ export const PanelErrorBoundary: FC<DefaultErrorBoundaryProps> = ({ title, descr
                 </div>
 
                 <div className="mt-6 flex w-full gap-2">
-                    <FromFunctionButton
-                        onClick={() => globalThis.location.reload()}
-                        icon={<RotateCcw />}
-                        tooltip={'Reload'}
-                    />
-                    <FromFunctionButton
-                        onClick={() => open('https://github.com/LukasDano/azr-react/issues', '_blank')}
-                        icon={<MailPlus />}
-                        tooltip={'Please create a new issue'}
-                    />
-                    <FromFunctionButton
-                        onClick={() => open('https://lukasdano.github.io/arbeitszeitrechner/')}
-                        icon={<History />}
-                        tooltip={'Use the old version'}
-                    />
+                    <ReloadPageButton />
+                    <CreateIssueButton />
+                    <UseTheOldVersionButton />
                 </div>
             </div>
         </div>
