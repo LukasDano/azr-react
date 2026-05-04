@@ -55,7 +55,7 @@
         "formatter": {
             "quoteStyle": "single",
             "semicolons": "always",
-            "trailingCommas": "all",
+            "trailingCommas": "es5",
             "trailingNewline": true
         }
     },

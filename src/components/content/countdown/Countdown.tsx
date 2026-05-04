@@ -63,7 +63,7 @@ export const Countdown: FC<CountdownProps> = ({
                 }
             }
         },
-        [getTimeLeft, onEnd],
+        [getTimeLeft, onEnd]
     );
 
     useEffect(() => {

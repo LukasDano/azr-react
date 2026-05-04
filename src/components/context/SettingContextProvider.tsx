@@ -14,19 +14,19 @@ type SettingContextProviderProps = {
 export const SettingContextProvider: FC<SettingContextProviderProps> = ({ children }) => {
     const [darkModeActive, setDarkModeActive] = useState<boolean>(getStorageValue('darkModeActive') as boolean);
     const [countdownColors, setCountdownColors] = useState<CountdownColors>(
-        getStorageValue('countdownColors') as CountdownColors,
+        getStorageValue('countdownColors') as CountdownColors
     );
     const [colorTheme, setColorTheme] = useState<ColorTheme>(getStorageValue('colorTheme') as ColorTheme);
     const [overTimeAutomatic, setOverTimeAutomatic] = useState<boolean>(
-        getStorageValue('overTimeAutomatic') as boolean,
+        getStorageValue('overTimeAutomatic') as boolean
     );
     const [showShortcuts, setShowShortcuts] = useState<boolean>(getStorageValue('showShortcuts') as boolean);
     const [toastPosition, setToastPosition] = useState<ToastPosition>(
-        getStorageValue('toastPosition') as ToastPosition,
+        getStorageValue('toastPosition') as ToastPosition
     );
 
     const [backgroundTheme, setBackgroundTheme] = useState<BackgroundTheme>(
-        getStorageValue('backgroundTheme') as BackgroundTheme,
+        getStorageValue('backgroundTheme') as BackgroundTheme
     );
 
     const updateDarkModeActive = (val: boolean): void => {
@@ -81,7 +81,7 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
             backgroundTheme,
             updateBackgroundTheme,
         }),
-        [darkModeActive, countdownColors, colorTheme, overTimeAutomatic, showShortcuts, toastPosition, backgroundTheme],
+        [darkModeActive, countdownColors, colorTheme, overTimeAutomatic, showShortcuts, toastPosition, backgroundTheme]
     );
 
     return <SettingContext.Provider value={settingContextValues}>{children}</SettingContext.Provider>;

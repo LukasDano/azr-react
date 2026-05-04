@@ -21,5 +21,5 @@ createRoot(document.getElementById('root')!).render(
                 </SettingContextProvider>
             </AppContextProvider>
         </ErrorBoundary>
-    </StrictMode>,
+    </StrictMode>
 );

@@ -62,7 +62,7 @@ export const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, on
             flexTime,
             selectedFlexQuote,
             selectedMonthNum,
-            year,
+            year
         );
         restFlexTimeThisMonth = checkIfTimeIsBelowZero(restFlexTimeThisMonth);
 

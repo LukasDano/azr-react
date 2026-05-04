@@ -42,8 +42,8 @@ export const Settings = () => {
             setError(
                 new SettingsError(
                     'Invalid CountdownUnit',
-                    `Tried to call handleCountdownColorChange() without a valid CountdownUnit .`,
-                ),
+                    `Tried to call handleCountdownColorChange() without a valid CountdownUnit .`
+                )
             );
 
         const updatedColors = {
@@ -57,7 +57,7 @@ export const Settings = () => {
     const handleThemeChange = (key: ThemeType, val: string): void => {
         if (typeof key === 'undefined')
             setError(
-                new SettingsError('Invalid ThemeType', `Tried to call handleThemeChange() without a valid ThemeType .`),
+                new SettingsError('Invalid ThemeType', `Tried to call handleThemeChange() without a valid ThemeType .`)
             );
 
         const updatedTheme = {
@@ -134,7 +134,7 @@ export const Settings = () => {
                 break;
             default:
                 setError(
-                    new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`),
+                    new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`)
                 );
                 return;
         }
@@ -144,7 +144,7 @@ export const Settings = () => {
 
     const settingsContainerClasses = useMemo(
         () => `flex flex-col rounded-2xl bg-gray-200 p-4 shadow-sm ${getBackgroundTheme(backgroundTheme).settingsBg}`,
-        [backgroundTheme],
+        [backgroundTheme]
     );
 
     return (

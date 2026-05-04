@@ -54,7 +54,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
             workTime,
             updateWorkTime,
         }),
-        [startTime, floatTime, endTime, breakTime, workTime],
+        [startTime, floatTime, endTime, breakTime, workTime]
     );
 
     return <AppContext.Provider value={appContextValues}>{children}</AppContext.Provider>;
