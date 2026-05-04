@@ -68,9 +68,21 @@ export const Settings = () => {
         updateColorTheme(updatedTheme);
     };
 
+    const handleBackgroundTheme = (val: BackgroundTheme | 'light'): void => {
+        if (val === 'light') updateDarkModeActive(false);
+        else {
+            updateDarkModeActive(true);
+            updateBackgroundTheme(val);
+        }
+    };
+
     const findValueById = (id: SettingId): SettingValue => {
+        const getBgTheme = (): BackgroundTheme | 'light' => {
+            if (!darkModeActive) return 'light';
+            else return backgroundTheme;
+        };
+
         const settingKeyValueMap: Record<SettingId, SettingValue> = {
-            darkMode: darkModeActive,
             countdownHours: countdownColors.hours,
             countdownMinutes: countdownColors.minutes,
             countdownSeconds: countdownColors.seconds,
@@ -79,7 +91,7 @@ export const Settings = () => {
             notificationPosition: toastPosition,
             displayShortcuts: showShortcuts,
             overtimeAutomatic: overTimeAutomatic,
-            backgroundTheme: backgroundTheme,
+            backgroundTheme: getBgTheme(),
         };
 
         try {
@@ -93,9 +105,6 @@ export const Settings = () => {
 
     const executeFunctionById = (id: SettingId, val: SettingValue, funcParamKey: string | null = null): void => {
         switch (id) {
-            case 'darkMode':
-                updateDarkModeActive(val as boolean);
-                break;
             case 'countdownHours':
                 handleCountdownColorChange(funcParamKey as CountdownUnit, val as string);
                 break;
@@ -121,12 +130,13 @@ export const Settings = () => {
                 updateOverTimeAutomatic(val as boolean);
                 break;
             case 'backgroundTheme':
-                updateBackgroundTheme(val as BackgroundTheme);
+                handleBackgroundTheme(val as 'light' | BackgroundTheme);
                 break;
             default:
                 setError(
                     new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`),
                 );
+                return;
         }
     };
 

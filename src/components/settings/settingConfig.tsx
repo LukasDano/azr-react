@@ -22,7 +22,6 @@ export const settingTabs: Tab[] = Object.entries(settingTabsByName).map(([name, 
 type SettingInput = 'SettingsToggle' | 'ColorPicker' | 'DropDownSelect';
 
 export type SettingId =
-    | 'darkMode'
     | 'countdownHours'
     | 'countdownMinutes'
     | 'countdownSeconds'
@@ -44,16 +43,10 @@ type Setting = {
 
 export const settingsConfig: Setting[] = [
     {
-        id: 'darkMode',
-        name: 'Dark Mode',
-        component: 'SettingsToggle',
-        tabId: settingTabsByName.design.id,
-    },
-    {
         id: 'backgroundTheme',
-        name: 'DarkMode Background Theme',
+        name: 'Website Theme',
         component: 'DropDownSelect',
-        options: Object.keys(backgroundThemes),
+        options: ['light', ...Object.keys(backgroundThemes)],
         tabId: settingTabsByName.design.id,
     },
     {
