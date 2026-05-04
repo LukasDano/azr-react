@@ -13,6 +13,7 @@ import type { SettingContextValues } from './context/SettingContext';
 import { SettingContext } from './context/SettingContext';
 import { Settings } from './settings/Settings';
 import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from '../static/defaultValues';
+import { getBackgroundTheme } from '../static/themes.ts';
 import {
     calculateGleitzeit,
     calculateIstTime,
@@ -23,7 +24,7 @@ import { notificationPositions, sendInfoMessage, sendWarnMessage } from '../util
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
 
 export const App = () => {
-    const { darkModeActive, toastPosition } = useContext<SettingContextValues>(SettingContext);
+    const { darkModeActive, toastPosition, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
     const {
         startTime,
         updateStartTime,
@@ -81,7 +82,7 @@ export const App = () => {
 
     return (
         <div className={`${darkModeActive ? 'dark' : 'light'}`}>
-            <div className="h-screen dark:bg-gray-900">
+            <div className={`h-screen ${getBackgroundTheme(backgroundTheme).appBg}`}>
                 <BaseModal
                     modalTitle={'Settings'}
                     size={'md'}

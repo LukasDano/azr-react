@@ -1,6 +1,12 @@
 import type { Time } from '../../static/importantTypes';
-import type { ColorTheme, CountdownColors } from '../../static/themes.ts';
-import { defaultColorTheme, defaultCountdownTheme } from '../../static/themes.ts';
+import {
+    type BackgroundTheme,
+    type ColorTheme,
+    type CountdownColors,
+    defaultBackgroundTheme,
+    defaultColorTheme,
+    defaultCountdownTheme,
+} from '../../static/themes.ts';
 
 export type StorageKey =
     | 'darkModeActive'
@@ -8,9 +14,10 @@ export type StorageKey =
     | 'colorTheme'
     | 'overTimeAutomatic'
     | 'showShortcuts'
-    | 'toastPosition';
+    | 'toastPosition'
+    | 'backgroundTheme';
 
-export type StorageValue = Time | boolean | string | CountdownColors | ColorTheme;
+export type StorageValue = Time | boolean | string | CountdownColors | ColorTheme | BackgroundTheme;
 
 const defaultValues: Record<StorageKey, StorageValue> = {
     darkModeActive: false,
@@ -19,6 +26,7 @@ const defaultValues: Record<StorageKey, StorageValue> = {
     overTimeAutomatic: false,
     showShortcuts: false,
     toastPosition: 'bottomRight',
+    backgroundTheme: defaultBackgroundTheme,
 };
 
 export const getStorageValue = (key: StorageKey): StorageValue => {

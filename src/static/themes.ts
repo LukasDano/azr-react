@@ -104,3 +104,37 @@ export const defaultColorTheme: Record<ThemeType, ThemeName> = {
 
 export const getThemeClasses = (theme: ColorTheme): string =>
     `${availableThemes[theme.light].light} ${availableThemes[theme.dark].dark}`;
+
+export type BackgroundTheme = 'gray' | 'zinc';
+type BackgroundColors = {
+    appBg: string;
+    modalBg: string;
+    settingsBg: string;
+    headerBg: string;
+    actionHeaderBg: string;
+    countdownBg: string;
+};
+
+export const backgroundThemes: Record<BackgroundTheme, BackgroundColors> = {
+    gray: {
+        appBg: 'dark:bg-gray-900',
+        modalBg: 'dark:bg-gray-800',
+        settingsBg: 'dark:bg-gray-600',
+        headerBg: 'dark:border-slate-900 dark:bg-gray-800',
+        actionHeaderBg: 'dark:border-slate-900 dark:bg-gray-700',
+        countdownBg: 'dark:bg-gray-800',
+    },
+    zinc: {
+        appBg: 'dark:bg-zinc-900',
+        modalBg: 'dark:bg-zinc-800',
+        settingsBg: 'dark:bg-zinc-700',
+        headerBg: 'dark:border-zinc-900 dark:bg-zinc-700/60',
+        actionHeaderBg: 'dark:border-zinc-900 dark:bg-zinc-700',
+        countdownBg: 'dark:bg-zinc-700/60',
+    },
+};
+
+export const defaultBackgroundTheme: BackgroundTheme = 'gray';
+
+export const getBackgroundTheme = (name: BackgroundTheme = defaultBackgroundTheme): BackgroundColors =>
+    backgroundThemes[name];

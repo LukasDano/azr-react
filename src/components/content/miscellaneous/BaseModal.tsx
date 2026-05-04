@@ -1,5 +1,8 @@
-import type { FC, ReactNode } from 'react';
+import { type FC, type ReactNode, useContext } from 'react';
 import { IoClose } from 'react-icons/io5';
+
+import { getBackgroundTheme } from '../../../static/themes.ts';
+import { SettingContext, type SettingContextValues } from '../../context/SettingContext.tsx';
 
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'xl2' | 'xl3' | 'full';
 
@@ -13,6 +16,8 @@ type BaseModalProps = {
 };
 
 export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children, modalHeader, size = 'md' }) => {
+    const { backgroundTheme } = useContext<SettingContextValues>(SettingContext);
+
     if (!isOpen) return null;
 
     const sizeClasses: Record<ModalSize, string> = {
@@ -31,7 +36,7 @@ export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, chi
             onClick={onClose}
         >
             <div
-                className={`relative w-full rounded-lg bg-white p-6 text-black shadow-lg dark:bg-gray-800 dark:text-white ${sizeClasses[size]}
+                className={`relative w-full rounded-lg bg-white p-6 text-black shadow-lg ${getBackgroundTheme(backgroundTheme).modalBg} dark:text-white ${sizeClasses[size]}
                 `}
                 onClick={(evt) => evt.stopPropagation()}
             >

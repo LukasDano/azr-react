@@ -3,6 +3,7 @@ import { type FC, useContext } from 'react';
 import { MdOutlineResetTv } from 'react-icons/md';
 
 import { HeaderButton } from './HeaderButton';
+import { getBackgroundTheme } from '../../../static/themes.ts';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
 
 type ActionHeaderProps = {
@@ -18,11 +19,11 @@ export const ActionHeader: FC<ActionHeaderProps> = ({
     openWeekTimeAction,
     openFlexOfficeAction,
 }) => {
-    const { showShortcuts } = useContext<SettingContextValues>(SettingContext);
+    const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
 
     return (
         <nav
-            className={`sticky top-0 z-39 flex justify-center rounded-b-xl border-slate-500 border-b bg-zinc-600 p-2 shadow-sm dark:border-slate-900 dark:bg-gray-700`}
+            className={`sticky top-0 z-39 flex justify-center rounded-b-xl border-slate-500 border-b bg-zinc-600 p-2 shadow-sm ${getBackgroundTheme(backgroundTheme).actionHeaderBg}`}
         >
             <div className="flex flex-wrap items-center justify-center gap-5">
                 <HeaderButton

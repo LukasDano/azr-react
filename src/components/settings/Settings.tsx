@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 
 import { ColorPicker } from './inputs/ColorSelector.tsx';
 import { SettingsToggle } from './inputs/SettingsToggle';
 import type { SettingId } from './settingConfig.tsx';
 import { settingsConfig, settingTabs, settingTabsByName } from './settingConfig.tsx';
 import { name, version } from '../../../package.json';
-import type { ColorTheme, ThemeType } from '../../static/themes';
+import { type BackgroundTheme, type ColorTheme, getBackgroundTheme, type ThemeType } from '../../static/themes';
 import { SettingsError } from '../../utils/errors/SettingsError.ts';
 import type { ToastPosition } from '../../utils/page/notifications.ts';
 import { sendErrorMessage } from '../../utils/page/notifications.ts';
@@ -30,6 +30,8 @@ export const Settings = () => {
         updateShowShortcuts,
         toastPosition,
         updateToastPosition,
+        backgroundTheme,
+        updateBackgroundTheme,
     } = useContext<SettingContextValues>(SettingContext);
 
     const [activeTabId, setActiveTabId] = useState<number>(settingTabsByName.design.id);
@@ -77,6 +79,7 @@ export const Settings = () => {
             notificationPosition: toastPosition,
             displayShortcuts: showShortcuts,
             overtimeAutomatic: overTimeAutomatic,
+            backgroundTheme: backgroundTheme,
         };
 
         try {
@@ -117,6 +120,9 @@ export const Settings = () => {
             case 'overtimeAutomatic':
                 updateOverTimeAutomatic(val as boolean);
                 break;
+            case 'backgroundTheme':
+                updateBackgroundTheme(val as BackgroundTheme);
+                break;
             default:
                 setError(
                     new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`),
@@ -126,13 +132,18 @@ export const Settings = () => {
 
     if (error) throw error;
 
+    const settingsContainerClasses = useMemo(
+        () => `flex flex-col rounded-2xl bg-gray-200 p-4 shadow-sm ${getBackgroundTheme(backgroundTheme).settingsBg}`,
+        [backgroundTheme],
+    );
+
     return (
         <div className="flex w-full flex-col gap-4 overflow-auto p-4">
             <div className="flex w-full justify-center">
                 <TabBar tabs={settingTabs} activeTabId={activeTabId} onTabChange={setActiveTabId} />
             </div>
 
-            <div className={'flex flex-col gap-4 rounded-2xl bg-gray-200 p-4 shadow-sm dark:bg-gray-600'}>
+            <div className={`gap-4 ${settingsContainerClasses}`}>
                 {settingsConfig.map((stg) => {
                     if (stg.tabId !== activeTabId) return null;
 
@@ -173,7 +184,7 @@ export const Settings = () => {
                 })}
             </div>
 
-            <div className={'flex flex-col rounded-2xl bg-gray-200 p-3 shadow-sm dark:bg-gray-600'}>
+            <div className={settingsContainerClasses}>
                 <div className="flex flex-col items-center">
                     <span className="font-bold text-gray-900 text-xl dark:text-gray-100">{name}</span>
                     <span className="text-gray-500 text-sm dark:text-gray-300">Version {version}</span>

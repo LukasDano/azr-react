@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 
 import type { SettingContextValues } from './SettingContext.tsx';
 import { SettingContext } from './SettingContext.tsx';
-import type { ColorTheme, CountdownColors } from '../../static/themes.ts';
+import type { BackgroundTheme, ColorTheme, CountdownColors } from '../../static/themes.ts';
 import type { ToastPosition } from '../../utils/page/notifications.ts';
 import { getStorageValue, setStorageValue } from '../../utils/storage/localStorageManger.ts';
 
@@ -23,6 +23,10 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
     const [showShortcuts, setShowShortcuts] = useState<boolean>(getStorageValue('showShortcuts') as boolean);
     const [toastPosition, setToastPosition] = useState<ToastPosition>(
         getStorageValue('toastPosition') as ToastPosition,
+    );
+
+    const [backgroundTheme, setBackgroundTheme] = useState<BackgroundTheme>(
+        getStorageValue('backgroundTheme') as BackgroundTheme,
     );
 
     const updateDarkModeActive = (val: boolean): void => {
@@ -55,6 +59,11 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
         setStorageValue('toastPosition', val);
     };
 
+    const updateBackgroundTheme = (val: BackgroundTheme): void => {
+        setBackgroundTheme(val);
+        setStorageValue('backgroundTheme', val);
+    };
+
     const settingContextValues = useMemo<SettingContextValues>(
         () => ({
             darkModeActive,
@@ -69,8 +78,10 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
             updateShowShortcuts,
             toastPosition,
             updateToastPosition,
+            backgroundTheme,
+            updateBackgroundTheme,
         }),
-        [darkModeActive, countdownColors, colorTheme, overTimeAutomatic, showShortcuts, toastPosition],
+        [darkModeActive, countdownColors, colorTheme, overTimeAutomatic, showShortcuts, toastPosition, backgroundTheme],
     );
 
     return <SettingContext.Provider value={settingContextValues}>{children}</SettingContext.Provider>;

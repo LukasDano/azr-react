@@ -1,6 +1,6 @@
 import { Palette, Pickaxe } from 'lucide-react';
 
-import { availableThemes } from '../../static/themes.ts';
+import { availableThemes, backgroundThemes } from '../../static/themes.ts';
 import { notificationPositions } from '../../utils/page/notifications.ts';
 import type { Tab } from '../content/miscellaneous/TabBar.tsx';
 
@@ -26,6 +26,7 @@ export type SettingId =
     | 'countdownHours'
     | 'countdownMinutes'
     | 'countdownSeconds'
+    | 'backgroundTheme'
     | 'lightModeTheme'
     | 'darkModeTheme'
     | 'notificationPosition'
@@ -46,6 +47,13 @@ export const settingsConfig: Setting[] = [
         id: 'darkMode',
         name: 'Dark Mode',
         component: 'SettingsToggle',
+        tabId: settingTabsByName.design.id,
+    },
+    {
+        id: 'backgroundTheme',
+        name: 'DarkMode Background Theme',
+        component: 'DropDownSelect',
+        options: Object.keys(backgroundThemes),
         tabId: settingTabsByName.design.id,
     },
     {

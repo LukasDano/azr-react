@@ -34,6 +34,8 @@ describe('Settings Component', () => {
         updateShowShortcuts: vi.fn(),
         toastPosition: 'bottomRight',
         updateToastPosition: vi.fn(),
+        backgroundTheme: 'gray',
+        updateBackgroundTheme: vi.fn(),
     };
 
     const renderWithContext = (contextValues: Partial<SettingContextValues> = {}) => {

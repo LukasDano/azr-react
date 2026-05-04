@@ -13,6 +13,7 @@ import {
     defaultWorkTimeForSixHourMode,
     emptyTimeValue,
 } from '../../../static/defaultValues';
+import { getBackgroundTheme } from '../../../static/themes.ts';
 import { parseTimeToString } from '../../../utils/typeUtilities/time';
 import { AppContext, type AppContextValues } from '../../context/AppContext';
 import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
@@ -32,8 +33,9 @@ export const Header: FC<HeaderProps> = ({
     resetAction,
     currentStatsAction,
 }) => {
-    const { showShortcuts } = useContext<SettingContextValues>(SettingContext);
+    const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
     const { updateBreakTime, workTime, updateWorkTime } = useContext<AppContextValues>(AppContext);
+
     const [actionHeaderOpen, setActionHeaderOpen] = useState<boolean>(false);
 
     const availableWorkTimes = [defaultWorkTime, defaultWorkTimeForSixHourMode].map(parseTimeToString);
@@ -55,7 +57,7 @@ export const Header: FC<HeaderProps> = ({
     return (
         <>
             <nav
-                className={`sticky top-0 z-40 flex items-center justify-between border-slate-300 border-b bg-zinc-700 p-4 shadow dark:border-slate-900 dark:bg-gray-800`}
+                className={`sticky top-0 z-40 flex items-center justify-between border-slate-300 border-b bg-zinc-700 p-4 shadow ${getBackgroundTheme(backgroundTheme).headerBg}`}
             >
                 <h1 className="font-bold text-4xl text-white">Arbeitszeitrechner</h1>
 
