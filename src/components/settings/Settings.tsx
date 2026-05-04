@@ -6,6 +6,7 @@ import type { SettingId } from './settingConfig.tsx';
 import { settingsConfig, settingTabs, settingTabsByName } from './settingConfig.tsx';
 import { name, version } from '../../../package.json';
 import type { ColorTheme, ThemeType } from '../../static/themes';
+import { SettingsError } from '../../utils/errors/SettingsError.ts';
 import type { ToastPosition } from '../../utils/page/notifications.ts';
 import { sendErrorMessage } from '../../utils/page/notifications.ts';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
@@ -32,10 +33,16 @@ export const Settings = () => {
     } = useContext<SettingContextValues>(SettingContext);
 
     const [activeTabId, setActiveTabId] = useState<number>(settingTabsByName.design.id);
+    const [error, setError] = useState<SettingsError | null>(null);
 
     const handleCountdownColorChange = (key: CountdownUnit, val: string) => {
         if (typeof key === 'undefined')
-            throw Error('handleCountdownColorChange() was called without a valid CountdownUnit');
+            setError(
+                new SettingsError(
+                    'Invalid CountdownUnit',
+                    `Tried to call handleCountdownColorChange() without a valid CountdownUnit .`,
+                ),
+            );
 
         const updatedColors = {
             ...countdownColors,
@@ -45,8 +52,11 @@ export const Settings = () => {
         updateCountdownColors(updatedColors);
     };
 
-    const handleThemeChange = (key: ThemeType, val: string) => {
-        if (typeof key === 'undefined') throw Error('handleThemeChange() was called without a valid ThemeType');
+    const handleThemeChange = (key: ThemeType, val: string): void => {
+        if (typeof key === 'undefined')
+            setError(
+                new SettingsError('Invalid ThemeType', `Tried to call handleThemeChange() without a valid ThemeType .`),
+            );
 
         const updatedTheme = {
             ...colorTheme,
@@ -69,7 +79,13 @@ export const Settings = () => {
             overtimeAutomatic: overTimeAutomatic,
         };
 
-        return settingKeyValueMap[id];
+        try {
+            return settingKeyValueMap[id];
+        } catch (err) {
+            setError(new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`));
+
+            throw err;
+        }
     };
 
     const executeFunctionById = (id: SettingId, val: SettingValue, funcParamKey: string | null = null): void => {
@@ -102,9 +118,14 @@ export const Settings = () => {
                 updateOverTimeAutomatic(val as boolean);
                 break;
             default:
-                sendErrorMessage(`Found no function for id ${id}`);
+                setError(
+                    new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`),
+                );
         }
     };
+
+    if (error) throw error;
+
     return (
         <div className="flex w-full flex-col gap-4 overflow-auto p-4">
             <div className="flex w-full justify-center">
@@ -118,6 +139,7 @@ export const Settings = () => {
                     if (stg.component === 'SettingsToggle')
                         return (
                             <SettingsToggle
+                                key={stg.id}
                                 settingName={stg.name}
                                 defaultValue={findValueById(stg.id) as boolean}
                                 onToggle={(val) => executeFunctionById(stg.id, val)}
@@ -131,6 +153,7 @@ export const Settings = () => {
 
                         return (
                             <DropDownSelect
+                                key={stg.id}
                                 name={stg.name}
                                 defaultOption={findValueById(stg.id) as string}
                                 options={stg.options || []}
@@ -140,6 +163,7 @@ export const Settings = () => {
                     } else if (stg.component === 'ColorPicker')
                         return (
                             <ColorPicker
+                                key={stg.id}
                                 label={stg.name}
                                 color={findValueById(stg.id) as string}
                                 onColorChange={(val) => executeFunctionById(stg.id, val as string, stg.funcParamKey)}

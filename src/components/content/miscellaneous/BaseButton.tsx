@@ -27,3 +27,24 @@ export const BaseButton: FC<BaseButtonProps> = ({ icon, tooltip, onClick, text }
         </Tippy>
     );
 };
+
+type FromFunctionButtonProps = {
+    onClick: () => void;
+    tooltip?: string;
+    icon: ReactNode;
+};
+
+export const FromFunctionButton: FC<FromFunctionButtonProps> = ({ onClick, tooltip = '', icon }) => {
+    const { colorTheme } = useContext<SettingContextValues>(SettingContext);
+
+    return (
+        <Tippy content={tooltip} animation={'scale'} disabled={tooltip === ''}>
+            <button
+                onClick={onClick}
+                className={`flex h-12 flex-1 items-center justify-center rounded p-2 text-white shadow ${getThemeClasses(colorTheme)}`}
+            >
+                {icon}
+            </button>
+        </Tippy>
+    );
+};

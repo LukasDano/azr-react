@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import { Toaster } from 'sonner';
 
+import { ErrorBoundary } from './boundaries/ErrorBoundary.tsx';
+import { PanelErrorBoundary } from './boundaries/PanelErrorBoundary.tsx';
 import { Content } from './content/Calculator';
 import { FlexOfficeCalculator } from './content/flexOffice/FlexOfficeCalculator.tsx';
 import { Header } from './content/header/Header';
@@ -86,7 +88,11 @@ export const App = () => {
                     isOpen={settingsOpen}
                     onClose={() => setSettingsOpen(false)}
                 >
-                    <Settings />
+                    <ErrorBoundary
+                        fallbackNode={(err) => <PanelErrorBoundary title={err.name} description={err.msg} />}
+                    >
+                        <Settings />
+                    </ErrorBoundary>
                 </BaseModal>
 
                 <WeekTimeCalculator
