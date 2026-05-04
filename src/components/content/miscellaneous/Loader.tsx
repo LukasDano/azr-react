@@ -1,10 +1,30 @@
+import type { FC, ReactNode } from 'react';
 import { useContext } from 'react';
-import { ClockLoader } from 'react-spinners';
+import {
+    BounceLoader,
+    ClimbingBoxLoader,
+    ClockLoader,
+    FadeLoader,
+    GridLoader,
+    HashLoader,
+    PuffLoader,
+    PulseLoader,
+    RingLoader,
+    ScaleLoader,
+} from 'react-spinners';
 
 import type { ColorTheme, ThemeName } from '../../../static/themes.ts';
-import { SettingContext, type SettingContextValues } from '../../context/SettingContext.tsx';
+import type { SettingContextValues } from '../../context/SettingContext.tsx';
+import { SettingContext } from '../../context/SettingContext.tsx';
 
-export const Loader = () => {
+type LoaderIcon = 'bounce' | 'climbing' | 'clock' | 'fade' | 'gird' | 'hash' | 'ring' | 'pulse' | 'scale' | 'puff';
+
+type LoaderProps = {
+    loaderIcon?: LoaderIcon;
+    loaderSize?: number;
+};
+
+export const Loader: FC<LoaderProps> = ({ loaderIcon = 'clock', loaderSize = null }) => {
     const { darkModeActive, colorTheme } = useContext<SettingContextValues>(SettingContext);
 
     const getColorForTheme = (): string => {
@@ -31,9 +51,24 @@ export const Loader = () => {
         return themeColors[theme as ThemeName][darkModeActive ? 'dark' : 'light'];
     };
 
-    return (
-        <div className="flex min-h-screen flex-col items-center justify-center">
-            <ClockLoader color={getColorForTheme()} size={40} />
-        </div>
-    );
+    const getLoader = (): ReactNode => {
+        const color = getColorForTheme();
+
+        const loaders: Record<LoaderIcon, ReactNode> = {
+            bounce: <BounceLoader color={color} size={loaderSize ?? 75} />,
+            climbing: <ClimbingBoxLoader color={color} size={loaderSize ?? 25} />,
+            clock: <ClockLoader color={color} size={loaderSize ?? 50} />,
+            fade: <FadeLoader color={color} />,
+            gird: <GridLoader color={color} size={loaderSize ?? 30} />,
+            hash: <HashLoader color={color} size={loaderSize ?? 75} />,
+            pulse: <PulseLoader color={color} size={loaderSize ?? 30} />,
+            ring: <RingLoader color={color} size={loaderSize ?? 80} />,
+            scale: <ScaleLoader color={color} />,
+            puff: <PuffLoader color={color} size={loaderSize ?? 100} />,
+        };
+
+        return loaders[loaderIcon];
+    };
+
+    return <div className="flex min-h-screen flex-col items-center justify-center">{getLoader()}</div>;
 };

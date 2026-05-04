@@ -1,89 +1,89 @@
 ﻿name: CI/CD
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+    push:
+        branches:
+            - main
+    pull_request:
 
 env:
-  frontend: .
-  node_version: 24
+    frontend: .
+    node_version: 24
 
 jobs:
-  tsc-check:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout Node
-        uses: actions/checkout@v4
+    tsc-check:
+        runs-on: windows-latest
+        steps:
+            - name: Checkout Node
+              uses: actions/checkout@v6.0.2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.node_version }}
+            - name: Set up Node.js
+              uses: actions/setup-node@v6.4.0
+              with:
+                  node-version: ${{ env.node_version }}
 
-      - name: Install Dependencies
-        run: npm install
-        working-directory: ${{ env.frontend }}
+            - name: Install Dependencies
+              run: npm install
+              working-directory: ${{ env.frontend }}
 
-      - name: Check TypeScript Compile
-        run: npm run tsc
-        working-directory: ${{ env.frontend }}
+            - name: Check TypeScript Compile
+              run: npm run tsc
+              working-directory: ${{ env.frontend }}
 
-  biome-check:
-    runs-on: windows-latest
-    needs: [tsc-check]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          persist-credentials: false
+    biome-check:
+        runs-on: windows-latest
+        needs: [tsc-check]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v6.0.2
+              with:
+                persist-credentials: false
 
-      - name: Setup Biome
-        uses: biomejs/setup-biome@v2
-        with:
-          version: latest
+            - name: Setup Biome
+              uses: biomejs/setup-biome@v2
+              with:
+                  version: latest
 
-      - name: Run Biome
-        run: npm run biome:ci
-        working-directory: ${{ env.frontend }}
+            - name: Run Biome
+              run: npm run biome:ci
+              working-directory: ${{ env.frontend }}
 
-  vitest-function:
-    runs-on: windows-latest
-    needs: [tsc-check, biome-check]
-    steps:
-      - name: Checkout Node
-        uses: actions/checkout@v4
+    vitest-function:
+        runs-on: windows-latest
+        needs: [tsc-check, biome-check]
+        steps:
+            - name: Checkout Node
+              uses: actions/checkout@v6.0.2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.node_version }}
+            - name: Set up Node.js
+              uses: actions/setup-node@v6.4.0
+              with:
+                  node-version: ${{ env.node_version }}
 
-      - name: Install Dependencies
-        run: npm install
-        working-directory: ${{ env.frontend }}
+            - name: Install Dependencies
+              run: npm install
+              working-directory: ${{ env.frontend }}
 
-      - name: Run Function-Tests
-        run: npm run vitest:function
-        working-directory: ${{ env.frontend }}
+            - name: Run Function-Tests
+              run: npm run vitest:function
+              working-directory: ${{ env.frontend }}
 
-  vitest-component:
-    runs-on: windows-latest
-    needs: [tsc-check, biome-check]
-    steps:
-      - name: Checkout Node
-        uses: actions/checkout@v4
+    vitest-component:
+        runs-on: windows-latest
+        needs: [tsc-check, biome-check]
+        steps:
+            - name: Checkout Node
+              uses: actions/checkout@v6.0.2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.node_version }}
+            - name: Set up Node.js
+              uses: actions/setup-node@v6.4.0
+              with:
+                  node-version: ${{ env.node_version }}
 
-      - name: Install Dependencies
-        run: npm install
-        working-directory: ${{ env.frontend }}
+            - name: Install Dependencies
+              run: npm install
+              working-directory: ${{ env.frontend }}
 
-      - name: Run Component-Tests
-        run: npm run vitest:component
-        working-directory: ${{ env.frontend }}
+            - name: Run Component-Tests
+              run: npm run vitest:component
+              working-directory: ${{ env.frontend }}
