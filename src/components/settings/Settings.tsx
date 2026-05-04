@@ -2,14 +2,18 @@ import { useContext, useState } from 'react';
 
 import { ColorPicker } from './inputs/ColorSelector.tsx';
 import { SettingsToggle } from './inputs/SettingsToggle';
-import { settingTabs } from './settingConfig.tsx';
+import type { SettingId } from './settingConfig.tsx';
+import { settingsConfig, settingTabs, settingTabsByName } from './settingConfig.tsx';
 import { name, version } from '../../../package.json';
-import { availableThemes, type ThemeType } from '../../static/themes';
-import { notificationPositions, type ToastPosition } from '../../utils/page/notifications.ts';
+import type { ColorTheme, ThemeType } from '../../static/themes';
+import type { ToastPosition } from '../../utils/page/notifications.ts';
+import { sendErrorMessage } from '../../utils/page/notifications.ts';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
 import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { TabBar } from '../content/miscellaneous/TabBar.tsx';
 import { SettingContext, type SettingContextValues } from '../context/SettingContext';
+
+type SettingValue = boolean | string | ColorTheme | ToastPosition;
 
 export const Settings = () => {
     const {
@@ -27,7 +31,12 @@ export const Settings = () => {
         updateToastPosition,
     } = useContext<SettingContextValues>(SettingContext);
 
+    const [activeTabId, setActiveTabId] = useState<number>(settingTabsByName.design.id);
+
     const handleCountdownColorChange = (key: CountdownUnit, val: string) => {
+        if (typeof key === 'undefined')
+            throw Error('handleCountdownColorChange() was called without a valid CountdownUnit');
+
         const updatedColors = {
             ...countdownColors,
             [key]: val,
@@ -37,6 +46,8 @@ export const Settings = () => {
     };
 
     const handleThemeChange = (key: ThemeType, val: string) => {
+        if (typeof key === 'undefined') throw Error('handleThemeChange() was called without a valid ThemeType');
+
         const updatedTheme = {
             ...colorTheme,
             [key]: val,
@@ -45,8 +56,55 @@ export const Settings = () => {
         updateColorTheme(updatedTheme);
     };
 
-    const [activeTabId, setActiveTabId] = useState<number>(settingTabs[0].id);
+    const findValueById = (id: SettingId): SettingValue => {
+        const settingKeyValueMap: Record<SettingId, SettingValue> = {
+            darkMode: darkModeActive,
+            countdownHours: countdownColors.hours,
+            countdownMinutes: countdownColors.minutes,
+            countdownSeconds: countdownColors.seconds,
+            lightModeTheme: colorTheme.light,
+            darkModeTheme: colorTheme.dark,
+            notificationPosition: toastPosition,
+            displayShortcuts: showShortcuts,
+            overtimeAutomatic: overTimeAutomatic,
+        };
 
+        return settingKeyValueMap[id];
+    };
+
+    const executeFunctionById = (id: SettingId, val: SettingValue, funcParamKey: string | null = null): void => {
+        switch (id) {
+            case 'darkMode':
+                updateDarkModeActive(val as boolean);
+                break;
+            case 'countdownHours':
+                handleCountdownColorChange(funcParamKey as CountdownUnit, val as string);
+                break;
+            case 'countdownMinutes':
+                handleCountdownColorChange(funcParamKey as CountdownUnit, val as string);
+                break;
+            case 'countdownSeconds':
+                handleCountdownColorChange(funcParamKey as CountdownUnit, val as string);
+                break;
+            case 'lightModeTheme':
+                handleThemeChange(funcParamKey as ThemeType, val as string);
+                break;
+            case 'darkModeTheme':
+                handleThemeChange(funcParamKey as ThemeType, val as string);
+                break;
+            case 'notificationPosition':
+                updateToastPosition(val as ToastPosition);
+                break;
+            case 'displayShortcuts':
+                updateShowShortcuts(val as boolean);
+                break;
+            case 'overtimeAutomatic':
+                updateOverTimeAutomatic(val as boolean);
+                break;
+            default:
+                sendErrorMessage(`Found no function for id ${id}`);
+        }
+    };
     return (
         <div className="flex w-full flex-col gap-4 overflow-auto p-4">
             <div className="flex w-full justify-center">
@@ -54,61 +112,41 @@ export const Settings = () => {
             </div>
 
             <div className={'flex flex-col gap-4 rounded-2xl bg-gray-200 p-4 shadow-sm dark:bg-gray-600'}>
-                {activeTabId === 0 && (
-                    <>
-                        <SettingsToggle
-                            settingName={'Dark Mode'}
-                            defaultValue={darkModeActive}
-                            onToggle={updateDarkModeActive}
-                        />
-                        <ColorPicker
-                            label={'Countdown Farbe für Stunden'}
-                            color={countdownColors.hours}
-                            onColorChange={(val) => handleCountdownColorChange('hours', val)}
-                        />
-                        <ColorPicker
-                            label={'Countdown Farbe für Minuten'}
-                            color={countdownColors.minutes}
-                            onColorChange={(val) => handleCountdownColorChange('minutes', val)}
-                        />
-                        <ColorPicker
-                            label={'Countdown Farbe für Sekunden'}
-                            color={countdownColors.seconds}
-                            onColorChange={(val) => handleCountdownColorChange('seconds', val)}
-                        />
-                        <DropDownSelect
-                            name={'Lightmode Theme'}
-                            defaultOption={colorTheme.light}
-                            options={Object.keys(availableThemes)}
-                            onChange={(val) => handleThemeChange('light', val as string)}
-                        />
-                        <DropDownSelect
-                            name={'Darkmode Theme'}
-                            defaultOption={colorTheme.dark}
-                            options={Object.keys(availableThemes)}
-                            onChange={(val) => handleThemeChange('dark', val as string)}
-                        />
-                        <DropDownSelect
-                            name={'Benachrichtigungs Position'}
-                            defaultOption={toastPosition}
-                            options={Object.keys(notificationPositions)}
-                            onChange={(val) => updateToastPosition(val as ToastPosition)}
-                        />
-                        <SettingsToggle
-                            settingName={'Zeige Shortcuts an'}
-                            defaultValue={showShortcuts}
-                            onToggle={updateShowShortcuts}
-                        />
-                    </>
-                )}
+                {settingsConfig.map((stg) => {
+                    if (stg.tabId !== activeTabId) return null;
 
-                {activeTabId === 1 && (
-                    <SettingsToggle
-                        settingName={'Nach Arbeitsende automatisch erhöhen'}
-                        defaultValue={overTimeAutomatic}
-                        onToggle={updateOverTimeAutomatic}
-                    />
-                )}
+                    if (stg.component === 'SettingsToggle')
+                        return (
+                            <SettingsToggle
+                                settingName={stg.name}
+                                defaultValue={findValueById(stg.id) as boolean}
+                                onToggle={(val) => executeFunctionById(stg.id, val)}
+                            />
+                        );
+                    else if (stg.component === 'DropDownSelect') {
+                        if (stg.options && stg.options.length === 0) {
+                            sendErrorMessage(`No options found for: ${stg.name}`);
+                            return null;
+                        }
+
+                        return (
+                            <DropDownSelect
+                                name={stg.name}
+                                defaultOption={findValueById(stg.id) as string}
+                                options={stg.options || []}
+                                onChange={(val) => executeFunctionById(stg.id, val as string, stg.funcParamKey)}
+                            />
+                        );
+                    } else if (stg.component === 'ColorPicker')
+                        return (
+                            <ColorPicker
+                                label={stg.name}
+                                color={findValueById(stg.id) as string}
+                                onColorChange={(val) => executeFunctionById(stg.id, val as string, stg.funcParamKey)}
+                            />
+                        );
+                    else return null;
+                })}
             </div>
 
             <div className={'flex flex-col rounded-2xl bg-gray-200 p-3 shadow-sm dark:bg-gray-600'}>

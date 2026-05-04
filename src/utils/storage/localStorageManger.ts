@@ -1,7 +1,6 @@
 import type { Time } from '../../static/importantTypes';
 import type { ColorTheme, CountdownColors } from '../../static/themes.ts';
 import { defaultColorTheme, defaultCountdownTheme } from '../../static/themes.ts';
-import { notificationPositions } from '../page/notifications.ts';
 
 export type StorageKey =
     | 'darkModeActive'
@@ -19,7 +18,7 @@ const defaultValues: Record<StorageKey, StorageValue> = {
     colorTheme: defaultColorTheme,
     overTimeAutomatic: false,
     showShortcuts: false,
-    toastPosition: notificationPositions.bottomRight,
+    toastPosition: 'bottomRight',
 };
 
 export const getStorageValue = (key: StorageKey): StorageValue => {
