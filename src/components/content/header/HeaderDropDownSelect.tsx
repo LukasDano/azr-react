@@ -3,7 +3,7 @@ import { ChevronsUpDown } from 'lucide-react';
 import type { FC } from 'react';
 import { useContext } from 'react';
 
-import { availableThemes } from '../../../static/themes.ts';
+import { getThemeClasses } from '../../../static/themes.ts';
 import type { SettingContextValues } from '../../context/SettingContext.tsx';
 import { SettingContext } from '../../context/SettingContext.tsx';
 
@@ -16,8 +16,6 @@ type HeaderDropDownSelectProps = {
 
 export const HeaderDropDownSelect: FC<HeaderDropDownSelectProps> = ({ items, selectedItem, onChange, minWidth }) => {
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
-
-    const themeClasses = `${availableThemes[colorTheme.light].light} ${availableThemes[colorTheme.dark].dark}`;
 
     return (
         <div className="w-fit shrink-0" style={{ minWidth: minWidth ? `${minWidth}px` : '150px' }}>
@@ -37,7 +35,7 @@ export const HeaderDropDownSelect: FC<HeaderDropDownSelectProps> = ({ items, sel
                                 value={item}
                                 className={({ focus }) =>
                                     `relative flex cursor-pointer select-none items-center justify-center px-4 py-2 ${
-                                        focus ? themeClasses : 'text-gray-900 dark:text-gray-100'
+                                        focus ? getThemeClasses(colorTheme) : 'text-gray-900 dark:text-gray-100'
                                     }`
                                 }
                             >

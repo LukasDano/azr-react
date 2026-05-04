@@ -101,3 +101,6 @@ export const defaultColorTheme: Record<ThemeType, ThemeName> = {
     light: 'cyan',
     dark: 'indigo',
 };
+
+export const getThemeClasses = (theme: ColorTheme): string =>
+    `${availableThemes[theme.light].light} ${availableThemes[theme.dark].dark}`;

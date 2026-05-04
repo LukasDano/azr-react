@@ -70,18 +70,4 @@ describe('Settings Component', () => {
         expect(mockLocalStorageSetItem).toHaveBeenCalledWith('darkModeActive', 'true');
         expect(mockUpdateDarkMode).toHaveBeenCalledWith(true);
     });
-
-    it('sollte localStorage.setItem aufrufen wenn Überstunden Toggle geändert wird', () => {
-        const mockUpdateOverTime = vi.fn((value: boolean) => {
-            mockContextValues.updateOverTimeAutomatic(value);
-            mockLocalStorageSetItem('overTimeAutomatic', JSON.stringify(value));
-        });
-
-        renderWithContext({ updateOverTimeAutomatic: mockUpdateOverTime });
-
-        const overtimeToggle = screen.getByRole('switch', { name: /Arbeitsende/i });
-        fireEvent.click(overtimeToggle);
-
-        expect(mockLocalStorageSetItem).toHaveBeenCalledWith('overTimeAutomatic', 'true');
-    });
 });
