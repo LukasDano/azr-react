@@ -1,7 +1,10 @@
-import { type FC, useContext, useState } from 'react';
-import { availableDarkThemes, availableLightThemes } from '../../../static/themes';
+import type { FC } from 'react';
+import { useContext, useState } from 'react';
+
+import { getThemeClasses } from '../../../static/themes';
 import { sendInfoMessage } from '../../../utils/page/notifications';
-import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
+import type { SettingContextValues } from '../../context/SettingContext';
+import { SettingContext } from '../../context/SettingContext';
 
 type SettingsToggleProps = {
     onToggle: (value: boolean) => void;
@@ -15,8 +18,6 @@ export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle,
 
     const [value, setValue] = useState<boolean>(defaultValue);
 
-    const themeClasses = `${availableLightThemes[colorTheme.light]} ${availableDarkThemes[colorTheme.dark]}`;
-
     const handleToggle = () => {
         const newValue = !value;
         setValue(newValue);
@@ -28,14 +29,14 @@ export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle,
         <div className="flex items-center justify-between py-2">
             <div className="flex flex-col">
                 <span className="font-medium text-gray-900 dark:text-gray-100">{settingName}</span>
-                <span className="text-sm text-gray-500 dark:text-gray-300">{description}</span>
+                <span className="text-gray-500 text-sm dark:text-gray-300">{description}</span>
             </div>
 
             <button
                 type="button"
                 onClick={handleToggle}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                    value ? themeClasses : 'bg-gray-300'
+                    value ? getThemeClasses(colorTheme) : 'bg-gray-300'
                 }`}
                 role="switch"
                 aria-checked={value}

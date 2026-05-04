@@ -1,6 +1,6 @@
-﻿import { getMonthNumberFromMonthString } from '../flexOfficeUtility';
-import { getCookie, setCookieForOneYear } from './cookieManager';
+﻿import { getCookie, setCookieForOneYear } from './cookieManager';
 import type { Time } from '../../static/importantTypes';
+import { getMonthNumberFromMonthString } from '../flexOfficeUtility';
 
 export type FlexOfficeCookieKeys = 'offDays' | 'flexHours' | 'flexMins';
 

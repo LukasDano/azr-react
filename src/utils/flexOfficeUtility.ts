@@ -1,15 +1,14 @@
 ﻿import { getMonthName, getValidDateString } from './dateUtility';
-import type { Time } from '../static/importantTypes';
 import { minutesToTime } from './typeUtilities/time';
+import type { Time } from '../static/importantTypes';
 
 /**
  * Prüft, ob ein übergebenes Datum ein Arbeitstag ist
  *
- * @param {number} day Das Tages Datum
- * @param {number} month Der Monat
- * @param {number} year Das Jahr
- * @param {Set} holidayDates Feiertage des jeweiligen Monats
- * @return {boolean}
+ * @param day Das Tages Datum
+ * @param month Der Monat
+ * @param year Das Jahr
+ * @param holidayDates Feiertage des jeweiligen Monats
  */
 export const isWorkDay = (day: number, month: number, year: number, holidayDates: Set<string>): boolean => {
     const correctJSDateMonth = month - 1;
@@ -138,7 +137,7 @@ export const calculateFlexOfficeStats = async (
     flexTime: Time,
     flexOfficeQuote: number,
     month: number,
-    year: number,
+    year: number
 ): Promise<Time> => {
     const workTimeMonth = await getWorkTimePerMonth(daysOff, month, year);
     const percent = calculatePercentage(flexTime, workTimeMonth);
@@ -178,8 +177,8 @@ export const findYearForMonthWithSixMonthRange = (monthNum: number): number => {
 
 /**
  * Welches Jahr hatten wir als es das letzte Mal dieser Monat war
- * @param {number} month Der fragliche Monat
- * @return {number} Das gesuchte Jahr
+ * @param  month Der fragliche Monat
+ * @return  Das gesuchte Jahr
  */
 const getYearForLastTimeMonth = (month: number): number => {
     const currentYear = new Date().getFullYear();
@@ -191,8 +190,8 @@ const getYearForLastTimeMonth = (month: number): number => {
 
 /**
  * Welches Jahr haben wir es das nächste Mal dieser Monat ist
- * @param {number} month Der fragliche Monat
- * @return {number} Das Jahr
+ * @param  month Der fragliche Monat
+ * @return  Das Jahr
  */
 const getYearForNextTimeMonth = (month: number): number => {
     const currentYear = new Date().getFullYear();

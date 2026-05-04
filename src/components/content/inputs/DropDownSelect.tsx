@@ -36,12 +36,12 @@ export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
     };
 
     return (
-        <div className={'flex justify-between mb-3'}>
+        <div className={'mb-3 flex justify-between'}>
             <div className={'mr-6 content-center'}>
                 <span className={'font-medium text-gray-900 dark:text-gray-100'}>{name}</span>
-                <span className={'font-light text-gray-900 dark:text-gray-200 block max-w-[20vw]'}>{description}</span>
+                <span className={'block max-w-[20vw] font-light text-gray-900 dark:text-gray-200'}>{description}</span>
             </div>
-            <div className={'inline-flex items-center cursor-pointer ms-auto'}>
+            <div className={'ms-auto inline-flex cursor-pointer items-center'}>
                 <Select
                     className={'w-46'}
                     classNames={{

@@ -19,3 +19,15 @@ export const sendWarnMessage = (msg: string, desc?: string) => {
     if (desc) toast.warning(msg, { description: desc });
     else toast.warning(msg);
 };
+
+export type ToastPosition = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'topCenter' | 'bottomCenter';
+type ToastPositionClass = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center';
+
+export const notificationPositions: Record<ToastPosition, ToastPositionClass> = {
+    topLeft: 'top-left',
+    topRight: 'top-right',
+    bottomLeft: 'bottom-left',
+    bottomRight: 'bottom-right',
+    topCenter: 'top-center',
+    bottomCenter: 'bottom-center',
+};

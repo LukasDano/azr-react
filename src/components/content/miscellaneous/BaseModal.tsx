@@ -1,44 +1,56 @@
-import type { FC, ReactNode } from 'react';
+import { type FC, type ReactNode, useContext } from 'react';
 import { IoClose } from 'react-icons/io5';
 
+import { getBackgroundTheme } from '../../../static/themes.ts';
+import { SettingContext, type SettingContextValues } from '../../context/SettingContext.tsx';
+
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'xl2' | 'xl3' | 'full';
+
 type BaseModalProps = {
-    modalTitle: string;
     isOpen: boolean;
     onClose: () => void;
     children: ReactNode;
+    modalTitle: string;
+    modalHeader?: ReactNode;
+    size?: ModalSize;
 };
 
-export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children }) => {
+export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children, modalHeader, size = 'md' }) => {
+    const { backgroundTheme } = useContext<SettingContextValues>(SettingContext);
+
     if (!isOpen) return null;
 
-    document.addEventListener('keydown', (evt) => {
-        if (evt.key === 'Escape') onClose();
-    });
+    const sizeClasses: Record<ModalSize, string> = {
+        sm: 'max-w-md max-h-[60vh]',
+        md: 'max-w-xl max-h-[70vh]',
+        lg: 'max-w-3xl max-h-[80vh]',
+        xl: 'max-w-5xl max-h-[85vh]',
+        xl2: 'max-w-6xl min-h-[80vh] max-h-[90vh]',
+        xl3: 'max-w-6xl min-h-[80vh] max-h-[90vh]',
+        full: 'w-full h-full',
+    };
 
     return (
         <div
-            className="
-            fixed inset-0 flex items-center justify-center z-50
-             bg-black/50 backdrop-blur-sm text-white px-3 py-2
-             transition-opacity duration-300"
-            onKeyDown={(evt) => {
-                if (evt.key === 'Escape') onClose();
-            }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-3 py-2 text-white backdrop-blur-sm transition-opacity duration-300"
+            onClick={onClose}
         >
             <div
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-6 relative text-black dark:text-white"
+                className={`relative w-full rounded-lg bg-white p-6 text-black shadow-lg ${getBackgroundTheme(backgroundTheme).modalBg} dark:text-white ${sizeClasses[size]}
+                `}
                 onClick={(evt) => evt.stopPropagation()}
-                onKeyDown={(evt) => evt.stopPropagation()}
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-600 dark:text-gray-400 dark:hover:text-gray-100 hover:text-gray-900 text-2xl cursor-pointer"
+                    className="absolute top-4 right-4 cursor-pointer text-2xl text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                     aria-label="Close modal"
                 >
                     <IoClose />
                 </button>
-                <h2 className="text-xl font-semibold mb-4">{modalTitle}</h2>
-                <div className={'max-h-150'}>{children}</div>
+
+                {modalHeader || <h2 className="mb-4 font-semibold text-xl">{modalTitle}</h2>}
+
+                {children}
             </div>
         </div>
     );

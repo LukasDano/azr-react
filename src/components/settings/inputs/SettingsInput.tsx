@@ -1,5 +1,6 @@
 import { type ChangeEvent, type FC, useState } from 'react';
 import { FaRegSave } from 'react-icons/fa';
+
 import { sendInfoMessage, sendWarnMessage } from '../../../utils/page/notifications';
 import { BaseButton } from '../../content/miscellaneous/BaseButton';
 
@@ -49,7 +50,7 @@ export const SettingsInput: FC<SettingsInputProps> = ({
             <div className="flex items-center justify-between">
                 <div className="flex flex-col">
                     <span className="font-medium text-gray-900 dark:text-gray-100">{settingName}</span>
-                    <span className="text-sm text-gray-500 dark:text-gray-300">{description}</span>
+                    <span className="text-gray-500 text-sm dark:text-gray-300">{description}</span>
                 </div>
 
                 <form className="flex items-center gap-2">
@@ -59,13 +60,13 @@ export const SettingsInput: FC<SettingsInputProps> = ({
                         onChange={handleChange}
                         min={min}
                         max={max}
-                        className="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="rounded-lg border border-gray-300 bg-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         style={{ color: useStringAsColor ? (value as string) : '' }}
                         aria-label={settingName}
                     />
                     {defaultValue !== value && (
                         <BaseButton
-                            icon={<FaRegSave className="w-5 h-5" />}
+                            icon={<FaRegSave className="h-5 w-5" />}
                             tooltip={`Änderung speichern`}
                             onClick={handleSave}
                         />

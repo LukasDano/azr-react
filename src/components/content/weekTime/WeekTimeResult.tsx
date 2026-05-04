@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+
 import type { Time, TimeBalance } from '../../../static/importantTypes.ts';
 import { getTimeBalanceFor } from '../../../utils/typeUtilities/time.ts';
 import { parseWeekOverTimeToString, parseWeekWorkTimeToString } from '../../../utils/weekTimeCalculatingUtility.ts';
@@ -26,15 +27,15 @@ export const WeekTimeResult: FC<WeekTimeResultProps> = ({ show, weekWorkTime, we
         <>
             {show && (
                 <div className="flex w-full justify-center">
-                    <div className="bg-zinc-400 dark:bg-gray-700 flex flex-col sm:flex-row items-center justify-center gap-8 p-6 rounded-2xl shadow-xl w-2/3 mx-auto h-auto sm:h-32 text-center">
+                    <div className="mx-auto flex h-auto w-2/3 flex-col items-center justify-center gap-8 rounded-2xl bg-zinc-400 p-6 text-center shadow-xl sm:h-32 sm:flex-row dark:bg-gray-700">
                         <div className="flex flex-col items-center">
-                            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Arbeitszeit</span>
-                            <span className="text-lg font-bold">{parseWeekWorkTimeToString(weekWorkTime)}</span>
+                            <span className="font-semibold text-gray-700 text-sm dark:text-gray-300">Arbeitszeit</span>
+                            <span className="font-bold text-lg">{parseWeekWorkTimeToString(weekWorkTime)}</span>
                         </div>
 
                         <div className="flex flex-col items-center">
-                            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Gleitzeit</span>
-                            <span className={`text-lg font-bold ${generateOverTimeColor()}`}>
+                            <span className="font-semibold text-gray-700 text-sm dark:text-gray-300">Gleitzeit</span>
+                            <span className={`font-bold text-lg ${generateOverTimeColor()}`}>
                                 {parseWeekOverTimeToString(weekOverTime)}
                             </span>
                         </div>
