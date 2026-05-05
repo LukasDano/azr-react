@@ -6,11 +6,11 @@ import type { Tab } from '../content/miscellaneous/TabBar.tsx';
 
 const tabIconClasses = 'h-5 w-5';
 
-type SettingTabName = 'design' | 'funktionen';
+type SettingTabName = 'Design' | 'Funktionen';
 
 export const settingTabsByName: Record<SettingTabName, Omit<Tab, 'title'>> = {
-    design: { id: 0, icon: <Palette className={tabIconClasses} /> },
-    funktionen: { id: 1, icon: <Pickaxe className={tabIconClasses} /> },
+    Design: { id: 0, icon: <Palette className={tabIconClasses} /> },
+    Funktionen: { id: 1, icon: <Pickaxe className={tabIconClasses} /> },
 };
 
 export const settingTabs: Tab[] = Object.entries(settingTabsByName).map(([name, tab]) => ({
@@ -47,28 +47,28 @@ export const settingsConfig: Setting[] = [
         name: 'Website Theme',
         component: 'DropDownSelect',
         options: ['light', ...Object.keys(backgroundThemes)],
-        tabId: settingTabsByName.design.id,
+        tabId: settingTabsByName.Design.id,
     },
     {
         id: 'countdownHours',
         name: 'Countdown Farbe für Stunden',
         component: 'ColorPicker',
         funcParamKey: 'hours',
-        tabId: settingTabsByName.design.id,
+        tabId: settingTabsByName.Design.id,
     },
     {
         id: 'countdownMinutes',
         name: 'Countdown Farbe für Minuten',
         component: 'ColorPicker',
         funcParamKey: 'minutes',
-        tabId: settingTabsByName.design.id,
+        tabId: settingTabsByName.Design.id,
     },
     {
         id: 'countdownSeconds',
         name: 'Countdown Farbe für Sekunden',
         component: 'ColorPicker',
         funcParamKey: 'seconds',
-        tabId: settingTabsByName.design.id,
+        tabId: settingTabsByName.Design.id,
     },
     {
         id: 'lightModeTheme',
@@ -76,7 +76,7 @@ export const settingsConfig: Setting[] = [
         component: 'DropDownSelect',
         funcParamKey: 'light',
         options: Object.keys(availableThemes),
-        tabId: settingTabsByName.design.id,
+        tabId: settingTabsByName.Design.id,
     },
     {
         id: 'darkModeTheme',
@@ -84,25 +84,25 @@ export const settingsConfig: Setting[] = [
         component: 'DropDownSelect',
         funcParamKey: 'dark',
         options: Object.keys(availableThemes),
-        tabId: settingTabsByName.design.id,
+        tabId: settingTabsByName.Design.id,
     },
     {
         id: 'notificationPosition',
         name: 'Benachrichtigungsposition',
         component: 'DropDownSelect',
         options: Object.keys(notificationPositions),
-        tabId: settingTabsByName.design.id,
+        tabId: settingTabsByName.Design.id,
     },
     {
         id: 'displayShortcuts',
         name: 'Shortcuts anzeigen',
         component: 'SettingsToggle',
-        tabId: settingTabsByName.design.id,
+        tabId: settingTabsByName.Funktionen.id,
     },
     {
         id: 'overtimeAutomatic',
         name: 'Nach Arbeitsende automatisch erhöhen',
         component: 'SettingsToggle',
-        tabId: settingTabsByName.funktionen.id,
+        tabId: settingTabsByName.Funktionen.id,
     },
 ];
