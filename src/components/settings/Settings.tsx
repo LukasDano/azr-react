@@ -97,7 +97,7 @@ export const Settings = () => {
         try {
             return settingKeyValueMap[id];
         } catch (err) {
-            setError(new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`));
+            setError(new SettingsError('Invalid SettingId', `Failed to find a value for the id: ${id}.`));
 
             throw err;
         }
