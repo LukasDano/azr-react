@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import { lazy, Suspense, useContext, useState } from 'react';
 import { Toaster } from 'sonner';
 
@@ -26,7 +27,7 @@ const Calculator = lazy(() => import('./content/Calculator.tsx'));
 const FlexOfficeCalculator = lazy(() => import('./content/flexOffice/FlexOfficeCalculator.tsx'));
 const WeekTimeCalculator = lazy(() => import('./content/weekTime/WeekTimeCalculator.tsx'));
 
-export const App = () => {
+export const App: FC = () => {
     const { darkModeActive, toastPosition, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
     const {
         startTime,

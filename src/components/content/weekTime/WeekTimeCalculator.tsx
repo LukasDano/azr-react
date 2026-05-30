@@ -25,7 +25,7 @@ const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClose }) =>
         setCookieUntilEndOfWeek('weekTime', weekTime);
     }, [weekTime]);
 
-    const handleWeekTimeChange = (key: WeekDay, val: Time) => {
+    const handleWeekTimeChange = (key: WeekDay, val: Time): void => {
         const upadtedWeekTime = {
             ...weekTime,
             [key]: val,

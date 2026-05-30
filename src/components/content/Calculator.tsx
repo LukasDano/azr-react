@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import { useContext, useEffect } from 'react';
 
 import { Countdown } from './countdown/Countdown.tsx';
@@ -31,10 +32,12 @@ import {
     isSameTime,
     parseTimeToDate,
 } from '../../utils/typeUtilities/time.ts';
-import { AppContext, type AppContextValues } from '../context/AppContext.tsx';
-import { SettingContext, type SettingContextValues } from '../context/SettingContext.tsx';
+import type { AppContextValues } from '../context/AppContext.tsx';
+import { AppContext } from '../context/AppContext.tsx';
+import type { SettingContextValues } from '../context/SettingContext.tsx';
+import { SettingContext } from '../context/SettingContext.tsx';
 
-const Calculator = () => {
+const Calculator: FC = () => {
     const {
         startTime,
         updateStartTime,

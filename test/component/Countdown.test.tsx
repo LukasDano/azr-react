@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { Countdown } from '../../src/components/content/countdown/Countdown.tsx';
 
-const advanceSeconds = async (seconds: number) => {
+const advanceSeconds = async (seconds: number): Promise<void> => {
     await act(async () => {
         vi.advanceTimersByTime(seconds * 1000);
     });
