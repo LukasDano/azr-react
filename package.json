@@ -1,23 +1,24 @@
 {
     "name": "azr-react",
-    "private": true,
     "version": "0.0.4",
+    "private": true,
     "homepage": "https://LukasDano.github.io/azr-react",
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc -b && vite build",
-        "preview": "vite preview",
-        "tsc": "tsc -b",
         "biome:check": "biome check --write",
-        "biome:lint:ci": "biome lint --write",
-        "biome:format": "biome format --write",
         "biome:ci": "biome ci",
+        "biome:format": "biome format --write",
+        "biome:lint:ci": "biome lint --write",
+        "build": "tsc -b && vite build",
+        "dev": "vite",
+        "local:ci": "npm run tsc && npm run biome:ci && npm run vitest:all",
+        "prepare-commit": "npm run tsc && npm run sort-package && npm run biome:check && npm run vitest:all",
+        "preview": "vite preview",
+        "sort-package": "sort-package-json",
+        "tsc": "tsc -b",
         "vitest:all": "npm run vitest:component && npm run vitest:function",
         "vitest:component": "npx vitest run test/component --reporter=verbose",
-        "vitest:function": "npx vitest run test/function --reporter=verbose",
-        "local:ci": "npm run tsc && npm run biome:ci && npm run vitest:all",
-        "prepare-commit": "npm run tsc && npm run biome:check && npm run vitest:all"
+        "vitest:function": "npx vitest run test/function --reporter=verbose"
     },
     "dependencies": {
         "@headlessui/react": "^2.2.10",
@@ -44,6 +45,7 @@
         "@vitejs/plugin-react": "^6.0.2",
         "babel-plugin-react-compiler": "^1.0.0",
         "jsdom": "^29.1.1",
+        "sort-package-json": "^3.6.1",
         "typescript": "^6.0.3",
         "vite": "^8.0.14",
         "vitest": "^4.1.7"
