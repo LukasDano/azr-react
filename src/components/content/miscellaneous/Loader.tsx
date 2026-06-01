@@ -13,7 +13,7 @@ import {
     ScaleLoader,
 } from 'react-spinners';
 
-import type { ColorTheme, ThemeName } from '../../../static/themes.ts';
+import type { ThemeColors, ThemeName } from '../../../static/themes.ts';
 import type { SettingContextValues } from '../../context/SettingContext.tsx';
 import { SettingContext } from '../../context/SettingContext.tsx';
 
@@ -28,7 +28,7 @@ export const Loader: FC<LoaderProps> = ({ loaderIcon = 'clock', loaderSize = nul
     const { darkModeActive, colorTheme } = useContext<SettingContextValues>(SettingContext);
 
     const getColorForTheme = (): string => {
-        const themeColors: Record<ThemeName, ColorTheme> = {
+        const themeColors: Record<ThemeName, ThemeColors> = {
             cyan: { light: '#22d3ee', dark: '#0891b2' },
             sky: { light: '#38bdf8', dark: '#0284c7' },
             emerald: { light: '#34d399', dark: '#059669' },
@@ -45,6 +45,8 @@ export const Loader: FC<LoaderProps> = ({ loaderIcon = 'clock', loaderSize = nul
             pink: { light: '#f472b6', dark: '#db2777' },
             purple: { light: '#c084fc', dark: '#9333ea' },
             yellow: { light: '#facc15', dark: '#ca8a04' },
+            red: { light: '#ef4444', dark: '#b91c1c' },
+            fuchsia: { light: '#d946ef', dark: '#c026d3' },
         };
 
         const theme = darkModeActive ? colorTheme.dark : colorTheme.light;
