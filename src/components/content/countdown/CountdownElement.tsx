@@ -33,7 +33,7 @@ export const CountdownElement: FC<CountdownElementProps> = ({ unit, color, value
         seconds: 'Seconds',
     };
 
-    const getPercent = (val: number, max: number) => (val / max) * 100;
+    const getPercent = (val: number, max: number): number => (val / max) * 100;
 
     return (
         <div key={unit} className="flex flex-col items-center pr-1 pl-1">

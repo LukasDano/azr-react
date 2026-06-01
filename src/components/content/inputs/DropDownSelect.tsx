@@ -21,12 +21,12 @@ export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
 
     const animatedComponents = makeAnimated();
 
-    const handleChange = (selectedOption: SingleValue<string>) => {
+    const handleChange = (selectedOption: SingleValue<string>): void => {
         setSelectedOption(selectedOption);
         onChange(selectedOption);
     };
 
-    const generateOptions = () => {
+    const generateOptions = (): { value: string; label: string }[] => {
         return options.map((opt) => {
             return {
                 value: opt,

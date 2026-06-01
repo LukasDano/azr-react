@@ -12,7 +12,7 @@ type TimeInputFieldProps = {
 };
 
 export const TimeInputField: FC<TimeInputFieldProps> = ({ label, value, onChange, disabled = false, className }) => {
-    const handleChange = (val: string) => {
+    const handleChange = (val: string): void => {
         const time = parseStringToTime(val);
         const cleaned = cleanTime(time);
 

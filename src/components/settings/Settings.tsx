@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import { useContext, useMemo, useState } from 'react';
 
 import { ColorPicker } from './inputs/ColorSelector.tsx';
@@ -16,7 +17,7 @@ import { SettingContext, type SettingContextValues } from '../context/SettingCon
 
 type SettingValue = boolean | string | ColorTheme | ToastPosition;
 
-export const Settings = () => {
+export const Settings: FC = () => {
     const {
         darkModeActive,
         updateDarkModeActive,
@@ -37,7 +38,7 @@ export const Settings = () => {
     const [activeTabId, setActiveTabId] = useState<number>(settingTabsByName.Design.id);
     const [error, setError] = useState<SettingsError | null>(null);
 
-    const handleCountdownColorChange = (key: CountdownUnit, val: string) => {
+    const handleCountdownColorChange = (key: CountdownUnit, val: string): void => {
         if (typeof key === 'undefined')
             setError(
                 new SettingsError(
@@ -97,7 +98,7 @@ export const Settings = () => {
         try {
             return settingKeyValueMap[id];
         } catch (err) {
-            setError(new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`));
+            setError(new SettingsError('Invalid SettingId', `Failed to find a value for the id: ${id}.`));
 
             throw err;
         }

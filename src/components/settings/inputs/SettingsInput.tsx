@@ -31,12 +31,12 @@ export const SettingsInput: FC<SettingsInputProps> = ({
 }) => {
     const [value, setValue] = useState<SettingsInputValue>(defaultValue);
 
-    const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (evt: ChangeEvent<HTMLInputElement>): void => {
         if (type === 'text') setValue(evt.currentTarget.value);
         else setValue(Number(evt.currentTarget.value));
     };
 
-    const handleSave = () => {
+    const handleSave = (): void => {
         if (onlyValues && !onlyValues.includes(value))
             sendWarnMessage(`Dieser Wert wird für ${settingName} nicht unterstützt`);
         else {

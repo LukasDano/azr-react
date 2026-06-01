@@ -17,14 +17,14 @@ type FloatTimeInputFieldProps = {
 };
 
 export const FloatTimeInputField: FC<FloatTimeInputFieldProps> = ({ label, value, onChange, onClick }) => {
-    const handleChange = (val: string) => {
+    const handleChange = (val: string): void => {
         if (!isValidFloatTimeStr(val)) return;
 
         const time = parseStringToFloatTime(val);
         if (time) onChange(time);
     };
 
-    const handleKeyDown = (evt: KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (evt: KeyboardEvent<HTMLInputElement>): void => {
         let updatedValue: FloatTime;
 
         if (evt.key === 'ArrowUp') {

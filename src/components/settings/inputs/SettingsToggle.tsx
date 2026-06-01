@@ -18,7 +18,7 @@ export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle,
 
     const [value, setValue] = useState<boolean>(defaultValue);
 
-    const handleToggle = () => {
+    const handleToggle = (): void => {
         const newValue = !value;
         setValue(newValue);
         onToggle(newValue);
