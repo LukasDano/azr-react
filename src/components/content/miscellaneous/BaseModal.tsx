@@ -1,3 +1,4 @@
+import { useHotkey } from '@tanstack/react-hotkeys';
 import { type FC, type ReactNode, useContext } from 'react';
 import { IoClose } from 'react-icons/io5';
 
@@ -17,6 +18,8 @@ type BaseModalProps = {
 
 export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children, modalHeader, size = 'md' }) => {
     const { backgroundTheme } = useContext<SettingContextValues>(SettingContext);
+
+    useHotkey({ key: 'Escape' }, onClose, { requireReset: true, preventDefault: true, eventType: 'keyup' });
 
     if (!isOpen) return null;
 

@@ -1,7 +1,8 @@
+import { useHotkey } from '@tanstack/react-hotkeys';
 import type { ColorResult } from '@uiw/react-color';
 import { Chrome, ChromeInputType } from '@uiw/react-color';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type ColorPickerProps = {
     color?: string;
@@ -35,15 +36,7 @@ export const ColorPicker: FC<ColorPickerProps> = ({
         setOpen(false);
     };
 
-    useEffect(() => {
-        const handleKey = (evt: KeyboardEvent): void => {
-            if (!open) return;
-            if (evt.key === 'Escape') handleClose();
-            if (evt.key === 'Enter') handleConfirm();
-        };
-        globalThis.addEventListener('keydown', handleKey);
-        return () => globalThis.removeEventListener('keydown', handleKey);
-    }, [open, tempColor]);
+    useHotkey({ key: 'Enter' }, handleConfirm, { requireReset: true, preventDefault: true });
 
     return (
         <div className="flex items-center justify-between gap-3">
