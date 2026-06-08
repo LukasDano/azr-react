@@ -21,7 +21,7 @@ export const TimeInputField: FC<TimeInputFieldProps> = ({ label, value, onChange
 
     return (
         <div className={`flex flex-col gap-1 ${className}`}>
-            <label className={`font-medium text-slate-700 text-sm dark:text-white`}>{label}</label>
+            <label className={'font-medium text-slate-700 text-sm dark:text-white'}>{label}</label>
 
             <input
                 id={`${label}-time-input`}

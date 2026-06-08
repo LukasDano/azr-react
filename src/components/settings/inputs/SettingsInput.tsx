@@ -67,7 +67,7 @@ export const SettingsInput: FC<SettingsInputProps> = ({
                     {defaultValue !== value && (
                         <BaseButton
                             icon={<FaRegSave className="h-5 w-5" />}
-                            tooltip={`Änderung speichern`}
+                            tooltip={'Änderung speichern'}
                             onClick={handleSave}
                         />
                     )}

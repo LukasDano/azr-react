@@ -43,7 +43,7 @@ export const Settings: FC = () => {
             setError(
                 new SettingsError(
                     'Invalid CountdownUnit',
-                    `Tried to call handleCountdownColorChange() without a valid CountdownUnit .`
+                    'Tried to call handleCountdownColorChange() without a valid CountdownUnit .'
                 )
             );
 
@@ -58,7 +58,7 @@ export const Settings: FC = () => {
     const handleThemeChange = (key: ThemeType, val: string): void => {
         if (typeof key === 'undefined')
             setError(
-                new SettingsError('Invalid ThemeType', `Tried to call handleThemeChange() without a valid ThemeType .`)
+                new SettingsError('Invalid ThemeType', 'Tried to call handleThemeChange() without a valid ThemeType .')
             );
 
         const updatedTheme = {
