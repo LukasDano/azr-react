@@ -10,12 +10,14 @@
         "biome:format": "biome format --write",
         "biome:lint:ci": "biome lint --write",
         "build": "tsc -b && vite build",
+        "deploy": "npm run prepare-commit && tsx scripts/deploy.ts",
         "dev": "vite",
         "local:ci": "npm run tsc && npm run biome:ci && npm run vitest:all",
         "prepare-commit": "npm run tsc && npm run sort-package && npm run biome:check && npm run vitest:all",
         "preview": "vite preview",
         "sort-package": "sort-package-json",
         "tsc": "tsc -b",
+        "update:dependencies": "tsx scripts/outdated.ts && npm run biome:check",
         "vitest:all": "npm run vitest:component && npm run vitest:function",
         "vitest:component": "npx vitest run test/component --reporter=verbose",
         "vitest:function": "npx vitest run test/function --reporter=verbose"
@@ -47,6 +49,7 @@
         "babel-plugin-react-compiler": "^1.0.0",
         "jsdom": "^29.1.1",
         "sort-package-json": "^4.0.0",
+        "tsx": "^4.22.4",
         "typescript": "^6.0.3",
         "vite": "^8.0.16",
         "vitest": "^4.1.8"
