@@ -3,12 +3,12 @@
     "compilerOptions": {
         "composite": true,
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
-        "types": ["vitest/globals"],
-        "lib": ["ES2024", "DOM"],
+        "types": ["vitest/globals", "@testing-library/jest-dom"],
+        "lib": ["ESNext", "DOM"],
         "jsx": "react-jsx",
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
         "noEmit": true
     },
-    "include": ["test", "src/**/*"]
+    "include": ["test/**/*", "src/**/*"]
 }

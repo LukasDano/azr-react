@@ -1,3 +1,4 @@
+import { useHotkey } from '@tanstack/react-hotkeys';
 import type { FC } from 'react';
 import { lazy, Suspense, useContext, useState } from 'react';
 import { Toaster } from 'sonner';
@@ -72,17 +73,11 @@ export const App: FC = () => {
         sendInfoMessage(`Arbeitszeit: ${istStr} | Gleitzeit: ${floatStr}`);
     };
 
-    document.addEventListener('keyup', (evt) => {
-        if (evt.altKey && evt.key === 'i') setSettingsOpen(true);
-        if (evt.altKey && evt.key === 'w') setWeekTimeOpen(true);
-        if (evt.altKey && evt.key === 'h') setFlexOfficeOpen(true);
-        if (evt.altKey && evt.key === 'c') sendMsgWithCurrentStats();
-
-        if (evt.key === 'F1') {
-            evt.preventDefault();
-            resetTimeValues();
-        }
-    });
+    useHotkey({ key: 'i', alt: true }, () => setSettingsOpen(true), { requireReset: true });
+    useHotkey({ key: 'w', alt: true }, () => setWeekTimeOpen(true), { requireReset: true });
+    useHotkey({ key: 'h', alt: true }, () => setFlexOfficeOpen(true), { requireReset: true });
+    useHotkey({ key: 'c', alt: true }, sendMsgWithCurrentStats, { requireReset: true });
+    useHotkey({ key: 'F1' }, resetTimeValues, { requireReset: true, preventDefault: true });
 
     return (
         <div className={`${darkModeActive ? 'dark' : 'light'}`}>
