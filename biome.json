@@ -1,29 +1,60 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
-    "assist": {
-        "actions": {
-            "source": {
-                "noDuplicateClasses": "on",
-                "organizeImports": {
-                    "level": "on",
-                    "options": {
-                        "groups": [":PACKAGE:", ":BLANK_LINE:", ["./**"]]
-                    }
-                }
-            }
-        },
-        "enabled": true
-    },
-    "css": {
-        "parser": {
-            "tailwindDirectives": true
-        }
+    "$schema": "https://biomejs.dev/schemas/2.5.0/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
     },
     "files": {
         "ignoreUnknown": false
     },
+    "linter": {
+        "enabled": true,
+        "includes": ["**/*.{ts,tsx}"],
+        "rules": {
+            "preset": "recommended",
+            "correctness": {
+                "noUnusedVariables": "warn",
+                "useValidForDirection": "error",
+                "useExhaustiveDependencies": "off"
+            },
+            "style": {
+                "noDefaultExport": "error",
+                "useConst": "error",
+                "useImportType": "error",
+                "useTemplate": "warn",
+                "noNonNullAssertion": "off",
+                "noYodaExpression": "error"
+            },
+            "suspicious": {
+                "noExplicitAny": "off",
+                "noDocumentCookie": "off"
+            },
+            "a11y": {
+                "useButtonType": "off",
+                "noStaticElementInteractions": "off",
+                "noLabelWithoutControl": "off",
+                "useKeyWithClickEvents": "off"
+            },
+            "security": {
+                "noBlankTarget": "error"
+            },
+            "nursery": {
+                "useSortedClasses": {
+                    "level": "error",
+                    "fix": "safe"
+                },
+                "useExplicitReturnType": {
+                    "level": "error",
+                    "options": {
+                        "allowIifes": true,
+                        "allowExpressions": true
+                    }
+                }
+            }
+        }
+    },
     "formatter": {
-        "attributePosition": "auto",
         "enabled": true,
         "formatWithErrors": false,
         "indentStyle": "space",
@@ -39,89 +70,22 @@
             "trailingNewline": true
         }
     },
-    "linter": {
-        "enabled": true,
-        "includes": ["**/*.{ts,tsx}"],
-        "rules": {
-            "a11y": {
-                "noLabelWithoutControl": "off",
-                "noStaticElementInteractions": "off",
-                "useButtonType": "off",
-                "useKeyWithClickEvents": "off"
-            },
-            "complexity": {
-                "noBannedTypes": {
-                    "fix": "safe",
-                    "level": "error"
-                },
-                "noEmptyTypeParameters": "error",
-                "noExtraBooleanCast": {
-                    "fix": "safe",
-                    "level": "error"
-                },
-                "noUselessRename": {
-                    "fix": "safe",
-                    "level": "error"
-                },
-                "useArrowFunction": "warn"
-            },
-            "correctness": {
-                "noReactPropAssignments": "error",
-                "noUnusedVariables": "warn",
-                "useExhaustiveDependencies": "off",
-                "useValidForDirection": "error"
-            },
-            "nursery": {
-                "noEqualsToNull": "error",
-                "noIdenticalTestTitle": "error",
-                "useArraySome": "info",
-                "useExplicitReturnType": {
-                    "level": "error",
-                    "options": {
-                        "allowExpressions": true,
-                        "allowIifes": true
-                    }
-                },
-                "useFind": "warn",
-                "useImportsFirst": "error",
-                "useSortedClasses": {
-                    "fix": "safe",
-                    "level": "error"
-                }
-            },
-            "recommended": true,
-            "security": {
-                "noBlankTarget": "error"
-            },
-            "style": {
-                "noDefaultExport": "error",
-                "noExportedImports": "error",
-                "noNonNullAssertion": "off",
-                "noShoutyConstants": "error",
-                "noUnusedTemplateLiteral": "error",
-                "useConst": "error",
-                "useDefaultParameterLast": "warn",
-                "useDefaultSwitchClause": "error",
-                "useImportType": "error",
-                "useReadonlyClassProperties": "error",
-                "useTemplate": "warn"
-            },
-            "suspicious": {
-                "noDeprecatedImports": "error",
-                "noDocumentCookie": "off",
-                "noExplicitAny": "off",
-                "noExportsInTest": "error",
-                "noImplicitAnyLet": "error",
-                "noReactForwardRef": "error",
-                "noSuspiciousSemicolonInJsx": "error",
-                "noVar": "error",
-                "useIsArray": "error"
-            }
+    "css": {
+        "parser": {
+            "tailwindDirectives": true
         }
     },
-    "vcs": {
-        "clientKind": "git",
+    "assist": {
         "enabled": true,
-        "useIgnoreFile": true
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "groups": [":PACKAGE:", ":BLANK_LINE:", ["./**"]]
+                    }
+                }
+            }
+        }
     }
 }
