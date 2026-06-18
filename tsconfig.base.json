@@ -1,6 +1,6 @@
 ﻿{
     "compilerOptions": {
-        "target": "ES2024",
+        "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
@@ -13,7 +13,6 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true,
-        "erasableSyntaxOnly": true,
         "resolveJsonModule": true,
         "esModuleInterop": true
     }
