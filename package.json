@@ -5,25 +5,21 @@
     "homepage": "https://LukasDano.github.io/azr-react",
     "type": "module",
     "scripts": {
-        "biome:check": "biome check --write",
-        "biome:ci": "biome ci",
-        "biome:format": "biome format --write",
-        "biome:lint:ci": "biome lint --write",
-        "build": "tsc -b && vite build",
-        "deploy": "npm run prepare-commit && tsx scripts/deploy.ts",
         "dev": "vite",
-        "local:ci": "npm run tsc && npm run biome:ci && npm run vitest:all",
-        "prepare-commit": "npm run tsc && npm run sort-package && npm run biome:check && npm run vitest:all",
+        "build": "tsc -b && vite build",
         "preview": "vite preview",
         "tsc": "tsc -b",
-        "update:dependencies": "tsx scripts/outdated.ts && npm run biome:check",
         "vitest:all": "npm run vitest:component && npm run vitest:function",
         "vitest:component": "npx vitest run test/component --reporter=verbose",
         "vitest:function": "npx vitest run test/function --reporter=verbose",
         "ox:lint": "oxlint",
         "ox:lint:fix": "oxlint --fix",
         "ox:fmt": "oxfmt",
-        "ox:fmt:check": "oxfmt --check"
+        "ox:fmt:check": "oxfmt --check",
+        "local:ci": "npm run tsc && npm run ox:fmt:check && npm run ox:lint && npm run vitest:all",
+        "prepare-commit": "npm run tsc && npm run ox:fmt && npm run ox:lint:fix && npm run vitest:all",
+        "deploy": "npm run prepare-commit && tsx scripts/deploy.ts",
+        "update:dependencies": "tsx scripts/outdated.ts && npm run ox:fmt"
     },
     "dependencies": {
         "@headlessui/react": "^2.2.10",
@@ -40,7 +36,6 @@
         "tailwindcss": "^4.3.1"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.5.0",
         "@rolldown/plugin-babel": "^0.2.3",
         "@tailwindcss/vite": "^4.3.1",
         "@testing-library/jest-dom": "^6.9.1",
