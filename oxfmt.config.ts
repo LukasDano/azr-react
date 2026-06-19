@@ -10,7 +10,7 @@ export default defineConfig({
     trailingComma: 'none',
     sortTailwindcss: true,
     arrowParens: 'always',
-    endOfLine: 'crlf',
+    endOfLine: 'lf',
     insertFinalNewline: true,
     sortImports: {
         internalPattern: ['@/**', '~/**'],
