@@ -6,11 +6,11 @@ import {
     parseFloatTimeFromRawTimeValues,
     parseFloatTimeToString,
     parseStringToFloatTime,
-    validateFloatString,
+    validateFloatString
 } from '../../src/utils/typeUtilities/floatTime';
 
 vi.mock('../../src/utils/formatting', () => ({
-    formatNumber: vi.fn((n: number) => n.toString().padStart(2, '0')),
+    formatNumber: vi.fn((n: number) => n.toString().padStart(2, '0'))
 }));
 
 describe('parseFloatTimeToString', () => {

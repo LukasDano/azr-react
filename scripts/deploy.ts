@@ -18,7 +18,7 @@ const targetDir = path.resolve('dist', '../versions', versionFolder);
 // Zielordner vollständig löschen, falls vorhanden
 rmSync(targetDir, {
     recursive: true,
-    force: true,
+    force: true
 });
 
 // Zielordner neu anlegen
@@ -26,7 +26,7 @@ mkdirSync(targetDir, { recursive: true });
 
 // dist → Versionsordner kopieren
 cpSync(sourceDir, targetDir, {
-    recursive: true,
+    recursive: true
 });
 
 console.log(`Deployed to: ${targetDir}`);

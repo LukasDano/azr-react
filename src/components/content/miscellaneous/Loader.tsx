@@ -1,4 +1,5 @@
 import type { FC, ReactNode } from 'react';
+
 import { useContext } from 'react';
 import {
     BounceLoader,
@@ -10,11 +11,12 @@ import {
     PuffLoader,
     PulseLoader,
     RingLoader,
-    ScaleLoader,
+    ScaleLoader
 } from 'react-spinners';
 
 import type { ThemeColors, ThemeName } from '../../../static/themes.ts';
 import type { SettingContextValues } from '../../context/SettingContext.tsx';
+
 import { SettingContext } from '../../context/SettingContext.tsx';
 
 type LoaderIcon = 'bounce' | 'climbing' | 'clock' | 'fade' | 'gird' | 'hash' | 'ring' | 'pulse' | 'scale' | 'puff';
@@ -46,11 +48,11 @@ export const Loader: FC<LoaderProps> = ({ loaderIcon = 'clock', loaderSize = nul
             purple: { light: '#c084fc', dark: '#9333ea' },
             yellow: { light: '#facc15', dark: '#ca8a04' },
             red: { light: '#ef4444', dark: '#b91c1c' },
-            fuchsia: { light: '#d946ef', dark: '#c026d3' },
+            fuchsia: { light: '#d946ef', dark: '#c026d3' }
         };
 
         const theme = darkModeActive ? colorTheme.dark : colorTheme.light;
-        return themeColors[theme as ThemeName][darkModeActive ? 'dark' : 'light'];
+        return themeColors[theme][darkModeActive ? 'dark' : 'light'];
     };
 
     const getLoader = (): ReactNode => {
@@ -66,11 +68,11 @@ export const Loader: FC<LoaderProps> = ({ loaderIcon = 'clock', loaderSize = nul
             pulse: <PulseLoader color={color} size={loaderSize ?? 30} />,
             ring: <RingLoader color={color} size={loaderSize ?? 80} />,
             scale: <ScaleLoader color={color} />,
-            puff: <PuffLoader color={color} size={loaderSize ?? 100} />,
+            puff: <PuffLoader color={color} size={loaderSize ?? 100} />
         };
 
         return loaders[loaderIcon];
     };
 
-    return <div className="flex min-h-screen flex-col items-center justify-center">{getLoader()}</div>;
+    return <div className={'flex min-h-screen flex-col items-center justify-center'}>{getLoader()}</div>;
 };

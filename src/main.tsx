@@ -1,12 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { App } from './components/App.tsx';
-import { AppContextProvider } from './components/context/AppContextProvider.tsx';
-import { SettingContextProvider } from './components/context/SettingContextProvider.tsx';
 import { name, version } from '../package.json';
-import './index.css';
+import { App } from './components/App.tsx';
 import { ErrorBoundary } from './components/boundaries/ErrorBoundary.tsx';
+import { AppContextProvider } from './components/context/AppContextProvider.tsx';
+import './index.css';
+import { SettingContextProvider } from './components/context/SettingContextProvider.tsx';
 
 document.addEventListener('DOMContentLoaded', () => {
     console.info(`${name} v${version}`);

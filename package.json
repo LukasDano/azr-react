@@ -20,7 +20,11 @@
         "update:dependencies": "tsx scripts/outdated.ts && npm run biome:check",
         "vitest:all": "npm run vitest:component && npm run vitest:function",
         "vitest:component": "npx vitest run test/component --reporter=verbose",
-        "vitest:function": "npx vitest run test/function --reporter=verbose"
+        "vitest:function": "npx vitest run test/function --reporter=verbose",
+        "ox:lint": "oxlint",
+        "ox:lint:fix": "oxlint --fix",
+        "ox:fmt": "oxfmt",
+        "ox:fmt:check": "oxfmt --check"
     },
     "dependencies": {
         "@headlessui/react": "^2.2.10",
@@ -48,6 +52,9 @@
         "@vitejs/plugin-react": "^6.0.2",
         "babel-plugin-react-compiler": "^1.0.0",
         "jsdom": "^29.1.1",
+        "oxfmt": "^0.55.0",
+        "oxlint": "1.68.0",
+        "oxlint-tsgolint": "0.23.0",
         "sort-package-json": "^4.0.0",
         "tsx": "^4.22.4",
         "typescript": "^6.0.3",

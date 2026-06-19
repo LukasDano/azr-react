@@ -1,5 +1,8 @@
-import { type FC, useState } from 'react';
-import Select, { type SingleValue } from 'react-select';
+import type { FC } from 'react';
+import type { SingleValue } from 'react-select';
+
+import { useState } from 'react';
+import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 
 type MultipleValueSelectorProps = {
@@ -15,7 +18,7 @@ export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
     description = '',
     defaultOption,
     options,
-    onChange,
+    onChange
 }) => {
     const [selectedOption, setSelectedOption] = useState<SingleValue<string>>(defaultOption);
 
@@ -30,7 +33,7 @@ export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
         return options.map((opt) => {
             return {
                 value: opt,
-                label: opt,
+                label: opt
             };
         });
     };
@@ -47,17 +50,17 @@ export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
                     classNames={{
                         control: () => 'bg-gray-50 border-gray-300 text-gray-900 min-w-full',
                         menu: () => 'bg-gray-50 border-gray-300 text-gray-900 min-w-full',
-                        multiValue: () => 'dark:bg-gray-300 dark:text-gray-700 min-w-full',
+                        multiValue: () => 'dark:bg-gray-300 dark:text-gray-700 min-w-full'
                     }}
                     styles={{
                         option: (base, state) => ({
                             ...base,
                             backgroundColor: state.isFocused ? '#D1D5DBFF' : '',
-                            color: state.isFocused ? '#374151FF' : '',
-                        }),
+                            color: state.isFocused ? '#374151FF' : ''
+                        })
                     }}
-                    closeMenuOnSelect={true}
-                    menuPosition="fixed"
+                    closeMenuOnSelect
+                    menuPosition={'fixed'}
                     components={animatedComponents}
                     value={{ value: selectedOption, label: selectedOption }}
                     isMulti={false}

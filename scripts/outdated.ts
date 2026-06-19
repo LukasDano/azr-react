@@ -25,7 +25,7 @@ try {
     try {
         const result = execSync('npm outdated --json', {
             encoding: 'utf8',
-            stdio: ['ignore', 'pipe', 'ignore'],
+            stdio: ['ignore', 'pipe', 'ignore']
         });
 
         outdated = result ? JSON.parse(result) : {};

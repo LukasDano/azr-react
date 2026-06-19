@@ -1,10 +1,14 @@
+import type { FC } from 'react';
+
 import { CalendarDays, ClockFading, HouseWifi } from 'lucide-react';
-import { type FC, useContext } from 'react';
+import { useContext } from 'react';
 import { MdOutlineResetTv } from 'react-icons/md';
 
-import { HeaderButton } from './HeaderButton';
+import type { SettingContextValues } from '../../context/SettingContext';
+
 import { getBackgroundTheme } from '../../../static/themes.ts';
-import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
+import { SettingContext } from '../../context/SettingContext';
+import { HeaderButton } from './HeaderButton';
 
 type ActionHeaderProps = {
     currentStatsAction: () => void;
@@ -17,15 +21,15 @@ export const ActionHeader: FC<ActionHeaderProps> = ({
     currentStatsAction,
     resetAction,
     openWeekTimeAction,
-    openFlexOfficeAction,
+    openFlexOfficeAction
 }) => {
     const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
 
     return (
         <nav
-            className={`sticky top-0 z-39 flex justify-center rounded-b-xl border-slate-500 border-b bg-zinc-600 p-2 shadow-sm ${getBackgroundTheme(backgroundTheme).actionHeaderBg}`}
+            className={`sticky top-0 z-39 flex justify-center rounded-b-xl border-b border-slate-500 bg-zinc-600 p-2 shadow-sm ${getBackgroundTheme(backgroundTheme).actionHeaderBg}`}
         >
-            <div className="flex flex-wrap items-center justify-center gap-5">
+            <div className={'flex flex-wrap items-center justify-center gap-5'}>
                 <HeaderButton
                     icon={<CalendarDays className={'h-6 w-6'} />}
                     tooltip={`Wochenzeitrechner öffnen ${showShortcuts ? '[alt + w]' : ''}`}

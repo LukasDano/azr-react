@@ -1,11 +1,13 @@
 import type { FC, ReactNode } from 'react';
+
 import { useMemo, useState } from 'react';
 
-import type { SettingContextValues } from './SettingContext.tsx';
-import { SettingContext } from './SettingContext.tsx';
 import type { BackgroundTheme, ColorTheme, CountdownColors } from '../../static/themes.ts';
 import type { ToastPosition } from '../../utils/page/notifications.ts';
+import type { SettingContextValues } from './SettingContext.tsx';
+
 import { getStorageValue, setStorageValue } from '../../utils/storage/localStorageManger.ts';
+import { SettingContext } from './SettingContext.tsx';
 
 type SettingContextProviderProps = {
     children: ReactNode;
@@ -79,7 +81,7 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
             toastPosition,
             updateToastPosition,
             backgroundTheme,
-            updateBackgroundTheme,
+            updateBackgroundTheme
         }),
         [darkModeActive, countdownColors, colorTheme, overTimeAutomatic, showShortcuts, toastPosition, backgroundTheme]
     );

@@ -1,9 +1,11 @@
-import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';
+
+import Tippy from '@tippyjs/react';
 import { useContext } from 'react';
 
-import { getThemeClasses } from '../../../static/themes';
 import type { SettingContextValues } from '../../context/SettingContext';
+
+import { getThemeClasses } from '../../../static/themes';
 import { SettingContext } from '../../context/SettingContext';
 
 type BaseButtonProps = {

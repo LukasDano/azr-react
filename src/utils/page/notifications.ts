@@ -29,5 +29,5 @@ export const notificationPositions: Record<ToastPosition, ToastPositionClass> = 
     bottomLeft: 'bottom-left',
     bottomRight: 'bottom-right',
     topCenter: 'top-center',
-    bottomCenter: 'bottom-center',
+    bottomCenter: 'bottom-center'
 };

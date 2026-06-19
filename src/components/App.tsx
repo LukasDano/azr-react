@@ -1,28 +1,30 @@
-import { useHotkey } from '@tanstack/react-hotkeys';
 import type { FC } from 'react';
+
+import { useHotkey } from '@tanstack/react-hotkeys';
 import { lazy, Suspense, useContext, useState } from 'react';
 import { Toaster } from 'sonner';
 
-import { ErrorBoundary } from './boundaries/ErrorBoundary.tsx';
-import { PanelErrorBoundary } from './boundaries/PanelErrorBoundary.tsx';
-import { Header } from './content/header/Header';
-import { BaseModal } from './content/miscellaneous/BaseModal';
-import { Loader } from './content/miscellaneous/Loader.tsx';
 import type { AppContextValues } from './context/AppContext';
-import { AppContext } from './context/AppContext';
 import type { SettingContextValues } from './context/SettingContext';
-import { SettingContext } from './context/SettingContext';
-import { Settings } from './settings/Settings';
+
 import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from '../static/defaultValues';
 import { getBackgroundTheme } from '../static/themes.ts';
 import {
     calculateGleitzeit,
     calculateIstTime,
     calculateStartEndeTimeDiff,
-    createGleitzeitAusgabeFromFloat,
+    createGleitzeitAusgabeFromFloat
 } from '../utils/calculatingTimes';
 import { notificationPositions, sendInfoMessage, sendWarnMessage } from '../utils/page/notifications';
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from '../utils/typeUtilities/time';
+import { ErrorBoundary } from './boundaries/ErrorBoundary.tsx';
+import { PanelErrorBoundary } from './boundaries/PanelErrorBoundary.tsx';
+import { Header } from './content/header/Header';
+import { BaseModal } from './content/miscellaneous/BaseModal';
+import { Loader } from './content/miscellaneous/Loader.tsx';
+import { AppContext } from './context/AppContext';
+import { SettingContext } from './context/SettingContext';
+import { Settings } from './settings/Settings';
 
 const Calculator = lazy(() => import('./content/Calculator.tsx'));
 const FlexOfficeCalculator = lazy(() => import('./content/flexOffice/FlexOfficeCalculator.tsx'));
@@ -38,7 +40,7 @@ export const App: FC = () => {
         updateEndTime,
         breakTime,
         updateWorkTime,
-        updateBreakTime,
+        updateBreakTime
     } = useContext<AppContextValues>(AppContext);
 
     const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
@@ -80,7 +82,7 @@ export const App: FC = () => {
     useHotkey({ key: 'F1' }, resetTimeValues, { requireReset: true, preventDefault: true });
 
     return (
-        <div className={`${darkModeActive ? 'dark' : 'light'}`}>
+        <div className={darkModeActive ? 'dark' : 'light'}>
             <div className={`h-screen ${getBackgroundTheme(backgroundTheme).appBg}`}>
                 <BaseModal
                     modalTitle={'Settings'}
@@ -125,9 +127,9 @@ export const App: FC = () => {
 
                 <Toaster
                     position={notificationPositions[toastPosition]}
-                    closeButton={true}
-                    richColors={true}
-                    theme={`${darkModeActive ? 'dark' : 'light'}`}
+                    closeButton
+                    richColors
+                    theme={darkModeActive ? 'dark' : 'light'}
                 />
             </div>
         </div>

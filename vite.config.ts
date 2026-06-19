@@ -3,19 +3,19 @@ import tailwindcss from '@tailwindcss/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
-// biome-ignore lint/style/noDefaultExport: Vite config requires default export
+// oxlint-disable-next-line import/no-default-export
 export default defineConfig({
     plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss({ optimize: { minify: true } })],
     base: '/azr-react/',
     server: {
         port: 3807,
         host: 'localhost',
-        cors: true,
+        cors: true
     },
     preview: {
         allowedHosts: true,
         port: 3707,
-        host: 'localhost',
+        host: 'localhost'
     },
     build: {
         sourcemap: true,
@@ -27,23 +27,23 @@ export default defineConfig({
                         {
                             name: 'react',
                             test: /node_modules[\\/]react/,
-                            priority: 10,
+                            priority: 10
                         },
                         {
                             name: 'lib',
                             test: /[\\/]node_modules[\\/]/,
-                            priority: 10,
-                        },
-                    ],
-                },
-            },
-        },
+                            priority: 10
+                        }
+                    ]
+                }
+            }
+        }
     },
     test: {
         environment: 'jsdom',
         globals: true,
         watch: false,
         include: ['test/**/*.{test,spec}.{js,ts,tsx}'],
-        setupFiles: ['/test/setupTests.ts'],
-    },
+        setupFiles: ['/test/setupTests.ts']
+    }
 });

@@ -1,21 +1,16 @@
-import { type FC, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
 
-import { CountdownElement, type CountdownUnit } from './CountdownElement.tsx';
-import { type CountdownColors, defaultCountdownTheme, getBackgroundTheme } from '../../../static/themes.ts';
-import { SettingContext, type SettingContextValues } from '../../context/SettingContext.tsx';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
-type CountdownTime = {
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
-};
+import type { CountdownColors } from '../../../static/themes.ts';
+import type { CountdownTime } from '../../../utils/utils.ts';
+import type { SettingContextValues } from '../../context/SettingContext.tsx';
+import type { CountdownUnit } from './CountdownElement.tsx';
 
-type CountdownElementConfig = {
-    value: number;
-    max: number;
-    key: keyof CountdownTime;
-};
+import { defaultCountdownTheme, getBackgroundTheme } from '../../../static/themes.ts';
+import { createCountdownElements } from '../../../utils/utils.ts';
+import { SettingContext } from '../../context/SettingContext.tsx';
+import { CountdownElement } from './CountdownElement.tsx';
 
 type CountdownProps = {
     end: Date;
@@ -30,7 +25,7 @@ export const Countdown: FC<CountdownProps> = ({
     onEnd,
     showLabels = true,
     colorTheme = defaultCountdownTheme,
-    showDays = false,
+    showDays = false
 }) => {
     const { backgroundTheme } = useContext<SettingContextValues>(SettingContext);
 
@@ -80,19 +75,10 @@ export const Countdown: FC<CountdownProps> = ({
             }, 1000);
         }
 
-        return () => {
+        return (): void => {
             if (intervalRef.current) clearInterval(intervalRef.current);
         };
     }, [end, update]);
-
-    const createCountdownElements = (time: CountdownTime): CountdownElementConfig[] => {
-        return [
-            { value: time.days, max: 99, key: 'days' },
-            { value: time.hours, max: 24, key: 'hours' },
-            { value: time.minutes, max: 60, key: 'minutes' },
-            { value: time.seconds, max: 60, key: 'seconds' },
-        ];
-    };
 
     return (
         <div

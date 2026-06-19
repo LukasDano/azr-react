@@ -11,11 +11,11 @@ import {
     isValidTime,
     parseStringToTime,
     parseTimeToDate,
-    parseTimeToString,
+    parseTimeToString
 } from '../../src/utils/typeUtilities/time';
 
 vi.mock('../../src/utils/formatting', () => ({
-    formatNumber: vi.fn((n: number) => n.toString().padStart(2, '0')),
+    formatNumber: vi.fn((n: number) => n.toString().padStart(2, '0'))
 }));
 
 beforeEach(() => {

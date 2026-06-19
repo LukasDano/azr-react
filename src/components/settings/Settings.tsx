@@ -1,21 +1,25 @@
 import type { FC } from 'react';
+
 import { useContext, useMemo, useState } from 'react';
 
-import { ColorPicker } from './inputs/ColorSelector.tsx';
-import { SettingsToggle } from './inputs/SettingsToggle';
-import type { SettingId } from './settingConfig.tsx';
-import { settingsConfig, settingTabs, settingTabsByName } from './settingConfig.tsx';
-import { name, version } from '../../../package.json';
-import { type BackgroundTheme, type ColorTheme, getBackgroundTheme, type ThemeType } from '../../static/themes';
-import { SettingsError } from '../../utils/errors/SettingsError.ts';
+import type { BackgroundTheme, ColorTheme, ThemeType } from '../../static/themes';
 import type { ToastPosition } from '../../utils/page/notifications.ts';
-import { sendErrorMessage } from '../../utils/page/notifications.ts';
 import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
+import type { SettingContextValues } from '../context/SettingContext';
+import type { SettingId } from './settingConfig.tsx';
+
+import { name, version } from '../../../package.json';
+import { getBackgroundTheme } from '../../static/themes';
+import { SettingsError } from '../../utils/errors/SettingsError.ts';
+import { sendErrorMessage } from '../../utils/page/notifications.ts';
 import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
 import { TabBar } from '../content/miscellaneous/TabBar.tsx';
-import { SettingContext, type SettingContextValues } from '../context/SettingContext';
+import { SettingContext } from '../context/SettingContext';
+import { ColorPicker } from './inputs/ColorSelector.tsx';
+import { SettingsToggle } from './inputs/SettingsToggle';
+import { settingsConfig, settingTabs, settingTabsByName } from './settingConfig.tsx';
 
-type SettingValue = boolean | string | ColorTheme | ToastPosition;
+type SettingValue = boolean | string | ColorTheme;
 
 export const Settings: FC = () => {
     const {
@@ -32,7 +36,7 @@ export const Settings: FC = () => {
         toastPosition,
         updateToastPosition,
         backgroundTheme,
-        updateBackgroundTheme,
+        updateBackgroundTheme
     } = useContext<SettingContextValues>(SettingContext);
 
     const [activeTabId, setActiveTabId] = useState<number>(settingTabsByName.Design.id);
@@ -49,7 +53,7 @@ export const Settings: FC = () => {
 
         const updatedColors = {
             ...countdownColors,
-            [key]: val,
+            [key]: val
         };
 
         updateCountdownColors(updatedColors);
@@ -63,7 +67,7 @@ export const Settings: FC = () => {
 
         const updatedTheme = {
             ...colorTheme,
-            [key]: val,
+            [key]: val
         };
 
         updateColorTheme(updatedTheme);
@@ -92,7 +96,7 @@ export const Settings: FC = () => {
             notificationPosition: toastPosition,
             displayShortcuts: showShortcuts,
             overtimeAutomatic: overTimeAutomatic,
-            backgroundTheme: getBgTheme(),
+            backgroundTheme: getBgTheme()
         };
 
         try {
@@ -134,9 +138,7 @@ export const Settings: FC = () => {
                 handleBackgroundTheme(val as 'light' | BackgroundTheme);
                 break;
             default:
-                setError(
-                    new SettingsError('Invalid SettingId', `Failed to find a function to execute for the id: ${id}.`)
-                );
+                setError(new SettingsError('Invalid SettingId', `Failed to find a function to execute for this id.`));
                 return;
         }
     };
@@ -149,8 +151,8 @@ export const Settings: FC = () => {
     );
 
     return (
-        <div className="flex h-full w-full flex-col gap-4 overflow-auto p-4">
-            <div className="flex w-full justify-center">
+        <div className={'flex h-full w-full flex-col gap-4 overflow-auto p-4'}>
+            <div className={'flex w-full justify-center'}>
                 <TabBar tabs={settingTabs} activeTabId={activeTabId} onTabChange={setActiveTabId} />
             </div>
 
@@ -188,7 +190,7 @@ export const Settings: FC = () => {
                                 key={stg.id}
                                 label={stg.name}
                                 color={findValueById(stg.id) as string}
-                                onColorChange={(val) => executeFunctionById(stg.id, val as string, stg.funcParamKey)}
+                                onColorChange={(val) => executeFunctionById(stg.id, val, stg.funcParamKey)}
                             />
                         );
                     else return null;
@@ -196,9 +198,12 @@ export const Settings: FC = () => {
             </div>
 
             <div className={settingsContainerClasses}>
-                <div className="flex flex-col items-center">
-                    <span className="font-bold text-gray-900 text-xl dark:text-gray-100">{name}</span>
-                    <span className="text-gray-500 text-sm dark:text-gray-300">Version {version}</span>
+                <div className={'flex flex-col items-center'}>
+                    <span className={'text-xl font-bold text-gray-900 dark:text-gray-100'}>{name}</span>
+                    <span className={'text-sm text-gray-500 dark:text-gray-300'}>
+                        {'Version '}
+                        {version}
+                    </span>
                 </div>
             </div>
         </div>

@@ -9,8 +9,8 @@ permissions:
     contents: write
 
 env:
-  frontend: .
-  node_version: 24
+    frontend: .
+    node_version: 24
 
 jobs:
     build-and-deploy:

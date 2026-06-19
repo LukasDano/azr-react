@@ -6,7 +6,7 @@ export const defaultCountdownTheme: CountdownColors = {
     days: '#1abc9c',
     hours: '#2980b9',
     minutes: '#8e44ad',
-    seconds: '#f39c13',
+    seconds: '#f39c13'
 };
 
 export type ColorTheme = Record<ThemeType, ThemeName>;
@@ -52,12 +52,12 @@ export const availableThemes: Record<ThemeName, ThemeColors> = {
     purple: { light: 'bg-purple-400 hover:bg-purple-500', dark: 'dark:bg-purple-600 dark:hover:bg-purple-700' },
     red: { light: 'bg-red-500 hover:bg-red-600', dark: 'dark:bg-red-700 dark:hover:bg-red-800' },
     fuchsia: { light: 'bg-fuchsia-400 hover:bg-fuchsia-500', dark: 'dark:bg-fuchsia-600 dark:hover:bg-fuchsia-700' },
-    yellow: { light: 'bg-yellow-400 hover:bg-yellow-500', dark: 'dark:bg-yellow-600 dark:hover:bg-yellow-700' },
+    yellow: { light: 'bg-yellow-400 hover:bg-yellow-500', dark: 'dark:bg-yellow-600 dark:hover:bg-yellow-700' }
 };
 
 export const defaultColorTheme: Record<ThemeType, ThemeName> = {
     light: 'cyan',
-    dark: 'indigo',
+    dark: 'indigo'
 };
 
 export const getThemeClasses = (theme: ColorTheme): string =>
@@ -80,7 +80,7 @@ export const backgroundThemes: Record<BackgroundTheme, BackgroundColors> = {
         settingsBg: 'dark:bg-gray-600',
         headerBg: 'dark:border-slate-900 dark:bg-gray-800',
         actionHeaderBg: 'dark:border-slate-900 dark:bg-gray-700',
-        countdownBg: 'dark:bg-gray-800',
+        countdownBg: 'dark:bg-gray-800'
     },
     zinc: {
         appBg: 'dark:bg-zinc-900',
@@ -88,8 +88,8 @@ export const backgroundThemes: Record<BackgroundTheme, BackgroundColors> = {
         settingsBg: 'dark:bg-zinc-700',
         headerBg: 'dark:border-zinc-900 dark:bg-zinc-700/60',
         actionHeaderBg: 'dark:border-zinc-900 dark:bg-zinc-700',
-        countdownBg: 'dark:bg-zinc-700/60',
-    },
+        countdownBg: 'dark:bg-zinc-700/60'
+    }
 };
 
 export const defaultBackgroundTheme: BackgroundTheme = 'gray';

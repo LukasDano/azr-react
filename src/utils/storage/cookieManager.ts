@@ -1,11 +1,12 @@
+import type { FloatTime, Time, WeekTime } from '../../static/importantTypes';
+
 import {
     defaultBreakTime,
     defaultFloatValue,
     defaultWeekTime,
     defaultWorkTime,
-    emptyTimeValue,
+    emptyTimeValue
 } from '../../static/defaultValues.ts';
-import type { FloatTime, Time, WeekTime } from '../../static/importantTypes';
 
 type CookieKey = 'startTime' | 'floatTime' | 'endTime' | 'weekTime' | 'breakTime' | 'workTime' | 'flexOffice';
 
@@ -18,7 +19,7 @@ const defaultValues: Record<CookieKey, CookieValue> = {
     weekTime: defaultWeekTime,
     breakTime: defaultBreakTime,
     workTime: defaultWorkTime,
-    flexOffice: [],
+    flexOffice: []
 };
 
 export const deleteCookie = (key: CookieKey): void => {
@@ -38,7 +39,7 @@ export const getCookie = (key: CookieKey): CookieValue => {
     return result === '' ? defaultValues[key] : result;
 };
 
-export const setCookie = (key: CookieKey, val: CookieValue, expirationDate: Date | undefined = undefined): void => {
+export const setCookie = (key: CookieKey, val: CookieValue, expirationDate?: Date): void => {
     let expires = '';
     const valStr = JSON.stringify(val);
 

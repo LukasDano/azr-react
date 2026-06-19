@@ -1,9 +1,10 @@
 import type { ErrorInfo, ReactNode } from 'react';
+
 import { Component } from 'react';
 
 import { ModalErrorBoundary } from './ModalErrorBoundary.tsx';
 
-type CaughtError = {
+export type CaughtError = {
     name: string;
     msg: string;
 };
@@ -28,7 +29,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     state: ErrorBoundaryState = {
         hasError: false,
         errName: '',
-        errMsg: ErrorBoundary.defaultErrText,
+        errMsg: ErrorBoundary.defaultErrText
     };
 
     static getDerivedStateFromError(err: Error): ErrorBoundaryState {
@@ -46,7 +47,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             if (this.props.fallbackNode)
                 return this.props.fallbackNode({
                     name: this.state.errName,
-                    msg: this.state.errMsg,
+                    msg: this.state.errMsg
                 });
 
             if (this.props.fallbackText) return this.props.fallbackText;

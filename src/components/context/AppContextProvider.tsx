@@ -1,9 +1,12 @@
 import type { FC, ReactNode } from 'react';
+
 import { useMemo, useState } from 'react';
 
-import { AppContext, type AppContextValues } from './AppContext.tsx';
 import type { FloatTime, Time } from '../../static/importantTypes.ts';
+import type { AppContextValues } from './AppContext.tsx';
+
 import { getCookie, setCookieUntilMidnight } from '../../utils/storage/cookieManager.ts';
+import { AppContext } from './AppContext.tsx';
 
 type AppContextProviderProps = {
     children: ReactNode;
@@ -52,7 +55,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
             breakTime,
             updateBreakTime,
             workTime,
-            updateWorkTime,
+            updateWorkTime
         }),
         [startTime, floatTime, endTime, breakTime, workTime]
     );

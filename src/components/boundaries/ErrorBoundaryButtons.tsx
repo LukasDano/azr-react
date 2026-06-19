@@ -1,5 +1,6 @@
-import { History, MailPlus, RotateCcw } from 'lucide-react';
 import type { ReactNode } from 'react';
+
+import { History, MailPlus, RotateCcw } from 'lucide-react';
 
 import { FromFunctionButton } from '../content/miscellaneous/BaseButton.tsx';
 

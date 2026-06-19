@@ -1,14 +1,15 @@
 ﻿import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { Time } from '../../src/static/importantTypes';
+
 import {
     calculateWeekOverTime,
     parseWeekOverTimeToString,
-    parseWeekWorkTimeToString,
+    parseWeekWorkTimeToString
 } from '../../src/utils/weekTimeCalculatingUtility';
 
 vi.mock('./formatting', () => ({
-    formatNumber: vi.fn((n: number) => n.toString().padStart(2, '0')),
+    formatNumber: vi.fn((n: number) => n.toString().padStart(2, '0'))
 }));
 
 beforeEach(() => {

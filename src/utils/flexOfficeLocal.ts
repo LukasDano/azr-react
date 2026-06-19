@@ -1,5 +1,6 @@
-import { isWorkDay } from './flexOfficeUtility.ts';
 import type { FeiertageHamburg } from '../static/importantTypes.ts';
+
+import { isWorkDay } from './flexOfficeUtility.ts';
 
 /**
  * Berechnet die Anzahl der Arbeitstage für den aktuellen Monat
@@ -45,7 +46,7 @@ export const getHamburgHolidays = (year: number): FeiertageHamburg => {
         Heiligabend: new Date(Date.UTC(year, 11, 24)),
         ErsterWeihnachtsfeiertag: new Date(Date.UTC(year, 11, 25)),
         ZweiterWeihnachtsfeiertag: new Date(Date.UTC(year, 11, 26)),
-        Silvester: new Date(Date.UTC(year, 11, 31)),
+        Silvester: new Date(Date.UTC(year, 11, 31))
     };
 };
 

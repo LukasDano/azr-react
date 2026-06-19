@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import type { Time, TimeBalance } from '../../../static/importantTypes.ts';
+
 import { getTimeBalanceFor } from '../../../utils/typeUtilities/time.ts';
 import { parseWeekOverTimeToString, parseWeekWorkTimeToString } from '../../../utils/weekTimeCalculatingUtility.ts';
 
@@ -17,7 +18,7 @@ export const WeekTimeResult: FC<WeekTimeResultProps> = ({ show, weekWorkTime, we
         const colorClasses: Record<TimeBalance, string> = {
             positiv: 'text-emerald-600 dark:emerlad-emerald-400',
             neutral: 'text-blue-700 dark:text-blue-400',
-            negativ: 'text-rose-600 dark:rose-blue-500',
+            negativ: 'text-rose-600 dark:rose-blue-500'
         };
 
         return colorClasses[result];
@@ -26,16 +27,24 @@ export const WeekTimeResult: FC<WeekTimeResultProps> = ({ show, weekWorkTime, we
     return (
         <>
             {show && (
-                <div className="flex w-full justify-center">
-                    <div className="mx-auto flex h-auto w-2/3 flex-col items-center justify-center gap-8 rounded-2xl bg-zinc-400 p-6 text-center shadow-xl sm:h-32 sm:flex-row dark:bg-gray-700">
-                        <div className="flex flex-col items-center">
-                            <span className="font-semibold text-gray-700 text-sm dark:text-gray-300">Arbeitszeit</span>
-                            <span className="font-bold text-lg">{parseWeekWorkTimeToString(weekWorkTime)}</span>
+                <div className={'flex w-full justify-center'}>
+                    <div
+                        className={
+                            'mx-auto flex h-auto w-2/3 flex-col items-center justify-center gap-8 rounded-2xl bg-zinc-400 p-6 text-center shadow-xl sm:h-32 sm:flex-row dark:bg-gray-700'
+                        }
+                    >
+                        <div className={'flex flex-col items-center'}>
+                            <span className={'text-sm font-semibold text-gray-700 dark:text-gray-300'}>
+                                {'Arbeitszeit'}
+                            </span>
+                            <span className={'text-lg font-bold'}>{parseWeekWorkTimeToString(weekWorkTime)}</span>
                         </div>
 
-                        <div className="flex flex-col items-center">
-                            <span className="font-semibold text-gray-700 text-sm dark:text-gray-300">Gleitzeit</span>
-                            <span className={`font-bold text-lg ${generateOverTimeColor()}`}>
+                        <div className={'flex flex-col items-center'}>
+                            <span className={'text-sm font-semibold text-gray-700 dark:text-gray-300'}>
+                                {'Gleitzeit'}
+                            </span>
+                            <span className={`text-lg font-bold ${generateOverTimeColor()}`}>
                                 {parseWeekOverTimeToString(weekOverTime)}
                             </span>
                         </div>

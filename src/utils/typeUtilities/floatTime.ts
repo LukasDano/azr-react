@@ -1,4 +1,5 @@
 import type { FloatTime, FloatTimeSign, Time } from '../../static/importantTypes';
+
 import { formatNumber } from '../formatting';
 
 export const parseFloatTimeToString = (floatTime: FloatTime): string => {
@@ -35,6 +36,8 @@ export const parseStringToFloatTime = (floatStr: string): FloatTime | undefined 
 
         return [vorzeichen, gleitHours, gleitMins];
     }
+
+    return undefined;
 };
 
 export const validateFloatString = (floatStr: string): boolean => {

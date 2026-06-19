@@ -1,9 +1,13 @@
+import type { FC, ReactNode } from 'react';
+
 import { useHotkey } from '@tanstack/react-hotkeys';
-import { type FC, type ReactNode, useContext } from 'react';
+import { useContext } from 'react';
 import { IoClose } from 'react-icons/io5';
 
+import type { SettingContextValues } from '../../context/SettingContext.tsx';
+
 import { getBackgroundTheme } from '../../../static/themes.ts';
-import { SettingContext, type SettingContextValues } from '../../context/SettingContext.tsx';
+import { SettingContext } from '../../context/SettingContext.tsx';
 
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'xl2' | 'xl3' | 'full';
 
@@ -30,27 +34,34 @@ export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, chi
         xl: 'max-w-5xl max-h-[85vh]',
         xl2: 'max-w-6xl min-h-[80vh] max-h-[90vh]',
         xl3: 'max-w-6xl min-h-[80vh] max-h-[90vh]',
-        full: 'w-full h-full',
+        full: 'w-full h-full'
     };
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-3 py-2 text-white backdrop-blur-sm transition-opacity duration-300"
+            className={
+                'fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-3 py-2 text-white backdrop-blur-sm transition-opacity duration-300'
+            }
+            role={'none'}
             onClick={onClose}
+            onKeyUp={onClose}
         >
             <div
                 className={`relative w-full rounded-lg bg-white p-6 text-black shadow-lg ${getBackgroundTheme(backgroundTheme).modalBg} dark:text-white ${sizeClasses[size]} flex flex-col`}
                 onClick={(evt) => evt.stopPropagation()}
+                onKeyUp={(evt) => evt.stopPropagation()}
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 cursor-pointer text-2xl text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                    aria-label="Close modal"
+                    className={
+                        'absolute top-4 right-4 cursor-pointer text-2xl text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+                    }
+                    aria-label={'Close modal'}
                 >
                     <IoClose />
                 </button>
 
-                {modalHeader || <h2 className="mb-4 font-semibold text-xl">{modalTitle}</h2>}
+                {modalHeader || <h2 className={'mb-4 text-xl font-semibold'}>{modalTitle}</h2>}
 
                 {children}
             </div>

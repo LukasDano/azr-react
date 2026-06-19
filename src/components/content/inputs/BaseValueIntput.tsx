@@ -17,24 +17,27 @@ export const BaseFormInput: FC<FormInputProps> = ({
     id = label.toLowerCase(),
     type = 'text',
     min = 0,
-    max,
+    max
 }) => {
     return (
         <>
-            <label htmlFor={id} className="mb-1 block font-medium">
+            <label htmlFor={id} className={'mb-1 block font-medium'}>
                 {label}
             </label>
             <input
                 id={id}
+                aria-label={label}
                 name={id}
                 type={type}
                 value={value}
                 onChange={(evt) => onChange(evt.target.value)}
                 min={min}
                 max={max}
-                className="w-full rounded border border-gray-300 bg-gray-100 px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="..."
-                autoComplete="off"
+                className={
+                    'w-full rounded border border-gray-300 bg-gray-100 px-3 py-2 text-black focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                }
+                placeholder={'...'}
+                autoComplete={'off'}
             />
         </>
     );
