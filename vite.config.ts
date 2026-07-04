@@ -8,14 +8,9 @@ export default defineConfig({
     plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss({ optimize: { minify: true } })],
     base: '/azr-react/',
     server: {
-        port: 3807,
+        port: 3003,
         host: 'localhost',
         cors: true
-    },
-    preview: {
-        allowedHosts: true,
-        port: 3707,
-        host: 'localhost'
     },
     build: {
         sourcemap: true,
