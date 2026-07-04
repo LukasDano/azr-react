@@ -5,7 +5,6 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import type { CountdownColors } from '../../../static/themes.ts';
 import type { CountdownTime } from '../../../utils/utils.ts';
 import type { SettingContextValues } from '../../context/SettingContext.tsx';
-import type { CountdownUnit } from './CountdownElement.tsx';
 
 import { defaultCountdownTheme, getBackgroundTheme } from '../../../static/themes.ts';
 import { createCountdownElements } from '../../../utils/utils.ts';
@@ -90,7 +89,7 @@ export const Countdown: FC<CountdownProps> = ({
                     <CountdownElement
                         key={unit.key}
                         color={colorTheme[unit.key]}
-                        unit={unit.key as CountdownUnit}
+                        unit={unit.key}
                         value={unit.value}
                         showLabel={showLabels}
                     />
