@@ -18,7 +18,7 @@
         "ox:fmt:check": "oxfmt --check",
         "local:ci": "npm run tsc && npm run ox:fmt:check && npm run ox:lint && npm run vitest:all",
         "prepare-commit": "npm run tsc && npm run ox:fmt && npm run ox:lint:fix && npm run vitest:all",
-        "deploy": "vpm.exe deploy",
+        "deploy": "npm run build-with-qs && vpm.exe deploy",
         "update:dependencies": "vpm.exe outdated && npm run ox:fmt"
     },
     "dependencies": {
