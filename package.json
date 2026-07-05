@@ -18,8 +18,8 @@
         "ox:fmt:check": "oxfmt --check",
         "local:ci": "npm run tsc && npm run ox:fmt:check && npm run ox:lint && npm run vitest:all",
         "prepare-commit": "npm run tsc && npm run ox:fmt && npm run ox:lint:fix && npm run vitest:all",
-        "deploy": "npm run prepare-commit && tsx scripts/deploy.ts",
-        "update:dependencies": "tsx scripts/outdated.ts && npm run ox:fmt"
+        "deploy": "vpm.exe deploy",
+        "update:dependencies": "vpm.exe outdated && npm run ox:fmt"
     },
     "dependencies": {
         "@headlessui/react": "^2.2.10",
@@ -49,7 +49,6 @@
         "oxfmt": "^0.57.0",
         "oxlint": "1.72.0",
         "oxlint-tsgolint": "0.24.0",
-        "tsx": "^4.23.0",
         "typescript": "^6.0.3",
         "vite": "^8.1.3",
         "vitest": "^4.1.9"
