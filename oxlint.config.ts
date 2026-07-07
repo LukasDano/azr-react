@@ -46,13 +46,15 @@ export default defineConfig({
         "typescript/explicit-function-return-type": "error",
         "typescript/no-deprecated": "error",
         "typescript/dot-notation": "error",
+        "typescript/no-floating-promises": "off",
 
         // jsx
         "jsx-a11y/alt-text": "error",
         "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/control-has-associated-label": "off",
 
         // react
-        "react/jsx-boolean-value": "error",
+        "react/jsx-boolean-value": ["error", "always"],
         "react/jsx-curly-brace-presence": ["error", "always"],
         "react/jsx-pascal-case": "error",
         "react/jsx-no-target-blank": "error",
@@ -65,6 +67,7 @@ export default defineConfig({
         ],
 
         // unicorn
-        "unicorn/prefer-array-find": "error"
+        "unicorn/prefer-array-find": "error",
+        "unicorn/prefer-add-event-listener": "off"
     }
 });

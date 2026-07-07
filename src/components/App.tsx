@@ -127,8 +127,8 @@ export const App: FC = () => {
 
                 <Toaster
                     position={notificationPositions[toastPosition]}
-                    closeButton
-                    richColors
+                    closeButton={true}
+                    richColors={true}
                     theme={darkModeActive ? "dark" : "light"}
                 />
             </div>

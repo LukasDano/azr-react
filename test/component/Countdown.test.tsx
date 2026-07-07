@@ -50,7 +50,7 @@ describe("Countdown", () => {
 
     it("renders days when showDays is true", () => {
         const end = new Date("2026-01-29T12:00:00Z");
-        render(<Countdown end={end} showDays />);
+        render(<Countdown end={end} showDays={true} />);
         expect(screen.getByText(/days/i)).toBeInTheDocument();
     });
 });

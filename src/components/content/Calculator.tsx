@@ -131,10 +131,10 @@ const Calculator: FC = () => {
 
             <div className={"mb-8 flex flex-col justify-center gap-4 sm:flex-row"}>
                 <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
-                    <TimeInputField label={"Pause"} value={breakTime} disabled />
+                    <TimeInputField label={"Pause"} value={breakTime} disabled={true} />
                 </div>
                 <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
-                    <TimeInputField label={"Arbeitszeit"} value={workTime} disabled />
+                    <TimeInputField label={"Arbeitszeit"} value={workTime} disabled={true} />
                 </div>
                 <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
                     <FloatTimeInputField

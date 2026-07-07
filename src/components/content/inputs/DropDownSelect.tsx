@@ -59,7 +59,7 @@ export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
                             color: state.isFocused ? "#374151FF" : ""
                         })
                     }}
-                    closeMenuOnSelect
+                    closeMenuOnSelect={true}
                     menuPosition={"fixed"}
                     components={animatedComponents}
                     value={{ value: selectedOption, label: selectedOption }}
