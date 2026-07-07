@@ -1,12 +1,12 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import Tippy from '@tippyjs/react';
-import { useContext } from 'react';
+import Tippy from "@tippyjs/react";
+import { useContext } from "react";
 
-import type { SettingContextValues } from '../../context/SettingContext.tsx';
+import type { SettingContextValues } from "../../context/SettingContext.tsx";
 
-import { getThemeClasses } from '../../../static/themes.ts';
-import { SettingContext } from '../../context/SettingContext.tsx';
+import { getThemeClasses } from "../../../static/themes.ts";
+import { SettingContext } from "../../context/SettingContext.tsx";
 
 export type Tab = {
     icon: ReactNode;
@@ -27,13 +27,13 @@ export const TabBar: FC<TabBarProps> = ({ tabs, activeTabId, onTabChange }) => {
     const tabCount = tabs.length;
 
     return (
-        <div className={'max-w-3xl px-8 sm:px-0'}>
-            <div className={'sm:w-7/12'}>
+        <div className={"max-w-3xl px-8 sm:px-0"}>
+            <div className={"sm:w-7/12"}>
                 <div
-                    role={'tablist'}
-                    aria-label={'tabs'}
+                    role={"tablist"}
+                    aria-label={"tabs"}
                     className={
-                        'relative flex h-12 w-105 items-center overflow-hidden rounded-full border border-white/20 bg-gray-600/30 px-1 shadow-2xl shadow-black/20 backdrop-blur-xl transition dark:bg-gray-200/20'
+                        "relative flex h-12 w-105 items-center overflow-hidden rounded-full border border-white/20 bg-gray-600/30 px-1 shadow-2xl shadow-black/20 backdrop-blur-xl transition dark:bg-gray-200/20"
                     }
                 >
                     <div
@@ -67,18 +67,18 @@ const TabButton: FC<TabButtonProps> = ({ tab, active, onClick }) => {
     return (
         <Tippy content={tab.title}>
             <button
-                role={'tab'}
+                role={"tab"}
                 aria-selected={active}
                 aria-controls={`panel-${tab.id}`}
                 id={`tab-${tab.id}`}
                 tabIndex={active ? 0 : -1}
                 className={
-                    'z-10 flex h-full min-w-0 flex-1 items-center justify-center text-xs font-medium transition-colors focus:outline-none'
+                    "z-10 flex h-full min-w-0 flex-1 items-center justify-center text-xs font-medium transition-colors focus:outline-none"
                 }
                 onClick={onClick}
             >
                 <span
-                    className={`truncate text-xs transition-colors ${active ? 'font-semibold text-gray-900' : 'text-gray-400 hover:text-white'}`}
+                    className={`truncate text-xs transition-colors ${active ? "font-semibold text-gray-900" : "text-gray-400 hover:text-white"}`}
                 >
                     {tab.icon}
                 </span>

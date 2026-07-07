@@ -1,7 +1,7 @@
-﻿import { formatNumber } from './formatting';
+﻿import { formatNumber } from "./formatting";
 
-export const getMonthName = (date: Date, lang: string = 'de-DE'): string =>
-    date.toLocaleString(lang, { month: 'long' });
+export const getMonthName = (date: Date, lang: string = "de-DE"): string =>
+    date.toLocaleString(lang, { month: "long" });
 
 /**
  * @param date Das zu konvertierende Datum

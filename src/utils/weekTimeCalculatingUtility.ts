@@ -1,6 +1,6 @@
-﻿import type { Time } from '../static/importantTypes';
+﻿import type { Time } from "../static/importantTypes";
 
-import { defaultWeekWorkTime } from '../static/defaultValues';
+import { defaultWeekWorkTime } from "../static/defaultValues";
 
 /**
  * Rechnet die Gleitzeit für diese Woche aus
@@ -52,7 +52,7 @@ export const parseWeekWorkTimeToString = (weekTime: Time): string => {
         }
 
         weekTimeAusgabe = `${weekHoursStr}.${weekMinsStr} h`;
-    } else weekTimeAusgabe = '0.0 h';
+    } else weekTimeAusgabe = "0.0 h";
 
     return weekTimeAusgabe;
 };
@@ -85,7 +85,7 @@ export const parseWeekOverTimeToString = (weekOverTime: Time): string => {
         weekOverTimeAusgabe = `-${weekOverTimeHoursStr}.${weekOverTimeMinsStr} h`;
     } else if (weekOverTimeHours > 0 || weekOverTimeMins > 0)
         weekOverTimeAusgabe = `+${weekOverTimeHours}.${weekOverTimeMins} h`;
-    else weekOverTimeAusgabe = '0.0 h';
+    else weekOverTimeAusgabe = "0.0 h";
 
     return weekOverTimeAusgabe;
 };

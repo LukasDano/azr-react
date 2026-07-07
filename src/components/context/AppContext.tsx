@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
-import type { FloatTime, Time } from '../../static/importantTypes';
+import type { FloatTime, Time } from "../../static/importantTypes";
 
 export type AppContextValues = {
     startTime: Time;

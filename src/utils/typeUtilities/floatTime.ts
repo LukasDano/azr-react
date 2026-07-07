@@ -1,11 +1,11 @@
-import type { FloatTime, FloatTimeSign, Time } from '../../static/importantTypes';
+import type { FloatTime, FloatTimeSign, Time } from "../../static/importantTypes";
 
-import { formatNumber } from '../formatting';
+import { formatNumber } from "../formatting";
 
 export const parseFloatTimeToString = (floatTime: FloatTime): string => {
     const [sign, hours, mins] = floatTime;
 
-    const signStr = sign === 1 ? '+' : '-';
+    const signStr = sign === 1 ? "+" : "-";
     const formatedMins = formatNumber(Math.abs(mins));
 
     return `${signStr}${Math.abs(hours)}.${formatedMins}`;
@@ -18,10 +18,10 @@ export const parseFloatTimeToString = (floatTime: FloatTime): string => {
  * @return Die Gleitzeit als FloatTime Value oder nichts, wenn der Parameter ungültig ist
  */
 export const parseStringToFloatTime = (floatStr: string): FloatTime | undefined => {
-    const floatArray = floatStr.split('');
+    const floatArray = floatStr.split("");
     let vorzeichen: FloatTimeSign = 1;
 
-    if (floatArray[0] === '-') vorzeichen = -1;
+    if (floatArray[0] === "-") vorzeichen = -1;
 
     if (floatArray.length === 5) {
         // Fromat
@@ -41,7 +41,7 @@ export const parseStringToFloatTime = (floatStr: string): FloatTime | undefined 
 };
 
 export const validateFloatString = (floatStr: string): boolean => {
-    const validSymbols = new Set(['+', '-', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+    const validSymbols = new Set(["+", "-", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
     let isValid = true;
 
     for (const char of floatStr)
@@ -65,9 +65,9 @@ export const isValidFloatTimeValue = (floatStr: string): boolean => {
     if (!floatTime) return false;
 
     const [sign] = floatTime;
-    const floatStrParts = floatStr.split('.');
+    const floatStrParts = floatStr.split(".");
 
     if (sign !== 1 && sign !== -1) return false;
-    else if (sign === 1 && (floatStrParts.at(-1)?.endsWith('4') || floatStrParts.at(-1)?.endsWith('9'))) return true;
-    else return !!(sign === -1 && (floatStrParts.at(-1)?.endsWith('1') || floatStrParts.at(-1)?.endsWith('6')));
+    else if (sign === 1 && (floatStrParts.at(-1)?.endsWith("4") || floatStrParts.at(-1)?.endsWith("9"))) return true;
+    else return !!(sign === -1 && (floatStrParts.at(-1)?.endsWith("1") || floatStrParts.at(-1)?.endsWith("6")));
 };

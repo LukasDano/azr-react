@@ -1,4 +1,4 @@
-import { defineConfig } from 'oxfmt';
+import { defineConfig } from "oxfmt";
 
 // oxlint-disable-next-line import/no-default-export
 export default defineConfig({
@@ -6,29 +6,29 @@ export default defineConfig({
     tabWidth: 4,
     useTabs: false,
     semi: true,
-    singleQuote: true,
-    trailingComma: 'none',
+    singleQuote: false,
+    trailingComma: "none",
     sortTailwindcss: true,
-    arrowParens: 'always',
-    endOfLine: 'lf',
+    arrowParens: "always",
+    endOfLine: "lf",
     insertFinalNewline: true,
     sortImports: {
-        internalPattern: ['@/**', '~/**'],
+        internalPattern: ["@/**", "~/**"],
         groups: [
-            'type-external',
-            ['value-builtin', 'value-external'],
+            "type-external",
+            ["value-builtin", "value-external"],
 
             { newlinesBetween: true },
 
-            'type-internal',
-            'value-internal',
+            "type-internal",
+            "value-internal",
 
             { newlinesBetween: true },
 
-            ['type-parent', 'type-sibling', 'type-index'],
-            ['value-parent', 'value-sibling', 'value-index'],
+            ["type-parent", "type-sibling", "type-index"],
+            ["value-parent", "value-sibling", "value-index"],
 
-            'unknown'
+            "unknown"
         ]
     },
     sortPackageJson: {

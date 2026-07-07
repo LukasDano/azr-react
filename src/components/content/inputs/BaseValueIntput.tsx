@@ -1,10 +1,10 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
 type FormInputProps = {
     label: string;
     value: string | number;
     onChange: (val: string) => void;
-    type?: 'text' | 'number';
+    type?: "text" | "number";
     id?: string;
     min?: number;
     max?: number;
@@ -15,13 +15,13 @@ export const BaseFormInput: FC<FormInputProps> = ({
     value,
     onChange,
     id = label.toLowerCase(),
-    type = 'text',
+    type = "text",
     min = 0,
     max
 }) => {
     return (
         <>
-            <label htmlFor={id} className={'mb-1 block font-medium'}>
+            <label htmlFor={id} className={"mb-1 block font-medium"}>
                 {label}
             </label>
             <input
@@ -34,10 +34,10 @@ export const BaseFormInput: FC<FormInputProps> = ({
                 min={min}
                 max={max}
                 className={
-                    'w-full rounded border border-gray-300 bg-gray-100 px-3 py-2 text-black focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                    "w-full rounded border border-gray-300 bg-gray-100 px-3 py-2 text-black focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 }
-                placeholder={'...'}
-                autoComplete={'off'}
+                placeholder={"..."}
+                autoComplete={"off"}
             />
         </>
     );

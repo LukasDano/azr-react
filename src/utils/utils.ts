@@ -14,8 +14,8 @@ type CountdownElementConfig = {
 };
 
 export const createCountdownElements = (time: CountdownTime): CountdownElementConfig[] => [
-    { value: time.days, max: 99, key: 'days' },
-    { value: time.hours, max: 24, key: 'hours' },
-    { value: time.minutes, max: 60, key: 'minutes' },
-    { value: time.seconds, max: 60, key: 'seconds' }
+    { value: time.days, max: 99, key: "days" },
+    { value: time.hours, max: 24, key: "hours" },
+    { value: time.minutes, max: 60, key: "minutes" },
+    { value: time.seconds, max: 60, key: "seconds" }
 ];

@@ -1,11 +1,11 @@
-﻿import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from "vitest";
 
-import type { WeekTime } from '../../src/static/importantTypes';
+import type { WeekTime } from "../../src/static/importantTypes";
 
-import { parseWeekTimeToTime } from '../../src/utils/typeUtilities/weekTime';
+import { parseWeekTimeToTime } from "../../src/utils/typeUtilities/weekTime";
 
-describe('parseWeekTimeToTime', () => {
-    it('should correctly sum up hours and minutes of all weekdays', () => {
+describe("parseWeekTimeToTime", () => {
+    it("should correctly sum up hours and minutes of all weekdays", () => {
         const weekTime: WeekTime = {
             mo: [8, 30],
             tu: [7, 45],
@@ -18,7 +18,7 @@ describe('parseWeekTimeToTime', () => {
         expect(result).toEqual([36, 0]);
     });
 
-    it('should handle minute overflow correctly', () => {
+    it("should handle minute overflow correctly", () => {
         const weekTime: WeekTime = {
             mo: [1, 50],
             tu: [0, 30],
@@ -31,7 +31,7 @@ describe('parseWeekTimeToTime', () => {
         expect(result).toEqual([2, 20]);
     });
 
-    it('should handle minutes exactly adding to 60', () => {
+    it("should handle minutes exactly adding to 60", () => {
         const weekTime: WeekTime = {
             mo: [4, 30],
             tu: [2, 30],
@@ -44,7 +44,7 @@ describe('parseWeekTimeToTime', () => {
         expect(result).toEqual([7, 0]);
     });
 
-    it('should sum zero times to [0, 0]', () => {
+    it("should sum zero times to [0, 0]", () => {
         const weekTime: WeekTime = {
             mo: [0, 0],
             tu: [0, 0],
@@ -56,7 +56,7 @@ describe('parseWeekTimeToTime', () => {
         expect(result).toEqual([0, 0]);
     });
 
-    it('should handle negative values', () => {
+    it("should handle negative values", () => {
         const weekTime: WeekTime = {
             mo: [8, 0],
             tu: [-2, -30],

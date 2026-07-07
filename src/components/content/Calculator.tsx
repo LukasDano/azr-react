@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from "react";
 
-import type { FloatTime, Time } from '../../static/importantTypes.ts';
-import type { CountdownColors } from '../../static/themes.ts';
-import type { AppContextValues } from '../context/AppContext.tsx';
-import type { SettingContextValues } from '../context/SettingContext.tsx';
+import type { FloatTime, Time } from "../../static/importantTypes.ts";
+import type { CountdownColors } from "../../static/themes.ts";
+import type { AppContextValues } from "../context/AppContext.tsx";
+import type { SettingContextValues } from "../context/SettingContext.tsx";
 
 import {
     defaultBreakTime,
@@ -14,7 +14,7 @@ import {
     defaultWorkTime,
     defaultWorkTimeForSixHourMode,
     emptyTimeValue
-} from '../../static/defaultValues.ts';
+} from "../../static/defaultValues.ts";
 import {
     calculateGleitzeit,
     calculateIncreasedValue,
@@ -22,22 +22,22 @@ import {
     calculateNormalEnd,
     calculateOptimizedEnd,
     roundTimeForFloat
-} from '../../utils/calculatingTimes.ts';
-import { sendInfoMessage } from '../../utils/page/notifications.ts';
-import { getStorageValue } from '../../utils/storage/localStorageManger.ts';
-import { parseFloatTimeFromRawTimeValues } from '../../utils/typeUtilities/floatTime.ts';
+} from "../../utils/calculatingTimes.ts";
+import { sendInfoMessage } from "../../utils/page/notifications.ts";
+import { getStorageValue } from "../../utils/storage/localStorageManger.ts";
+import { parseFloatTimeFromRawTimeValues } from "../../utils/typeUtilities/floatTime.ts";
 import {
     getCurrentTime,
     getLaterTime,
     isDefaultTimeValue,
     isSameTime,
     parseTimeToDate
-} from '../../utils/typeUtilities/time.ts';
-import { AppContext } from '../context/AppContext.tsx';
-import { SettingContext } from '../context/SettingContext.tsx';
-import { Countdown } from './countdown/Countdown.tsx';
-import { FloatTimeInputField } from './inputs/FloatTimeInputField.tsx';
-import { TimeInputField } from './inputs/TimeInputField.tsx';
+} from "../../utils/typeUtilities/time.ts";
+import { AppContext } from "../context/AppContext.tsx";
+import { SettingContext } from "../context/SettingContext.tsx";
+import { Countdown } from "./countdown/Countdown.tsx";
+import { FloatTimeInputField } from "./inputs/FloatTimeInputField.tsx";
+import { TimeInputField } from "./inputs/TimeInputField.tsx";
 
 const Calculator: FC = () => {
     const {
@@ -91,7 +91,7 @@ const Calculator: FC = () => {
 
     const handleWorkTimeEnd = (): void => {
         if (!overTimeAutomatic) {
-            sendInfoMessage('Ende der Arbeitszeit');
+            sendInfoMessage("Ende der Arbeitszeit");
             return;
         }
 
@@ -99,8 +99,8 @@ const Calculator: FC = () => {
         const laterTime = getLaterTime(endTime, currentTime);
 
         if (isSameTime(laterTime, currentTime)) {
-            sendInfoMessage('Deine Arbeitszeit ist vorbei');
-            sendInfoMessage('Arbeitszeit wird automatisch erhöht');
+            sendInfoMessage("Deine Arbeitszeit ist vorbei");
+            sendInfoMessage("Arbeitszeit wird automatisch erhöht");
 
             const increased = calculateIncreasedValue(floatTime);
             const updatedValue = parseFloatTimeFromRawTimeValues(increased);
@@ -119,26 +119,26 @@ const Calculator: FC = () => {
     }, [breakTime, startTime, handleFloatUpdate]);
 
     return (
-        <div className={'mx-auto w-full max-w-3xl px-4 py-8'}>
-            <div className={'mb-8 flex flex-col items-stretch justify-center gap-4 lg:flex-row'}>
-                <div className={'flex-1'}>
-                    <TimeInputField label={'Arbeitsbeginn'} value={startTime} onChange={handleStartTimeChange} />
+        <div className={"mx-auto w-full max-w-3xl px-4 py-8"}>
+            <div className={"mb-8 flex flex-col items-stretch justify-center gap-4 lg:flex-row"}>
+                <div className={"flex-1"}>
+                    <TimeInputField label={"Arbeitsbeginn"} value={startTime} onChange={handleStartTimeChange} />
                 </div>
-                <div className={'flex-1'}>
-                    <TimeInputField label={'Arbeitsende'} value={endTime} onChange={handleEndUpdate} />
+                <div className={"flex-1"}>
+                    <TimeInputField label={"Arbeitsende"} value={endTime} onChange={handleEndUpdate} />
                 </div>
             </div>
 
-            <div className={'mb-8 flex flex-col justify-center gap-4 sm:flex-row'}>
-                <div className={'mx-auto max-w-xs flex-1 sm:mx-0'}>
-                    <TimeInputField label={'Pause'} value={breakTime} disabled />
+            <div className={"mb-8 flex flex-col justify-center gap-4 sm:flex-row"}>
+                <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
+                    <TimeInputField label={"Pause"} value={breakTime} disabled />
                 </div>
-                <div className={'mx-auto max-w-xs flex-1 sm:mx-0'}>
-                    <TimeInputField label={'Arbeitszeit'} value={workTime} disabled />
+                <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
+                    <TimeInputField label={"Arbeitszeit"} value={workTime} disabled />
                 </div>
-                <div className={'mx-auto max-w-xs flex-1 sm:mx-0'}>
+                <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
                     <FloatTimeInputField
-                        label={'Gleitzeit'}
+                        label={"Gleitzeit"}
                         value={floatTime}
                         onChange={handleFloatUpdate}
                         onClick={handleFloatUpdate}
@@ -146,10 +146,10 @@ const Calculator: FC = () => {
                 </div>
             </div>
 
-            <div className={'pt-4'}>
+            <div className={"pt-4"}>
                 <Countdown
                     end={parseTimeToDate(endTime)}
-                    colorTheme={getStorageValue('countdownColors') as CountdownColors}
+                    colorTheme={getStorageValue("countdownColors") as CountdownColors}
                     onEnd={() => {
                         if (!isDefaultTimeValue(endTime)) handleWorkTimeEnd();
                     }}

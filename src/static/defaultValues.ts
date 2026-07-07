@@ -1,4 +1,4 @@
-import type { FloatTime, Time, WeekTime } from './importantTypes.ts';
+import type { FloatTime, Time, WeekTime } from "./importantTypes.ts";
 
 export const defaultFloatValue: FloatTime = [1, 0, 4];
 export const defaultFloatForSixHourMode: FloatTime = [-1, 1, 6];

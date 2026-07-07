@@ -1,26 +1,26 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useContext, useState } from 'react';
-import { MdHelpOutline } from 'react-icons/md';
-import { PiGearDuotone } from 'react-icons/pi';
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { useContext, useState } from "react";
+import { MdHelpOutline } from "react-icons/md";
+import { PiGearDuotone } from "react-icons/pi";
 
-import type { AppContextValues } from '../../context/AppContext';
-import type { SettingContextValues } from '../../context/SettingContext';
+import type { AppContextValues } from "../../context/AppContext";
+import type { SettingContextValues } from "../../context/SettingContext";
 
 import {
     defaultBreakTime,
     defaultWorkTime,
     defaultWorkTimeForSixHourMode,
     emptyTimeValue
-} from '../../../static/defaultValues';
-import { getBackgroundTheme } from '../../../static/themes.ts';
-import { parseTimeToString } from '../../../utils/typeUtilities/time';
-import { AppContext } from '../../context/AppContext';
-import { SettingContext } from '../../context/SettingContext';
-import { ActionHeader } from './ActionHeader';
-import { HeaderButton } from './HeaderButton';
-import { HeaderDropDownSelect } from './HeaderDropDownSelect.tsx';
+} from "../../../static/defaultValues";
+import { getBackgroundTheme } from "../../../static/themes.ts";
+import { parseTimeToString } from "../../../utils/typeUtilities/time";
+import { AppContext } from "../../context/AppContext";
+import { SettingContext } from "../../context/SettingContext";
+import { ActionHeader } from "./ActionHeader";
+import { HeaderButton } from "./HeaderButton";
+import { HeaderDropDownSelect } from "./HeaderDropDownSelect.tsx";
 
 type HeaderProps = {
     openSettings: () => void;
@@ -45,7 +45,7 @@ export const Header: FC<HeaderProps> = ({
     const availableWorkTimes = [defaultWorkTime, defaultWorkTimeForSixHourMode].map(parseTimeToString);
 
     const handleWorkTimeModeChange = (workTimeStr: string): void => {
-        if (workTimeStr === '06:00') {
+        if (workTimeStr === "06:00") {
             updateWorkTime(defaultWorkTimeForSixHourMode);
             updateBreakTime(emptyTimeValue);
         } else {
@@ -59,33 +59,33 @@ export const Header: FC<HeaderProps> = ({
             <nav
                 className={`sticky top-0 z-40 flex items-center justify-between border-b border-slate-300 bg-zinc-700 p-4 shadow ${getBackgroundTheme(backgroundTheme).headerBg}`}
             >
-                <h1 className={'text-4xl font-bold text-white'}>{'Arbeitszeitrechner'}</h1>
+                <h1 className={"text-4xl font-bold text-white"}>{"Arbeitszeitrechner"}</h1>
 
-                <div className={'flex flex-wrap items-center justify-end gap-6'}>
+                <div className={"flex flex-wrap items-center justify-end gap-6"}>
                     <HeaderDropDownSelect
                         selectedItem={parseTimeToString(workTime)}
                         items={availableWorkTimes}
                         onChange={(val) => handleWorkTimeModeChange(val)}
                     />
                     <HeaderButton
-                        icon={<MdHelpOutline className={'h-6 w-6'} />}
-                        tooltip={'Problem melden'}
-                        onClick={() => open('https://github.com/LukasDano/azr-react/issues', '_blank')}
+                        icon={<MdHelpOutline className={"h-6 w-6"} />}
+                        tooltip={"Problem melden"}
+                        onClick={() => open("https://github.com/LukasDano/azr-react/issues", "_blank")}
                     />
                     <HeaderButton
-                        icon={<PiGearDuotone className={'h-6 w-6'} />}
-                        tooltip={`Einstellungen ${showShortcuts ? '[alt + i]' : ''}`}
+                        icon={<PiGearDuotone className={"h-6 w-6"} />}
+                        tooltip={`Einstellungen ${showShortcuts ? "[alt + i]" : ""}`}
                         onClick={openSettings}
                     />
                     <HeaderButton
                         icon={
                             actionHeaderOpen ? (
-                                <ChevronUp className={'h-6 w-6'} />
+                                <ChevronUp className={"h-6 w-6"} />
                             ) : (
-                                <ChevronDown className={'h-6 w-6'} />
+                                <ChevronDown className={"h-6 w-6"} />
                             )
                         }
-                        tooltip={'Zusätzliche Funktionen'}
+                        tooltip={"Zusätzliche Funktionen"}
                         onClick={() => setActionHeaderOpen(!actionHeaderOpen)}
                     />
                 </div>

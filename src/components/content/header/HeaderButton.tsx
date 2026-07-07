@@ -1,12 +1,12 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import Tippy from '@tippyjs/react';
-import { useContext } from 'react';
+import Tippy from "@tippyjs/react";
+import { useContext } from "react";
 
-import type { SettingContextValues } from '../../context/SettingContext';
+import type { SettingContextValues } from "../../context/SettingContext";
 
-import { getThemeClasses } from '../../../static/themes';
-import { SettingContext } from '../../context/SettingContext';
+import { getThemeClasses } from "../../../static/themes";
+import { SettingContext } from "../../context/SettingContext";
 
 type HeaderButtonProps = {
     onClick: () => void;

@@ -1,12 +1,12 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { useContext, useState } from 'react';
+import { useContext, useState } from "react";
 
-import type { SettingContextValues } from '../../context/SettingContext';
+import type { SettingContextValues } from "../../context/SettingContext";
 
-import { getThemeClasses } from '../../../static/themes';
-import { sendInfoMessage } from '../../../utils/page/notifications';
-import { SettingContext } from '../../context/SettingContext';
+import { getThemeClasses } from "../../../static/themes";
+import { sendInfoMessage } from "../../../utils/page/notifications";
+import { SettingContext } from "../../context/SettingContext";
 
 type SettingsToggleProps = {
     onToggle: (value: boolean) => void;
@@ -15,7 +15,7 @@ type SettingsToggleProps = {
     description?: string;
 };
 
-export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle, description = '', defaultValue }) => {
+export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle, description = "", defaultValue }) => {
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
 
     const [value, setValue] = useState<boolean>(defaultValue);
@@ -24,29 +24,29 @@ export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle,
         const newValue = !value;
         setValue(newValue);
         onToggle(newValue);
-        sendInfoMessage(`"${settingName}" was turned ${newValue ? 'on' : 'off'}.`);
+        sendInfoMessage(`"${settingName}" was turned ${newValue ? "on" : "off"}.`);
     };
 
     return (
-        <div className={'flex items-center justify-between py-2'}>
-            <div className={'flex flex-col'}>
-                <span className={'font-medium text-gray-900 dark:text-gray-100'}>{settingName}</span>
-                <span className={'text-sm text-gray-500 dark:text-gray-300'}>{description}</span>
+        <div className={"flex items-center justify-between py-2"}>
+            <div className={"flex flex-col"}>
+                <span className={"font-medium text-gray-900 dark:text-gray-100"}>{settingName}</span>
+                <span className={"text-sm text-gray-500 dark:text-gray-300"}>{description}</span>
             </div>
 
             <button
-                type={'button'}
+                type={"button"}
                 onClick={handleToggle}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:ring-2 focus:ring-offset-2 focus:outline-none ${
-                    value ? getThemeClasses(colorTheme) : 'bg-gray-300'
+                    value ? getThemeClasses(colorTheme) : "bg-gray-300"
                 }`}
-                role={'switch'}
+                role={"switch"}
                 aria-checked={value}
                 aria-label={settingName}
             >
                 <span
                     className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ${
-                        value ? 'translate-x-6' : 'translate-x-1'
+                        value ? "translate-x-6" : "translate-x-1"
                     }`}
                 />
             </button>

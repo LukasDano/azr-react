@@ -1,15 +1,15 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import { useHotkey } from '@tanstack/react-hotkeys';
-import { useContext } from 'react';
-import { IoClose } from 'react-icons/io5';
+import { useHotkey } from "@tanstack/react-hotkeys";
+import { useContext } from "react";
+import { IoClose } from "react-icons/io5";
 
-import type { SettingContextValues } from '../../context/SettingContext.tsx';
+import type { SettingContextValues } from "../../context/SettingContext.tsx";
 
-import { getBackgroundTheme } from '../../../static/themes.ts';
-import { SettingContext } from '../../context/SettingContext.tsx';
+import { getBackgroundTheme } from "../../../static/themes.ts";
+import { SettingContext } from "../../context/SettingContext.tsx";
 
-export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'xl2' | 'xl3' | 'full';
+export type ModalSize = "sm" | "md" | "lg" | "xl" | "xl2" | "xl3" | "full";
 
 type BaseModalProps = {
     isOpen: boolean;
@@ -20,29 +20,29 @@ type BaseModalProps = {
     size?: ModalSize;
 };
 
-export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children, modalHeader, size = 'md' }) => {
+export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, children, modalHeader, size = "md" }) => {
     const { backgroundTheme } = useContext<SettingContextValues>(SettingContext);
 
-    useHotkey({ key: 'Escape' }, onClose, { requireReset: true, preventDefault: true, eventType: 'keyup' });
+    useHotkey({ key: "Escape" }, onClose, { requireReset: true, preventDefault: true, eventType: "keyup" });
 
     if (!isOpen) return null;
 
     const sizeClasses: Record<ModalSize, string> = {
-        sm: 'max-w-md max-h-[60vh]',
-        md: 'max-w-xl max-h-[70vh]',
-        lg: 'max-w-3xl max-h-[80vh]',
-        xl: 'max-w-5xl max-h-[85vh]',
-        xl2: 'max-w-6xl min-h-[80vh] max-h-[90vh]',
-        xl3: 'max-w-6xl min-h-[80vh] max-h-[90vh]',
-        full: 'w-full h-full'
+        sm: "max-w-md max-h-[60vh]",
+        md: "max-w-xl max-h-[70vh]",
+        lg: "max-w-3xl max-h-[80vh]",
+        xl: "max-w-5xl max-h-[85vh]",
+        xl2: "max-w-6xl min-h-[80vh] max-h-[90vh]",
+        xl3: "max-w-6xl min-h-[80vh] max-h-[90vh]",
+        full: "w-full h-full"
     };
 
     return (
         <div
             className={
-                'fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-3 py-2 text-white backdrop-blur-sm transition-opacity duration-300'
+                "fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-3 py-2 text-white backdrop-blur-sm transition-opacity duration-300"
             }
-            role={'none'}
+            role={"none"}
             onClick={onClose}
             onKeyUp={onClose}
         >
@@ -54,14 +54,14 @@ export const BaseModal: FC<BaseModalProps> = ({ modalTitle, isOpen, onClose, chi
                 <button
                     onClick={onClose}
                     className={
-                        'absolute top-4 right-4 cursor-pointer text-2xl text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'
+                        "absolute top-4 right-4 cursor-pointer text-2xl text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                     }
-                    aria-label={'Close modal'}
+                    aria-label={"Close modal"}
                 >
                     <IoClose />
                 </button>
 
-                {modalHeader || <h2 className={'mb-4 text-xl font-semibold'}>{modalTitle}</h2>}
+                {modalHeader || <h2 className={"mb-4 text-xl font-semibold"}>{modalTitle}</h2>}
 
                 {children}
             </div>

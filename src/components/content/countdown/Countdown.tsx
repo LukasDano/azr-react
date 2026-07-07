@@ -1,15 +1,15 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
-import type { CountdownColors } from '../../../static/themes.ts';
-import type { CountdownTime } from '../../../utils/utils.ts';
-import type { SettingContextValues } from '../../context/SettingContext.tsx';
+import type { CountdownColors } from "../../../static/themes.ts";
+import type { CountdownTime } from "../../../utils/utils.ts";
+import type { SettingContextValues } from "../../context/SettingContext.tsx";
 
-import { defaultCountdownTheme, getBackgroundTheme } from '../../../static/themes.ts';
-import { createCountdownElements } from '../../../utils/utils.ts';
-import { SettingContext } from '../../context/SettingContext.tsx';
-import { CountdownElement } from './CountdownElement.tsx';
+import { defaultCountdownTheme, getBackgroundTheme } from "../../../static/themes.ts";
+import { createCountdownElements } from "../../../utils/utils.ts";
+import { SettingContext } from "../../context/SettingContext.tsx";
+import { CountdownElement } from "./CountdownElement.tsx";
 
 type CountdownProps = {
     end: Date;
@@ -84,7 +84,7 @@ export const Countdown: FC<CountdownProps> = ({
             className={`mx-auto flex h-32 w-2/3 items-center justify-center gap-6 rounded-2xl bg-zinc-400 p-6 shadow-xl ${getBackgroundTheme(backgroundTheme).countdownBg}`}
         >
             {createCountdownElements(time)
-                .filter((unit) => (showDays ? true : unit.key !== 'days'))
+                .filter((unit) => (showDays ? true : unit.key !== "days"))
                 .map((unit) => (
                     <CountdownElement
                         key={unit.key}

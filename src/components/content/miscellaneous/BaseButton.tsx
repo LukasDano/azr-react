@@ -1,12 +1,12 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from "react";
 
-import Tippy from '@tippyjs/react';
-import { useContext } from 'react';
+import Tippy from "@tippyjs/react";
+import { useContext } from "react";
 
-import type { SettingContextValues } from '../../context/SettingContext';
+import type { SettingContextValues } from "../../context/SettingContext";
 
-import { getThemeClasses } from '../../../static/themes';
-import { SettingContext } from '../../context/SettingContext';
+import { getThemeClasses } from "../../../static/themes";
+import { SettingContext } from "../../context/SettingContext";
 
 type BaseButtonProps = {
     icon?: ReactNode;
@@ -36,11 +36,11 @@ type FromFunctionButtonProps = {
     icon: ReactNode;
 };
 
-export const FromFunctionButton: FC<FromFunctionButtonProps> = ({ onClick, tooltip = '', icon }) => {
+export const FromFunctionButton: FC<FromFunctionButtonProps> = ({ onClick, tooltip = "", icon }) => {
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
 
     return (
-        <Tippy content={tooltip} animation={'scale'} disabled={tooltip === ''}>
+        <Tippy content={tooltip} animation={"scale"} disabled={tooltip === ""}>
             <button
                 onClick={onClick}
                 className={`flex h-12 flex-1 items-center justify-center rounded p-2 text-white shadow ${getThemeClasses(colorTheme)}`}

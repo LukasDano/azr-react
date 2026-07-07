@@ -1,8 +1,8 @@
-import type { ErrorInfo, ReactNode } from 'react';
+import type { ErrorInfo, ReactNode } from "react";
 
-import { Component } from 'react';
+import { Component } from "react";
 
-import { ModalErrorBoundary } from './ModalErrorBoundary.tsx';
+import { ModalErrorBoundary } from "./ModalErrorBoundary.tsx";
 
 export type CaughtError = {
     name: string;
@@ -23,12 +23,12 @@ type ErrorBoundaryState = {
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     static defaultErrText =
-        '\n\nFirst try to reload the page, but if this error keeps appearing please create a ticket for it.' +
-        '\nIn the meantime feel free use the old version of the app.';
+        "\n\nFirst try to reload the page, but if this error keeps appearing please create a ticket for it." +
+        "\nIn the meantime feel free use the old version of the app.";
 
     state: ErrorBoundaryState = {
         hasError: false,
-        errName: '',
+        errName: "",
         errMsg: ErrorBoundary.defaultErrText
     };
 
@@ -38,8 +38,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     }
 
     componentDidCatch(error: Error, errInf: ErrorInfo): void {
-        console.error('ErrorBoundary caught', error);
-        console.error('Info', errInf);
+        console.error("ErrorBoundary caught", error);
+        console.error("Info", errInf);
     }
 
     render(): ReactNode {

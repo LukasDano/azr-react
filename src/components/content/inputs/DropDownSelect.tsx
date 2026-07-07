@@ -1,9 +1,9 @@
-import type { FC } from 'react';
-import type { SingleValue } from 'react-select';
+import type { FC } from "react";
+import type { SingleValue } from "react-select";
 
-import { useState } from 'react';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
+import { useState } from "react";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 type MultipleValueSelectorProps = {
     name: string;
@@ -15,7 +15,7 @@ type MultipleValueSelectorProps = {
 
 export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
     name,
-    description = '',
+    description = "",
     defaultOption,
     options,
     onChange
@@ -39,35 +39,35 @@ export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
     };
 
     return (
-        <div className={'mb-3 flex justify-between'}>
-            <div className={'mr-6 content-center'}>
-                <span className={'font-medium text-gray-900 dark:text-gray-100'}>{name}</span>
-                <span className={'block max-w-[20vw] font-light text-gray-900 dark:text-gray-200'}>{description}</span>
+        <div className={"mb-3 flex justify-between"}>
+            <div className={"mr-6 content-center"}>
+                <span className={"font-medium text-gray-900 dark:text-gray-100"}>{name}</span>
+                <span className={"block max-w-[20vw] font-light text-gray-900 dark:text-gray-200"}>{description}</span>
             </div>
-            <div className={'ms-auto inline-flex cursor-pointer items-center'}>
+            <div className={"ms-auto inline-flex cursor-pointer items-center"}>
                 <Select
-                    className={'w-46'}
+                    className={"w-46"}
                     classNames={{
-                        control: () => 'bg-gray-50 border-gray-300 text-gray-900 min-w-full',
-                        menu: () => 'bg-gray-50 border-gray-300 text-gray-900 min-w-full',
-                        multiValue: () => 'dark:bg-gray-300 dark:text-gray-700 min-w-full'
+                        control: () => "bg-gray-50 border-gray-300 text-gray-900 min-w-full",
+                        menu: () => "bg-gray-50 border-gray-300 text-gray-900 min-w-full",
+                        multiValue: () => "dark:bg-gray-300 dark:text-gray-700 min-w-full"
                     }}
                     styles={{
                         option: (base, state) => ({
                             ...base,
-                            backgroundColor: state.isFocused ? '#D1D5DBFF' : '',
-                            color: state.isFocused ? '#374151FF' : ''
+                            backgroundColor: state.isFocused ? "#D1D5DBFF" : "",
+                            color: state.isFocused ? "#374151FF" : ""
                         })
                     }}
                     closeMenuOnSelect
-                    menuPosition={'fixed'}
+                    menuPosition={"fixed"}
                     components={animatedComponents}
                     value={{ value: selectedOption, label: selectedOption }}
                     isMulti={false}
                     options={generateOptions()}
-                    placeholder={'Select ...'}
+                    placeholder={"Select ..."}
                     onChange={(val) => handleChange(val?.label as string)}
-                    noOptionsMessage={() => 'No selectable options'}
+                    noOptionsMessage={() => "No selectable options"}
                     aria-label={name}
                     datatest-id={name}
                 />

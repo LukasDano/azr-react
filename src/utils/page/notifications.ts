@@ -1,4 +1,4 @@
-import { toast } from 'sonner';
+import { toast } from "sonner";
 
 export const sendSuccessMessage = (msg: string, desc?: string): void => {
     if (desc) toast.success(msg, { description: desc });
@@ -20,14 +20,14 @@ export const sendWarnMessage = (msg: string, desc?: string): void => {
     else toast.warning(msg);
 };
 
-export type ToastPosition = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'topCenter' | 'bottomCenter';
-type ToastPositionClass = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center';
+export type ToastPosition = "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | "topCenter" | "bottomCenter";
+type ToastPositionClass = "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center";
 
 export const notificationPositions: Record<ToastPosition, ToastPositionClass> = {
-    topLeft: 'top-left',
-    topRight: 'top-right',
-    bottomLeft: 'bottom-left',
-    bottomRight: 'bottom-right',
-    topCenter: 'top-center',
-    bottomCenter: 'bottom-center'
+    topLeft: "top-left",
+    topRight: "top-right",
+    bottomLeft: "bottom-left",
+    bottomRight: "bottom-right",
+    topCenter: "top-center",
+    bottomCenter: "bottom-center"
 };

@@ -1,23 +1,23 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from "react";
 
-import type { BackgroundTheme, ColorTheme, ThemeType } from '../../static/themes';
-import type { ToastPosition } from '../../utils/page/notifications.ts';
-import type { CountdownUnit } from '../content/countdown/CountdownElement.tsx';
-import type { SettingContextValues } from '../context/SettingContext';
-import type { SettingId } from './settingConfig.tsx';
+import type { BackgroundTheme, ColorTheme, ThemeType } from "../../static/themes";
+import type { ToastPosition } from "../../utils/page/notifications.ts";
+import type { CountdownUnit } from "../content/countdown/CountdownElement.tsx";
+import type { SettingContextValues } from "../context/SettingContext";
+import type { SettingId } from "./settingConfig.tsx";
 
-import { name, version } from '../../../package.json';
-import { getBackgroundTheme } from '../../static/themes';
-import { SettingsError } from '../../utils/errors/SettingsError.ts';
-import { sendErrorMessage } from '../../utils/page/notifications.ts';
-import { DropDownSelect } from '../content/inputs/DropDownSelect.tsx';
-import { TabBar } from '../content/miscellaneous/TabBar.tsx';
-import { SettingContext } from '../context/SettingContext';
-import { ColorPicker } from './inputs/ColorSelector.tsx';
-import { SettingsToggle } from './inputs/SettingsToggle';
-import { settingsConfig, settingTabs, settingTabsByName } from './settingConfig.tsx';
+import { name, version } from "../../../package.json";
+import { getBackgroundTheme } from "../../static/themes";
+import { SettingsError } from "../../utils/errors/SettingsError.ts";
+import { sendErrorMessage } from "../../utils/page/notifications.ts";
+import { DropDownSelect } from "../content/inputs/DropDownSelect.tsx";
+import { TabBar } from "../content/miscellaneous/TabBar.tsx";
+import { SettingContext } from "../context/SettingContext";
+import { ColorPicker } from "./inputs/ColorSelector.tsx";
+import { SettingsToggle } from "./inputs/SettingsToggle";
+import { settingsConfig, settingTabs, settingTabsByName } from "./settingConfig.tsx";
 
 type SettingValue = boolean | string | ColorTheme;
 
@@ -43,11 +43,11 @@ export const Settings: FC = () => {
     const [error, setError] = useState<SettingsError | null>(null);
 
     const handleCountdownColorChange = (key: CountdownUnit, val: string): void => {
-        if (typeof key === 'undefined')
+        if (typeof key === "undefined")
             setError(
                 new SettingsError(
-                    'Invalid CountdownUnit',
-                    'Tried to call handleCountdownColorChange() without a valid CountdownUnit .'
+                    "Invalid CountdownUnit",
+                    "Tried to call handleCountdownColorChange() without a valid CountdownUnit ."
                 )
             );
 
@@ -60,9 +60,9 @@ export const Settings: FC = () => {
     };
 
     const handleThemeChange = (key: ThemeType, val: string): void => {
-        if (typeof key === 'undefined')
+        if (typeof key === "undefined")
             setError(
-                new SettingsError('Invalid ThemeType', 'Tried to call handleThemeChange() without a valid ThemeType .')
+                new SettingsError("Invalid ThemeType", "Tried to call handleThemeChange() without a valid ThemeType .")
             );
 
         const updatedTheme = {
@@ -73,8 +73,8 @@ export const Settings: FC = () => {
         updateColorTheme(updatedTheme);
     };
 
-    const handleBackgroundTheme = (val: BackgroundTheme | 'light'): void => {
-        if (val === 'light') updateDarkModeActive(false);
+    const handleBackgroundTheme = (val: BackgroundTheme | "light"): void => {
+        if (val === "light") updateDarkModeActive(false);
         else {
             updateDarkModeActive(true);
             updateBackgroundTheme(val);
@@ -82,8 +82,8 @@ export const Settings: FC = () => {
     };
 
     const findValueById = (id: SettingId): SettingValue => {
-        const getBgTheme = (): BackgroundTheme | 'light' => {
-            if (!darkModeActive) return 'light';
+        const getBgTheme = (): BackgroundTheme | "light" => {
+            if (!darkModeActive) return "light";
             else return backgroundTheme;
         };
 
@@ -102,7 +102,7 @@ export const Settings: FC = () => {
         try {
             return settingKeyValueMap[id];
         } catch (err) {
-            setError(new SettingsError('Invalid SettingId', `Failed to find a value for the id: ${id}.`));
+            setError(new SettingsError("Invalid SettingId", `Failed to find a value for the id: ${id}.`));
 
             throw err;
         }
@@ -110,35 +110,35 @@ export const Settings: FC = () => {
 
     const executeFunctionById = (id: SettingId, val: SettingValue, funcParamKey: string | null = null): void => {
         switch (id) {
-            case 'countdownHours':
+            case "countdownHours":
                 handleCountdownColorChange(funcParamKey as CountdownUnit, val as string);
                 break;
-            case 'countdownMinutes':
+            case "countdownMinutes":
                 handleCountdownColorChange(funcParamKey as CountdownUnit, val as string);
                 break;
-            case 'countdownSeconds':
+            case "countdownSeconds":
                 handleCountdownColorChange(funcParamKey as CountdownUnit, val as string);
                 break;
-            case 'lightModeTheme':
+            case "lightModeTheme":
                 handleThemeChange(funcParamKey as ThemeType, val as string);
                 break;
-            case 'darkModeTheme':
+            case "darkModeTheme":
                 handleThemeChange(funcParamKey as ThemeType, val as string);
                 break;
-            case 'notificationPosition':
+            case "notificationPosition":
                 updateToastPosition(val as ToastPosition);
                 break;
-            case 'displayShortcuts':
+            case "displayShortcuts":
                 updateShowShortcuts(val as boolean);
                 break;
-            case 'overtimeAutomatic':
+            case "overtimeAutomatic":
                 updateOverTimeAutomatic(val as boolean);
                 break;
-            case 'backgroundTheme':
-                handleBackgroundTheme(val as 'light' | BackgroundTheme);
+            case "backgroundTheme":
+                handleBackgroundTheme(val as "light" | BackgroundTheme);
                 break;
             default:
-                setError(new SettingsError('Invalid SettingId', `Failed to find a function to execute for this id.`));
+                setError(new SettingsError("Invalid SettingId", `Failed to find a function to execute for this id.`));
                 return;
         }
     };
@@ -151,8 +151,8 @@ export const Settings: FC = () => {
     );
 
     return (
-        <div className={'flex h-full w-full flex-col gap-4 overflow-auto p-4'}>
-            <div className={'flex w-full justify-center'}>
+        <div className={"flex h-full w-full flex-col gap-4 overflow-auto p-4"}>
+            <div className={"flex w-full justify-center"}>
                 <TabBar tabs={settingTabs} activeTabId={activeTabId} onTabChange={setActiveTabId} />
             </div>
 
@@ -160,7 +160,7 @@ export const Settings: FC = () => {
                 {settingsConfig.map((stg) => {
                     if (stg.tabId !== activeTabId) return null;
 
-                    if (stg.component === 'SettingsToggle')
+                    if (stg.component === "SettingsToggle")
                         return (
                             <SettingsToggle
                                 key={stg.id}
@@ -169,7 +169,7 @@ export const Settings: FC = () => {
                                 onToggle={(val) => executeFunctionById(stg.id, val)}
                             />
                         );
-                    else if (stg.component === 'DropDownSelect') {
+                    else if (stg.component === "DropDownSelect") {
                         if (stg.options && stg.options.length === 0) {
                             sendErrorMessage(`No options found for: ${stg.name}`);
                             return null;
@@ -184,7 +184,7 @@ export const Settings: FC = () => {
                                 onChange={(val) => executeFunctionById(stg.id, val as string, stg.funcParamKey)}
                             />
                         );
-                    } else if (stg.component === 'ColorPicker')
+                    } else if (stg.component === "ColorPicker")
                         return (
                             <ColorPicker
                                 key={stg.id}
@@ -198,10 +198,10 @@ export const Settings: FC = () => {
             </div>
 
             <div className={settingsContainerClasses}>
-                <div className={'flex flex-col items-center'}>
-                    <span className={'text-xl font-bold text-gray-900 dark:text-gray-100'}>{name}</span>
-                    <span className={'text-sm text-gray-500 dark:text-gray-300'}>
-                        {'Version '}
+                <div className={"flex flex-col items-center"}>
+                    <span className={"text-xl font-bold text-gray-900 dark:text-gray-100"}>{name}</span>
+                    <span className={"text-sm text-gray-500 dark:text-gray-300"}>
+                        {"Version "}
                         {version}
                     </span>
                 </div>

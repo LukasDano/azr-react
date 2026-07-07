@@ -1,7 +1,7 @@
-import type { Time, TimeBalance } from '../../static/importantTypes';
+import type { Time, TimeBalance } from "../../static/importantTypes";
 
-import { emptyTimeValue } from '../../static/defaultValues.ts';
-import { formatNumber } from '../formatting';
+import { emptyTimeValue } from "../../static/defaultValues.ts";
+import { formatNumber } from "../formatting";
 
 export const getCurrentTime = (): Time => {
     const date = new Date();
@@ -33,7 +33,7 @@ export const parseTimeToString = (time: Time): string => {
 };
 
 export const parseStringToTime = (timeAsString: string): Time => {
-    const [newH, newMin] = timeAsString.split(':');
+    const [newH, newMin] = timeAsString.split(":");
     return [Number.parseInt(newH, 10), Number.parseInt(newMin, 10)];
 };
 
@@ -68,9 +68,9 @@ export const getTimeBalanceFor = (time: Time): TimeBalance => {
 
     const totalMinutes = hours * 60 + mins;
 
-    if (totalMinutes > 0) return 'positiv';
-    else if (totalMinutes < 0) return 'negativ';
-    else return 'neutral';
+    if (totalMinutes > 0) return "positiv";
+    else if (totalMinutes < 0) return "negativ";
+    else return "neutral";
 };
 
 /**
