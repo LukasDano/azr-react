@@ -3,7 +3,7 @@
         "packagePath": "./"
     },
     "outdated": {
-        "commitMsgPrefix": "[#58] ",
+        "commitMsgPrefix": "[#58]",
         "printCommitMsg": true
     },
     "deploy": {
