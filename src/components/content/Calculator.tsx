@@ -2,8 +2,8 @@ import type { FC } from "react";
 
 import { useCallback, useContext, useEffect } from "react";
 
-import type { FloatTime, Time } from "../../static/importantTypes.ts";
-import type { CountdownColors } from "../../static/themes.ts";
+import type { FloatTime, Time } from "../../utils/importantTypes.ts";
+import type { CountdownColors } from "../../utils/themes.ts";
 import type { AppContextValues } from "../context/AppContext.tsx";
 import type { SettingContextValues } from "../context/SettingContext.tsx";
 
@@ -14,7 +14,7 @@ import {
     defaultWorkTime,
     defaultWorkTimeForSixHourMode,
     emptyTimeValue
-} from "../../static/defaultValues.ts";
+} from "../../utils/defaultValues.ts";
 import {
     calculateGleitzeit,
     calculateIncreasedValue,

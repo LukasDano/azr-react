@@ -1,4 +1,4 @@
-import type { FeiertageHamburg } from "../static/importantTypes.ts";
+import type { FeiertageHamburg } from "./importantTypes.ts";
 
 import { isWorkDay } from "./flexOfficeUtility.ts";
 

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import type { Time } from "../../../static/importantTypes";
+import type { Time } from "../../../utils/importantTypes";
 
 import { cleanTime, parseStringToTime, parseTimeToString } from "../../../utils/typeUtilities/time";
 

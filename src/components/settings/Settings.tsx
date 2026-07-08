@@ -2,14 +2,14 @@ import type { FC } from "react";
 
 import { useContext, useMemo, useState } from "react";
 
-import type { BackgroundTheme, ColorTheme, ThemeType } from "../../static/themes";
+import type { BackgroundTheme, ColorTheme, ThemeType } from "../../utils/themes.ts";
 import type { ToastPosition } from "../../utils/notifications.ts";
 import type { CountdownUnit } from "../content/countdown/CountdownElement.tsx";
 import type { SettingContextValues } from "../context/SettingContext";
 import type { SettingId } from "./settingConfig.tsx";
 
 import { name, version } from "../../../package.json";
-import { getBackgroundTheme } from "../../static/themes";
+import { getBackgroundTheme } from "../../utils/themes.ts";
 import { SettingsError } from "../../utils/errors/SettingsError.ts";
 import { sendNotification } from "../../utils/notifications.ts";
 import { DropDownSelect } from "../content/inputs/DropDownSelect.tsx";

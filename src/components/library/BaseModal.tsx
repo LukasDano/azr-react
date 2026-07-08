@@ -4,10 +4,8 @@ import { useHotkey } from "@tanstack/react-hotkeys";
 import { useContext } from "react";
 import { IoClose } from "react-icons/io5";
 
-import type { SettingContextValues } from "../../context/SettingContext.tsx";
-
-import { getBackgroundTheme } from "../../../static/themes.ts";
-import { SettingContext } from "../../context/SettingContext.tsx";
+import { SettingContext, type SettingContextValues } from "../context/SettingContext";
+import { getBackgroundTheme } from "../../utils/themes";
 
 export type ModalSize = "sm" | "md" | "lg" | "xl" | "xl2" | "xl3" | "full";
 

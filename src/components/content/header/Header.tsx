@@ -13,8 +13,8 @@ import {
     defaultWorkTime,
     defaultWorkTimeForSixHourMode,
     emptyTimeValue
-} from "../../../static/defaultValues";
-import { getBackgroundTheme } from "../../../static/themes.ts";
+} from "../../../utils/defaultValues.ts";
+import { getBackgroundTheme } from "../../../utils/themes.ts";
 import { parseTimeToString } from "../../../utils/typeUtilities/time";
 import { AppContext } from "../../context/AppContext";
 import { SettingContext } from "../../context/SettingContext";

@@ -1,7 +1,7 @@
-import type { Time } from "../../static/importantTypes";
-import type { ColorTheme, CountdownColors } from "../../static/themes.ts";
+import type { Time } from "../importantTypes.ts";
+import type { ColorTheme, CountdownColors } from "../themes.ts";
 
-import { defaultBackgroundTheme, defaultColorTheme, defaultCountdownTheme } from "../../static/themes.ts";
+import { defaultBackgroundTheme, defaultColorTheme, defaultCountdownTheme } from "../themes.ts";
 
 export type StorageKey =
     | "darkModeActive"

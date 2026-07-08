@@ -1,4 +1,4 @@
-import type { FloatTime, Time, WeekTime } from "../../static/importantTypes";
+import type { FloatTime, Time, WeekTime } from "../importantTypes.ts";
 
 import {
     defaultBreakTime,
@@ -6,7 +6,7 @@ import {
     defaultWeekTime,
     defaultWorkTime,
     emptyTimeValue
-} from "../../static/defaultValues.ts";
+} from "../defaultValues.ts";
 
 type CookieKey = "startTime" | "floatTime" | "endTime" | "weekTime" | "breakTime" | "workTime" | "flexOffice";
 

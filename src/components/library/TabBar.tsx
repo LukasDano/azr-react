@@ -1,12 +1,9 @@
 import type { FC, ReactNode } from "react";
 
-import Tippy from "@tippyjs/react";
 import { useContext } from "react";
-
-import type { SettingContextValues } from "../../context/SettingContext.tsx";
-
-import { getThemeClasses } from "../../../static/themes.ts";
-import { SettingContext } from "../../context/SettingContext.tsx";
+import { Tooltip } from "./Tooltip";
+import { SettingContext, type SettingContextValues } from "../context/SettingContext";
+import { getThemeClasses } from "../../utils/themes";
 
 export type Tab = {
     icon: ReactNode;
@@ -65,7 +62,7 @@ type TabButtonProps = {
 
 const TabButton: FC<TabButtonProps> = ({ tab, active, onClick }) => {
     return (
-        <Tippy content={tab.title}>
+        <Tooltip tooltip={tab.title}>
             <button
                 role={"tab"}
                 aria-selected={active}
@@ -83,6 +80,6 @@ const TabButton: FC<TabButtonProps> = ({ tab, active, onClick }) => {
                     {tab.icon}
                 </span>
             </button>
-        </Tippy>
+        </Tooltip>
     );
 };

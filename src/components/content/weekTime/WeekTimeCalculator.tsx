@@ -2,9 +2,9 @@ import type { FC } from "react";
 
 import { useEffect, useState } from "react";
 
-import type { Time, WeekDay, WeekTime } from "../../../static/importantTypes.ts";
+import type { Time, WeekDay, WeekTime } from "../../../utils/importantTypes.ts";
 
-import { emptyTimeValue } from "../../../static/defaultValues.ts";
+import { emptyTimeValue } from "../../../utils/defaultValues.ts";
 import { getCookie, setCookieUntilEndOfWeek } from "../../../utils/storage/cookieManager.ts";
 import { parseWeekTimeToTime } from "../../../utils/typeUtilities/weekTime.ts";
 import { calculateWeekOverTime } from "../../../utils/weekTimeCalculatingUtility.ts";

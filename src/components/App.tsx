@@ -7,8 +7,8 @@ import { Flip, ToastContainer } from "react-toastify";
 import type { AppContextValues } from "./context/AppContext";
 import type { SettingContextValues } from "./context/SettingContext";
 
-import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from "../static/defaultValues";
-import { getBackgroundTheme } from "../static/themes.ts";
+import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from "../utils/defaultValues.ts";
+import { getBackgroundTheme } from "../utils/themes.ts";
 import {
     calculateGleitzeit,
     calculateIstTime,
@@ -20,11 +20,11 @@ import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from "../utils/
 import { ErrorBoundary } from "./boundaries/ErrorBoundary.tsx";
 import { PanelErrorBoundary } from "./boundaries/PanelErrorBoundary.tsx";
 import { Header } from "./content/header/Header";
-import { BaseModal } from "./content/miscellaneous/BaseModal";
-import { Loader } from "./content/miscellaneous/Loader.tsx";
 import { AppContext } from "./context/AppContext";
 import { SettingContext } from "./context/SettingContext";
 import { Settings } from "./settings/Settings";
+import { BaseModal } from "./library/BaseModal.tsx";
+import { Loader } from "lucide-react";
 
 const Calculator = lazy(() => import("./content/Calculator.tsx"));
 const FlexOfficeCalculator = lazy(() => import("./content/flexOffice/FlexOfficeCalculator.tsx"));

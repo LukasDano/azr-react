@@ -1,4 +1,4 @@
-﻿import type { Time, WeekTime } from "../../static/importantTypes";
+﻿import type { Time, WeekTime } from "../importantTypes";
 
 /**
  * Erstellt aus der `WeekTime` die `Time`, welche in der Woche gearbeitet wurde.

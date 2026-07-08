@@ -1,4 +1,4 @@
-import type { FloatTime, FloatTimeSign, Time } from "../../static/importantTypes";
+import type { FloatTime, FloatTimeSign, Time } from "../importantTypes";
 
 import { formatNumber } from "../formatting";
 

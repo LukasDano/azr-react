@@ -14,7 +14,7 @@ import {
     ScaleLoader
 } from "react-spinners";
 
-import type { ThemeColors, ThemeName } from "../../../static/themes.ts";
+import type { ThemeColors, ThemeName } from "../../../utils/themes.ts";
 import type { SettingContextValues } from "../../context/SettingContext.tsx";
 
 import { SettingContext } from "../../context/SettingContext.tsx";

@@ -6,7 +6,7 @@ import { MdOutlineResetTv } from "react-icons/md";
 
 import type { SettingContextValues } from "../../context/SettingContext";
 
-import { getBackgroundTheme } from "../../../static/themes.ts";
+import { getBackgroundTheme } from "../../../utils/themes.ts";
 import { SettingContext } from "../../context/SettingContext";
 import { HeaderButton } from "./HeaderButton";
 

@@ -1,4 +1,4 @@
-﻿import type { Time } from "../static/importantTypes";
+﻿import type { Time } from "./importantTypes.ts";
 
 import { getMonthName, getValidDateString } from "./dateUtility";
 import { getCookie, setCookieForOneYear } from "./storage/cookieManager.ts";

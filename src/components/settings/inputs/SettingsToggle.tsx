@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 
 import type { SettingContextValues } from "../../context/SettingContext";
 
-import { getThemeClasses } from "../../../static/themes";
+import { getThemeClasses } from "../../../utils/themes.ts";
 import { sendNotification } from "../../../utils/notifications.ts";
 import { SettingContext } from "../../context/SettingContext";
 

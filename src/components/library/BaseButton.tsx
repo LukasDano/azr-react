@@ -1,12 +1,10 @@
 import type { FC, ReactNode } from "react";
 
-import Tippy from "@tippyjs/react";
 import { useContext } from "react";
+import { Tooltip } from "./Tooltip";
+import { SettingContext, type SettingContextValues } from "../context/SettingContext";
+import { getThemeClasses } from "../../utils/themes";
 
-import type { SettingContextValues } from "../../context/SettingContext";
-
-import { getThemeClasses } from "../../../static/themes";
-import { SettingContext } from "../../context/SettingContext";
 
 type BaseButtonProps = {
     icon?: ReactNode;
@@ -19,14 +17,14 @@ export const BaseButton: FC<BaseButtonProps> = ({ icon, tooltip, onClick, text }
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
 
     return (
-        <Tippy content={tooltip}>
+        <Tooltip tooltip={tooltip} >
             <button
                 onClick={onClick}
                 className={`flex h-10 items-center justify-center rounded-lg px-4 text-white transition-colors duration-200 ${getThemeClasses(colorTheme)}`}
             >
                 {text ?? icon}
             </button>
-        </Tippy>
+        </Tooltip>
     );
 };
 
@@ -40,13 +38,13 @@ export const FromFunctionButton: FC<FromFunctionButtonProps> = ({ onClick, toolt
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
 
     return (
-        <Tippy content={tooltip} animation={"scale"} disabled={tooltip === ""}>
+        <Tooltip tooltip={tooltip} animation={"scale"} disabled={tooltip === ""}>
             <button
                 onClick={onClick}
                 className={`flex h-12 flex-1 items-center justify-center rounded p-2 text-white shadow ${getThemeClasses(colorTheme)}`}
             >
                 {icon}
             </button>
-        </Tippy>
+        </Tooltip>
     );
 };

@@ -2,9 +2,9 @@ import type { FC } from "react";
 
 import { useState } from "react";
 
-import type { Time } from "../../../static/importantTypes";
+import type { Time } from "../../../utils/importantTypes";
 
-import { defaultQuote, emptyTimeValue, flexOfficeQuoten } from "../../../static/defaultValues";
+import { defaultQuote, emptyTimeValue, flexOfficeQuoten } from "../../../utils/defaultValues";
 import {
     calculateFlexOfficeStats,
     calculateMaxDaysForMonthByString,

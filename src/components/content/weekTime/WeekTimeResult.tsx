@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import type { Time, TimeBalance } from "../../../static/importantTypes.ts";
+import type { Time, TimeBalance } from "../../../utils/importantTypes.ts";
 
 import { getTimeBalanceFor } from "../../../utils/typeUtilities/time.ts";
 import { parseWeekOverTimeToString, parseWeekWorkTimeToString } from "../../../utils/weekTimeCalculatingUtility.ts";

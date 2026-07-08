@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import type { BackgroundTheme, ColorTheme, CountdownColors } from "../../static/themes";
+import type { BackgroundTheme, ColorTheme, CountdownColors } from "../../utils/themes.ts";
 import type { ToastPosition } from "../../utils/notifications.ts";
 
 export type SettingContextValues = {

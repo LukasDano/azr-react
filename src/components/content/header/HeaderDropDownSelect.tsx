@@ -6,7 +6,7 @@ import { useContext } from "react";
 
 import type { SettingContextValues } from "../../context/SettingContext.tsx";
 
-import { getThemeClasses } from "../../../static/themes.ts";
+import { getThemeClasses } from "../../../utils/themes.ts";
 import { SettingContext } from "../../context/SettingContext.tsx";
 
 type HeaderDropDownSelectProps = {
