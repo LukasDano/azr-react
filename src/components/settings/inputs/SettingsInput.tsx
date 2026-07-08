@@ -3,7 +3,7 @@ import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import { FaRegSave } from "react-icons/fa";
 
-import { sendInfoMessage, sendWarnMessage } from "../../../utils/page/notifications";
+import { sendNotification } from "../../../utils/notifications.ts";
 import { BaseButton } from "../../content/miscellaneous/BaseButton";
 
 type SettingsInputValue = string | number;
@@ -40,10 +40,10 @@ export const SettingsInput: FC<SettingsInputProps> = ({
 
     const handleSave = (): void => {
         if (onlyValues && !onlyValues.includes(value))
-            sendWarnMessage(`Dieser Wert wird für ${settingName} nicht unterstützt`);
+            sendNotification({ lvl: "WARN", msg: `Dieser Wert wird für ${settingName} nicht unterstützt` });
         else {
             onSubmit(value);
-            sendInfoMessage(`Änderung and ${settingName} wurde gespeichert.`);
+            sendNotification({ lvl: "INFO", msg: `Änderung and ${settingName} wurde gespeichert.` });
         }
     };
 

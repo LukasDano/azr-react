@@ -3,7 +3,7 @@ import type { FC, ReactNode } from "react";
 import { useMemo, useState } from "react";
 
 import type { BackgroundTheme, ColorTheme, CountdownColors } from "../../static/themes.ts";
-import type { ToastPosition } from "../../utils/page/notifications.ts";
+import type { ToastPosition } from "../../utils/notifications.ts";
 import type { SettingContextValues } from "./SettingContext.tsx";
 
 import { getStorageValue, setStorageValue } from "../../utils/storage/localStorageManger.ts";

@@ -3,7 +3,6 @@ import type { FC } from "react";
 import { useContext, useMemo, useState } from "react";
 
 import type { BackgroundTheme, ColorTheme, ThemeType } from "../../static/themes";
-import type { ToastPosition } from "../../utils/page/notifications.ts";
 import type { CountdownUnit } from "../content/countdown/CountdownElement.tsx";
 import type { SettingContextValues } from "../context/SettingContext";
 import type { SettingId } from "./settingConfig.tsx";
@@ -11,7 +10,8 @@ import type { SettingId } from "./settingConfig.tsx";
 import { name, version } from "../../../package.json";
 import { getBackgroundTheme } from "../../static/themes";
 import { SettingsError } from "../../utils/errors/SettingsError.ts";
-import { sendErrorMessage } from "../../utils/page/notifications.ts";
+import { sendNotification } from '../../utils/notifications.ts';
+import type { ToastPosition } from '../../utils/notifications.ts';
 import { DropDownSelect } from "../content/inputs/DropDownSelect.tsx";
 import { TabBar } from "../content/miscellaneous/TabBar.tsx";
 import { SettingContext } from "../context/SettingContext";
@@ -171,7 +171,7 @@ export const Settings: FC = () => {
                         );
                     else if (stg.component === "DropDownSelect") {
                         if (stg.options && stg.options.length === 0) {
-                            sendErrorMessage(`No options found for: ${stg.name}`);
+                            sendNotification({ lvl: "ERROR", msg: `Keine Optionen für: ${stg.name}` });
                             return null;
                         }
 

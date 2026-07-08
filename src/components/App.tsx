@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 import { useHotkey } from "@tanstack/react-hotkeys";
 import { lazy, Suspense, useContext, useState } from "react";
-import { Toaster } from "sonner";
+import { Flip, ToastContainer } from "react-toastify";
 
 import type { AppContextValues } from "./context/AppContext";
 import type { SettingContextValues } from "./context/SettingContext";
@@ -15,7 +15,7 @@ import {
     calculateStartEndeTimeDiff,
     createGleitzeitAusgabeFromFloat
 } from "../utils/calculatingTimes";
-import { notificationPositions, sendInfoMessage, sendWarnMessage } from "../utils/page/notifications";
+import { notificationPositions, sendNotification } from "../utils/notifications.ts";
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from "../utils/typeUtilities/time";
 import { ErrorBoundary } from "./boundaries/ErrorBoundary.tsx";
 import { PanelErrorBoundary } from "./boundaries/PanelErrorBoundary.tsx";
@@ -57,7 +57,7 @@ export const App: FC = () => {
 
     const sendMsgWithCurrentStats = (): void => {
         if (isDefaultTimeValue(startTime)) {
-            sendWarnMessage("Noch keine Zeiten eingetragen");
+            sendNotification({ lvl: "WARN", msg: "Noch keine Zeiten eingetragen" });
             return;
         }
 
@@ -72,7 +72,7 @@ export const App: FC = () => {
         const istStr = parseTimeToString(currentIst);
         const floatStr = createGleitzeitAusgabeFromFloat(currentFloat);
 
-        sendInfoMessage(`Arbeitszeit: ${istStr} | Gleitzeit: ${floatStr}`);
+        sendNotification({ lvl: "INFO", msg: `Arbeitszeit: ${istStr} | Gleitzeit: ${floatStr}` });
     };
 
     useHotkey({ key: "i", alt: true }, () => setSettingsOpen(true), { requireReset: true });
@@ -82,7 +82,21 @@ export const App: FC = () => {
     useHotkey({ key: "F1" }, resetTimeValues, { requireReset: true, preventDefault: true });
 
     return (
-        <div className={darkModeActive ? "dark" : "light"}>
+        <div id={"azr-react-app"} className={darkModeActive ? "dark" : "light"}>
+            <ToastContainer
+                position={notificationPositions[toastPosition]}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss={true}
+                draggable={true}
+                pauseOnHover={true}
+                theme={"colored"}
+                transition={Flip}
+                className={"font-medium"}
+            />
+
             <div className={`h-screen ${getBackgroundTheme(backgroundTheme).appBg}`}>
                 <BaseModal
                     modalTitle={"Settings"}
@@ -124,13 +138,6 @@ export const App: FC = () => {
                 <Suspense fallback={<Loader />}>
                     <Calculator />
                 </Suspense>
-
-                <Toaster
-                    position={notificationPositions[toastPosition]}
-                    closeButton={true}
-                    richColors={true}
-                    theme={darkModeActive ? "dark" : "light"}
-                />
             </div>
         </div>
     );

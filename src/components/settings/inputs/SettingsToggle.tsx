@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import type { SettingContextValues } from "../../context/SettingContext";
 
 import { getThemeClasses } from "../../../static/themes";
-import { sendInfoMessage } from "../../../utils/page/notifications";
+import { sendNotification } from "../../../utils/notifications.ts";
 import { SettingContext } from "../../context/SettingContext";
 
 type SettingsToggleProps = {
@@ -24,7 +24,7 @@ export const SettingsToggle: FC<SettingsToggleProps> = ({ settingName, onToggle,
         const newValue = !value;
         setValue(newValue);
         onToggle(newValue);
-        sendInfoMessage(`"${settingName}" was turned ${newValue ? "on" : "off"}.`);
+        sendNotification({ lvl: "INFO", msg: `"${settingName}" was turned ${newValue ? "on" : "off"}.` });
     };
 
     return (

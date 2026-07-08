@@ -23,7 +23,7 @@ import {
     calculateOptimizedEnd,
     roundTimeForFloat
 } from "../../utils/calculatingTimes.ts";
-import { sendInfoMessage } from "../../utils/page/notifications.ts";
+import { sendNotification } from "../../utils/notifications.ts";
 import { getStorageValue } from "../../utils/storage/localStorageManger.ts";
 import { parseFloatTimeFromRawTimeValues } from "../../utils/typeUtilities/floatTime.ts";
 import {
@@ -91,7 +91,7 @@ const Calculator: FC = () => {
 
     const handleWorkTimeEnd = (): void => {
         if (!overTimeAutomatic) {
-            sendInfoMessage("Ende der Arbeitszeit");
+            sendNotification({ lvl: "INFO", msg: "Ende der Arbeitszeit" });
             return;
         }
 
@@ -99,8 +99,8 @@ const Calculator: FC = () => {
         const laterTime = getLaterTime(endTime, currentTime);
 
         if (isSameTime(laterTime, currentTime)) {
-            sendInfoMessage("Deine Arbeitszeit ist vorbei");
-            sendInfoMessage("Arbeitszeit wird automatisch erhöht");
+            sendNotification({ lvl: "INFO", msg: "Deine Arbeitszeit ist vorbei" });
+            sendNotification({ lvl: "INFO", msg: "Arbeitszeit wird automatisch erhöht" });
 
             const increased = calculateIncreasedValue(floatTime);
             const updatedValue = parseFloatTimeFromRawTimeValues(increased);
