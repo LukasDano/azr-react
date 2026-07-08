@@ -1,0 +1,13 @@
+{
+    "overall": {
+        "packagePath": "./"
+    },
+    "outdated": {
+        "commitMsgPrefix": "[#58]",
+        "printCommitMsg": true
+    },
+    "deploy": {
+        "buildDir": "./dist",
+        "deployDir": "./versions"
+    }
+}

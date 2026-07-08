@@ -1,13 +1,14 @@
+import type { FloatTime, Time, WeekTime } from "../importantTypes.ts";
+
 import {
     defaultBreakTime,
     defaultFloatValue,
     defaultWeekTime,
     defaultWorkTime,
-    emptyTimeValue,
-} from '../../static/defaultValues.ts';
-import type { FloatTime, Time, WeekTime } from '../../static/importantTypes';
+    emptyTimeValue
+} from "../defaultValues.ts";
 
-type CookieKey = 'startTime' | 'floatTime' | 'endTime' | 'weekTime' | 'breakTime' | 'workTime' | 'flexOffice';
+type CookieKey = "startTime" | "floatTime" | "endTime" | "weekTime" | "breakTime" | "workTime" | "flexOffice";
 
 type CookieValue = Time | FloatTime | WeekTime | string | Record<string, number>[];
 
@@ -18,32 +19,32 @@ const defaultValues: Record<CookieKey, CookieValue> = {
     weekTime: defaultWeekTime,
     breakTime: defaultBreakTime,
     workTime: defaultWorkTime,
-    flexOffice: [],
+    flexOffice: []
 };
 
 export const deleteCookie = (key: CookieKey): void => {
-    document.cookie = `${key}=;·expires=Thu,·01·Jan·1970·00:00:00·UTC;·path=/`;
+    document.cookie = `${key}=; expires=Thu,01 Jan 1970 00:00:00 UTC; path=/`;
 };
 
 export const getCookie = (key: CookieKey): CookieValue => {
-    const cookies = document.cookie.split(';');
-    let result = '';
+    const cookies = document.cookie.split(";");
+    let result = "";
 
     for (const cookie of cookies) {
-        const [cookieName, cookieValue] = cookie.trim().split('=');
+        const [cookieName, cookieValue] = cookie.trim().split("=");
 
         if (cookieName === key) result = JSON.parse(decodeURIComponent(cookieValue));
     }
 
-    return result === '' ? defaultValues[key] : result;
+    return result === "" ? defaultValues[key] : result;
 };
 
-export const setCookie = (key: CookieKey, val: CookieValue, expirationDate: Date | undefined = undefined): void => {
-    let expires = '';
+export const setCookie = (key: CookieKey, val: CookieValue, expirationDate?: Date): void => {
+    let expires = "";
     const valStr = JSON.stringify(val);
 
-    if (expirationDate instanceof Date) expires = `;·expires=${expirationDate.toUTCString()}`;
-    document.cookie = `${key}=${encodeURIComponent(valStr)}${expires};·path=/`;
+    if (expirationDate instanceof Date) expires = `; expires=${expirationDate.toUTCString()}`;
+    document.cookie = `${key}=${encodeURIComponent(valStr)}${expires}; path=/`;
 };
 
 export const setCookieFor10Minutes = (key: CookieKey, val: CookieValue): void => {

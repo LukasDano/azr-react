@@ -1,41 +1,43 @@
-import type { FC } from 'react';
-import { useContext, useEffect } from 'react';
+import type { FC } from "react";
 
-import { Countdown } from './countdown/Countdown.tsx';
-import { FloatTimeInputField } from './inputs/FloatTimeInputField.tsx';
-import { TimeInputField } from './inputs/TimeInputField.tsx';
-import {
-    defaultBreakTime,
-    defaultFloatForSixHourMode,
-    defaultFloatValue,
-    defaultWorkTime,
-    defaultWorkTimeForSixHourMode,
-    emptyTimeValue,
-} from '../../static/defaultValues.ts';
-import type { FloatTime, Time } from '../../static/importantTypes.ts';
-import type { CountdownColors } from '../../static/themes.ts';
+import { useCallback, useContext, useEffect } from "react";
+
+import type { FloatTime, Time } from "../../utils/importantTypes.ts";
+import type { CountdownColors } from "../../utils/themes.ts";
+import type { AppContextValues } from "../context/AppContext.tsx";
+import type { SettingContextValues } from "../context/SettingContext.tsx";
+
 import {
     calculateGleitzeit,
     calculateIncreasedValue,
     calculateIstTime,
     calculateNormalEnd,
     calculateOptimizedEnd,
-    roundTimeForFloat,
-} from '../../utils/calculatingTimes.ts';
-import { sendInfoMessage } from '../../utils/page/notifications.ts';
-import { getStorageValue } from '../../utils/storage/localStorageManger.ts';
-import { parseFloatTimeFromRawTimeValues } from '../../utils/typeUtilities/floatTime.ts';
+    roundTimeForFloat
+} from "../../utils/calculatingTimes.ts";
+import {
+    defaultBreakTime,
+    defaultFloatForSixHourMode,
+    defaultFloatValue,
+    defaultWorkTime,
+    defaultWorkTimeForSixHourMode,
+    emptyTimeValue
+} from "../../utils/defaultValues.ts";
+import { sendNotification } from "../../utils/notifications.ts";
+import { getStorageValue } from "../../utils/storage/localStorageManger.ts";
+import { parseFloatTimeFromRawTimeValues } from "../../utils/typeUtilities/floatTime.ts";
 import {
     getCurrentTime,
     getLaterTime,
     isDefaultTimeValue,
     isSameTime,
-    parseTimeToDate,
-} from '../../utils/typeUtilities/time.ts';
-import type { AppContextValues } from '../context/AppContext.tsx';
-import { AppContext } from '../context/AppContext.tsx';
-import type { SettingContextValues } from '../context/SettingContext.tsx';
-import { SettingContext } from '../context/SettingContext.tsx';
+    parseTimeToDate
+} from "../../utils/typeUtilities/time.ts";
+import { AppContext } from "../context/AppContext.tsx";
+import { SettingContext } from "../context/SettingContext.tsx";
+import { Countdown } from "./countdown/Countdown.tsx";
+import { FloatTimeInputField } from "./inputs/FloatTimeInputField.tsx";
+import { TimeInputField } from "./inputs/TimeInputField.tsx";
 
 const Calculator: FC = () => {
     const {
@@ -48,7 +50,7 @@ const Calculator: FC = () => {
         breakTime,
         updateBreakTime,
         workTime,
-        updateWorkTime,
+        updateWorkTime
     } = useContext<AppContextValues>(AppContext);
 
     const { overTimeAutomatic } = useContext<SettingContextValues>(SettingContext);
@@ -75,18 +77,21 @@ const Calculator: FC = () => {
         }
     };
 
-    const handleFloatUpdate = (val: FloatTime): void => {
-        const normalEnd = calculateNormalEnd(startTime, breakTime, defaultWorkTime);
-        const endForFloat = roundTimeForFloat(normalEnd, val);
-        const optimized = calculateOptimizedEnd(endForFloat);
+    const handleFloatUpdate = useCallback(
+        (val: FloatTime): void => {
+            const normalEnd = calculateNormalEnd(startTime, breakTime, defaultWorkTime);
+            const endForFloat = roundTimeForFloat(normalEnd, val);
+            const optimized = calculateOptimizedEnd(endForFloat);
 
-        updateEndTime(optimized);
-        updateFloatTime(val);
-    };
+            updateEndTime(optimized);
+            updateFloatTime(val);
+        },
+        [startTime, breakTime, updateEndTime, updateFloatTime]
+    );
 
     const handleWorkTimeEnd = (): void => {
         if (!overTimeAutomatic) {
-            sendInfoMessage('Ende der Arbeitszeit');
+            sendNotification({ lvl: "INFO", msg: "Ende der Arbeitszeit" });
             return;
         }
 
@@ -94,8 +99,8 @@ const Calculator: FC = () => {
         const laterTime = getLaterTime(endTime, currentTime);
 
         if (isSameTime(laterTime, currentTime)) {
-            sendInfoMessage('Deine Arbeitszeit ist vorbei');
-            sendInfoMessage('Arbeitszeit wird automatisch erhöht');
+            sendNotification({ lvl: "INFO", msg: "Deine Arbeitszeit ist vorbei" });
+            sendNotification({ lvl: "INFO", msg: "Arbeitszeit wird automatisch erhöht" });
 
             const increased = calculateIncreasedValue(floatTime);
             const updatedValue = parseFloatTimeFromRawTimeValues(increased);
@@ -111,29 +116,29 @@ const Calculator: FC = () => {
             : defaultFloatForSixHourMode;
 
         if (!isSameTime(startTime, emptyTimeValue)) handleFloatUpdate(floatForBreakTime);
-    }, [breakTime, startTime]);
+    }, [breakTime, startTime, handleFloatUpdate]);
 
     return (
-        <div className="mx-auto w-full max-w-3xl px-4 py-8">
-            <div className="mb-8 flex flex-col items-stretch justify-center gap-4 lg:flex-row">
-                <div className="flex-1">
-                    <TimeInputField label="Arbeitsbeginn" value={startTime} onChange={handleStartTimeChange} />
+        <div className={"mx-auto w-full max-w-3xl px-4 py-8"}>
+            <div className={"mb-8 flex flex-col items-stretch justify-center gap-4 lg:flex-row"}>
+                <div className={"flex-1"}>
+                    <TimeInputField label={"Arbeitsbeginn"} value={startTime} onChange={handleStartTimeChange} />
                 </div>
-                <div className="flex-1">
-                    <TimeInputField label="Arbeitsende" value={endTime} onChange={handleEndUpdate} />
+                <div className={"flex-1"}>
+                    <TimeInputField label={"Arbeitsende"} value={endTime} onChange={handleEndUpdate} />
                 </div>
             </div>
 
-            <div className="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
-                <div className="mx-auto max-w-xs flex-1 sm:mx-0">
-                    <TimeInputField label="Pause" value={breakTime} disabled={true} />
+            <div className={"mb-8 flex flex-col justify-center gap-4 sm:flex-row"}>
+                <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
+                    <TimeInputField label={"Pause"} value={breakTime} disabled={true} />
                 </div>
-                <div className="mx-auto max-w-xs flex-1 sm:mx-0">
-                    <TimeInputField label="Arbeitszeit" value={workTime} disabled={true} />
+                <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
+                    <TimeInputField label={"Arbeitszeit"} value={workTime} disabled={true} />
                 </div>
-                <div className="mx-auto max-w-xs flex-1 sm:mx-0">
+                <div className={"mx-auto max-w-xs flex-1 sm:mx-0"}>
                     <FloatTimeInputField
-                        label="Gleitzeit"
+                        label={"Gleitzeit"}
                         value={floatTime}
                         onChange={handleFloatUpdate}
                         onClick={handleFloatUpdate}
@@ -141,10 +146,10 @@ const Calculator: FC = () => {
                 </div>
             </div>
 
-            <div className="pt-4">
+            <div className={"pt-4"}>
                 <Countdown
                     end={parseTimeToDate(endTime)}
-                    colorTheme={getStorageValue('countdownColors') as CountdownColors}
+                    colorTheme={getStorageValue("countdownColors") as CountdownColors}
                     onEnd={() => {
                         if (!isDefaultTimeValue(endTime)) handleWorkTimeEnd();
                     }}
@@ -154,5 +159,5 @@ const Calculator: FC = () => {
     );
 };
 
-// biome-ignore lint/style/noDefaultExport: should be used to split the js code
+// oxlint-disable-next-line import/no-default-export
 export default Calculator;

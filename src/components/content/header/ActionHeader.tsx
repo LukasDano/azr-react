@@ -1,10 +1,14 @@
-import { CalendarDays, ClockFading, HouseWifi } from 'lucide-react';
-import { type FC, useContext } from 'react';
-import { MdOutlineResetTv } from 'react-icons/md';
+import type { FC } from "react";
 
-import { HeaderButton } from './HeaderButton';
-import { getBackgroundTheme } from '../../../static/themes.ts';
-import { SettingContext, type SettingContextValues } from '../../context/SettingContext';
+import { CalendarDays, ClockFading, HouseWifi } from "lucide-react";
+import { useContext } from "react";
+import { MdOutlineResetTv } from "react-icons/md";
+
+import type { SettingContextValues } from "../../context/SettingContext";
+
+import { getBackgroundTheme } from "../../../utils/themes.ts";
+import { SettingContext } from "../../context/SettingContext";
+import { HeaderButton } from "./HeaderButton";
 
 type ActionHeaderProps = {
     currentStatsAction: () => void;
@@ -17,33 +21,33 @@ export const ActionHeader: FC<ActionHeaderProps> = ({
     currentStatsAction,
     resetAction,
     openWeekTimeAction,
-    openFlexOfficeAction,
+    openFlexOfficeAction
 }) => {
     const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
 
     return (
         <nav
-            className={`sticky top-0 z-39 flex justify-center rounded-b-xl border-slate-500 border-b bg-zinc-600 p-2 shadow-sm ${getBackgroundTheme(backgroundTheme).actionHeaderBg}`}
+            className={`sticky top-0 z-39 flex justify-center rounded-b-xl border-b border-slate-500 bg-zinc-600 p-2 shadow-sm ${getBackgroundTheme(backgroundTheme).actionHeaderBg}`}
         >
-            <div className="flex flex-wrap items-center justify-center gap-5">
+            <div className={"flex flex-wrap items-center justify-center gap-5"}>
                 <HeaderButton
-                    icon={<CalendarDays className={'h-6 w-6'} />}
-                    tooltip={`Wochenzeitrechner öffnen ${showShortcuts ? '[alt + w]' : ''}`}
+                    icon={<CalendarDays className={"h-6 w-6"} />}
+                    tooltip={`Wochenzeitrechner öffnen ${showShortcuts ? "[alt + w]" : ""}`}
                     onClick={openWeekTimeAction}
                 />
                 <HeaderButton
-                    icon={<HouseWifi className={'h-6 w-6'} />}
-                    tooltip={`Flexofficerechner ${showShortcuts ? '[alt + h]' : ''}`}
+                    icon={<HouseWifi className={"h-6 w-6"} />}
+                    tooltip={`Flexofficerechner ${showShortcuts ? "[alt + h]" : ""}`}
                     onClick={openFlexOfficeAction}
                 />
                 <HeaderButton
-                    icon={<ClockFading className={'h-6 w-6'} />}
-                    tooltip={`Werte wenn jetzt ausgetragen wird ${showShortcuts ? '[alt + c]' : ''}`}
+                    icon={<ClockFading className={"h-6 w-6"} />}
+                    tooltip={`Werte wenn jetzt ausgetragen wird ${showShortcuts ? "[alt + c]" : ""}`}
                     onClick={currentStatsAction}
                 />
                 <HeaderButton
-                    icon={<MdOutlineResetTv className={'h-6 w-6'} />}
-                    tooltip={`Eingaben zurücksetzen ${showShortcuts ? '[F1]' : ''}`}
+                    icon={<MdOutlineResetTv className={"h-6 w-6"} />}
+                    tooltip={`Eingaben zurücksetzen ${showShortcuts ? "[F1]" : ""}`}
                     onClick={resetAction}
                 />
             </div>

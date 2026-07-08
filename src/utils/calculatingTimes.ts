@@ -1,6 +1,7 @@
-import { formatNumber } from './formatting';
-import { getCookie } from './storage/cookieManager';
-import type { FloatTime, FloatTimeSign, Time } from '../static/importantTypes';
+import type { FloatTime, FloatTimeSign, Time } from "./importantTypes";
+
+import { formatNumber } from "./formatting";
+import { getCookie } from "./storage/cookieManager";
 
 /**
  * Gibt die Differenz zwischen Start und Ende zurück
@@ -146,7 +147,7 @@ export const calculateIstTime = (startTime: Time, endTime: Time, pauseTime: Time
  */
 export const calculateGleitzeit = (istTime: Time): Time => {
     const [istHours, istMins] = istTime;
-    const [sollHours, sollMins] = getCookie('workTime') as Time;
+    const [sollHours, sollMins] = getCookie("workTime") as Time;
 
     let gleitHours = istHours - sollHours;
     let gleitMins = istMins - sollMins;
@@ -443,7 +444,7 @@ export const createGleitzeitAusgabeFromFloat = (float: Time): string => {
     let [gleitHours, gleitMins] = float;
 
     // Vorzeichen ermitteln
-    const sign = gleitHours < 0 || gleitMins < 0 ? '-' : '+';
+    const sign = gleitHours < 0 || gleitMins < 0 ? "-" : "+";
 
     // Absolutwerte nehmen
     gleitHours = Math.abs(gleitHours);

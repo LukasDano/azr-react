@@ -1,9 +1,10 @@
-import type { ErrorInfo, ReactNode } from 'react';
-import { Component } from 'react';
+import type { ErrorInfo, ReactNode } from "react";
 
-import { ModalErrorBoundary } from './ModalErrorBoundary.tsx';
+import { Component } from "react";
 
-type CaughtError = {
+import { ModalErrorBoundary } from "./ModalErrorBoundary.tsx";
+
+export type CaughtError = {
     name: string;
     msg: string;
 };
@@ -22,13 +23,13 @@ type ErrorBoundaryState = {
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     static defaultErrText =
-        '\n\nFirst try to reload the page, but if this error keeps appearing please create a ticket for it.' +
-        '\nIn the meantime feel free use the old version of the app.';
+        "\n\nFirst try to reload the page, but if this error keeps appearing please create a ticket for it." +
+        "\nIn the meantime feel free use the old version of the app.";
 
     state: ErrorBoundaryState = {
         hasError: false,
-        errName: '',
-        errMsg: ErrorBoundary.defaultErrText,
+        errName: "",
+        errMsg: ErrorBoundary.defaultErrText
     };
 
     static getDerivedStateFromError(err: Error): ErrorBoundaryState {
@@ -37,8 +38,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     }
 
     componentDidCatch(error: Error, errInf: ErrorInfo): void {
-        console.error('ErrorBoundary caught', error);
-        console.error('Info', errInf);
+        console.error("ErrorBoundary caught", error);
+        console.error("Info", errInf);
     }
 
     render(): ReactNode {
@@ -46,7 +47,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             if (this.props.fallbackNode)
                 return this.props.fallbackNode({
                     name: this.state.errName,
-                    msg: this.state.errMsg,
+                    msg: this.state.errMsg
                 });
 
             if (this.props.fallbackText) return this.props.fallbackText;

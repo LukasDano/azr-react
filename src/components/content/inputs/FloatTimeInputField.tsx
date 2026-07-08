@@ -1,13 +1,14 @@
-import type { FC, KeyboardEvent } from 'react';
+import type { FC, KeyboardEvent } from "react";
 
-import type { FloatTime } from '../../../static/importantTypes';
-import { calculateDecreasedValue, calculateIncreasedValue } from '../../../utils/calculatingTimes';
+import type { FloatTime } from "../../../utils/importantTypes";
+
+import { calculateDecreasedValue, calculateIncreasedValue } from "../../../utils/calculatingTimes";
 import {
     isValidFloatTimeValue as isValidFloatTimeStr,
     parseFloatTimeFromRawTimeValues,
     parseFloatTimeToString,
-    parseStringToFloatTime,
-} from '../../../utils/typeUtilities/floatTime';
+    parseStringToFloatTime
+} from "../../../utils/typeUtilities/floatTime";
 
 type FloatTimeInputFieldProps = {
     label: string;
@@ -27,13 +28,13 @@ export const FloatTimeInputField: FC<FloatTimeInputFieldProps> = ({ label, value
     const handleKeyDown = (evt: KeyboardEvent<HTMLInputElement>): void => {
         let updatedValue: FloatTime;
 
-        if (evt.key === 'ArrowUp') {
+        if (evt.key === "ArrowUp") {
             evt.preventDefault();
             const increased = calculateIncreasedValue(value);
             updatedValue = parseFloatTimeFromRawTimeValues(increased);
 
             onChange(updatedValue);
-        } else if (evt.key === 'ArrowDown') {
+        } else if (evt.key === "ArrowDown") {
             evt.preventDefault();
             const decreased = calculateDecreasedValue(value);
             updatedValue = parseFloatTimeFromRawTimeValues(decreased);
@@ -43,16 +44,19 @@ export const FloatTimeInputField: FC<FloatTimeInputFieldProps> = ({ label, value
     };
 
     return (
-        <div className="flex flex-col gap-1">
-            <label className="font-medium text-slate-700 text-sm dark:text-white">{label}</label>
+        <div className={"flex flex-col gap-1"}>
+            <label className={"text-sm font-medium text-slate-700 dark:text-white"}>{label}</label>
 
             <input
-                type="text"
+                type={"text"}
+                aria-label={label}
                 value={parseFloatTimeToString(value)}
                 onChange={(evt) => handleChange(evt.target.value)}
                 onClick={() => onClick(value)}
                 onKeyDown={handleKeyDown}
-                className="rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 text-sm shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30"
+                className={
+                    "rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm transition outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/30"
+                }
             />
         </div>
     );

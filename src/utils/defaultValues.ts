@@ -1,4 +1,4 @@
-import type { FloatTime, Time, WeekTime } from './importantTypes.ts';
+import type { FloatTime, Time, WeekTime } from "./importantTypes.ts";
 
 export const defaultFloatValue: FloatTime = [1, 0, 4];
 export const defaultFloatForSixHourMode: FloatTime = [-1, 1, 6];
@@ -14,7 +14,7 @@ export const defaultWeekTime: WeekTime = {
     tu: emptyTimeValue,
     we: emptyTimeValue,
     th: emptyTimeValue,
-    fr: emptyTimeValue,
+    fr: emptyTimeValue
 };
 
 export const flexOfficeQuoten: number[] = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];

@@ -1,6 +1,8 @@
-﻿import { getMonthName, getValidDateString } from './dateUtility';
-import { minutesToTime } from './typeUtilities/time';
-import type { Time } from '../static/importantTypes';
+﻿import type { Time } from "./importantTypes.ts";
+
+import { getMonthName, getValidDateString } from "./dateUtility";
+import { getCookie, setCookieForOneYear } from "./storage/cookieManager.ts";
+import { minutesToTime } from "./typeUtilities/time";
 
 /**
  * Prüft, ob ein übergebenes Datum ein Arbeitstag ist
@@ -29,7 +31,7 @@ export const isWorkDay = (day: number, month: number, year: number, holidayDates
 const getAdditionalHolidays = (year: number): Record<string, Date> => {
     return {
         Heiligabend: new Date(Date.UTC(year, 11, 24)),
-        Silvester: new Date(Date.UTC(year, 11, 31)),
+        Silvester: new Date(Date.UTC(year, 11, 31))
     };
 };
 
@@ -45,18 +47,18 @@ export const getWorkDaysInMonthFromAPI = async (month: number, year: number): Pr
     const additionalHolidays = getAdditionalHolidays(year);
     let workDays = 0;
 
-    const baseUrl = 'https://openholidaysapi.org/PublicHolidays';
-    const paramUrl = '?countryIsoCode=DE&subdivisionCode=DE-HH';
+    const baseUrl = "https://openholidaysapi.org/PublicHolidays";
+    const paramUrl = "?countryIsoCode=DE&subdivisionCode=DE-HH";
     const fullUrl = `${baseUrl}${paramUrl}&validFrom=${year}-${month}-01&validTo=${year}-${month}-${lastDay}`;
 
     const response = await fetch(fullUrl);
     const publicHolidays = await response.json();
 
-    const holidayDates = new Set(publicHolidays.map((h: any) => h.startDate.split('T')[0]));
+    const holidayDates = new Set(publicHolidays.map((h: any) => h.startDate.split("T")[0]));
 
     for (const holidayName in additionalHolidays) {
         const holidayDate = additionalHolidays[holidayName];
-        const holidayDateString = holidayDate.toISOString().split('T')[0];
+        const holidayDateString = holidayDate.toISOString().split("T")[0];
         holidayDates.add(holidayDateString);
     }
 
@@ -206,7 +208,7 @@ export const months = Array.from({ length: 12 }, (_, i) => i + 1).map((m) => {
     return `${monthName} (${findYearForMonthWithSixMonthRange(m)})`;
 });
 
-export const currentMonthName = months.find((m) => m.includes(getMonthName(new Date()))) ?? '';
+export const currentMonthName = months.find((m) => m.includes(getMonthName(new Date()))) ?? "";
 
 export const getMonthNumberFromMonthString = (monthName: string): number | null => {
     const date = new Date(0, 0, 1);
@@ -216,4 +218,47 @@ export const getMonthNumberFromMonthString = (monthName: string): number | null 
     }
 
     return null;
+};
+
+export const calculateMaxDaysForMonthByString = (monthStr: string): number => {
+    const monthNum = getMonthNumberFromMonthString(monthStr) as number;
+    const year = findYearForMonthWithSixMonthRange(monthNum);
+
+    return new Date(year, monthNum, 0).getDate();
+};
+
+export const getValueForKeyFromCookie = (key: FlexOfficeCookieKeys, monthStr: string = currentMonthName): number => {
+    const cookieForMonth = getMonthValueOfFlexOfficeCookie(monthStr);
+    return cookieForMonth[key];
+};
+
+type FlexOfficeCookieKeys = "offDays" | "flexHours" | "flexMins";
+
+export const setFlexOfficeCookie = (month: string, offDays: number, flexTime: Time): void => {
+    const flexOfficeCookieList = getCookie("flexOffice") as Record<string, number>[];
+
+    const updatedCookieValue: Record<FlexOfficeCookieKeys, number> = {
+        offDays: offDays,
+        flexHours: flexTime[0],
+        flexMins: flexTime[1]
+    };
+
+    const monthNum = getMonthNumberFromMonthString(month) as number;
+    flexOfficeCookieList[monthNum] = updatedCookieValue;
+
+    setCookieForOneYear("flexOffice", flexOfficeCookieList);
+};
+
+export const getMonthValueOfFlexOfficeCookie = (month: string): Record<FlexOfficeCookieKeys, number> => {
+    const flexOfficeCookieList = getCookie("flexOffice") as Record<string, number>[];
+    const monthNum = getMonthNumberFromMonthString(month) as number;
+
+    if (flexOfficeCookieList.length <= monthNum)
+        return {
+            offDays: 0,
+            flexHours: 0,
+            flexMins: 0
+        };
+
+    return flexOfficeCookieList[monthNum];
 };

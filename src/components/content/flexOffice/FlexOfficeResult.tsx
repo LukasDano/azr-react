@@ -1,8 +1,9 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-import type { Time } from '../../../static/importantTypes';
-import { formatNumber } from '../../../utils/formatting';
-import { parseTimeToString } from '../../../utils/typeUtilities/time';
+import type { Time } from "../../../utils/importantTypes";
+
+import { formatNumber } from "../../../utils/formatting";
+import { parseTimeToString } from "../../../utils/typeUtilities/time";
 
 type FlexOfficeResultProps = {
     show: boolean;
@@ -17,34 +18,40 @@ export const FlexOfficeResult: FC<FlexOfficeResultProps> = ({
     calculatedMonth,
     monthWorkDays,
     workedDays,
-    restFlexOfficeTime,
+    restFlexOfficeTime
 }) => {
     return (
         <>
             {show && (
-                <div className="flex w-full justify-center">
-                    <div className="mx-auto flex h-auto flex-col items-center justify-center gap-8 rounded-2xl bg-zinc-400 p-6 text-center shadow-xl sm:h-32 sm:flex-row dark:bg-gray-700">
-                        <div className="flex flex-col items-center">
-                            <span className="font-semibold text-gray-700 text-sm dark:text-gray-300">
-                                Berechneter Monat
+                <div className={"flex w-full justify-center"}>
+                    <div
+                        className={
+                            "mx-auto flex h-auto flex-col items-center justify-center gap-8 rounded-2xl bg-zinc-400 p-6 text-center shadow-xl sm:h-32 sm:flex-row dark:bg-gray-700"
+                        }
+                    >
+                        <div className={"flex flex-col items-center"}>
+                            <span className={"text-sm font-semibold text-gray-700 dark:text-gray-300"}>
+                                {"Berechneter Monat\r"}
                             </span>
-                            <span className="font-bold text-lg">{formatNumber(calculatedMonth)}</span>
+                            <span className={"text-lg font-bold"}>{formatNumber(calculatedMonth)}</span>
                         </div>
-                        <div className="flex flex-col items-center">
-                            <span className="font-semibold text-gray-700 text-sm dark:text-gray-300">Arbeitstage</span>
-                            <span className="font-bold text-lg">{formatNumber(monthWorkDays)}</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <span className="font-semibold text-gray-700 text-sm dark:text-gray-300">
-                                Gearbeitete Tage
+                        <div className={"flex flex-col items-center"}>
+                            <span className={"text-sm font-semibold text-gray-700 dark:text-gray-300"}>
+                                {"Arbeitstage"}
                             </span>
-                            <span className="font-bold text-lg">{formatNumber(workedDays)}</span>
+                            <span className={"text-lg font-bold"}>{formatNumber(monthWorkDays)}</span>
                         </div>
-                        <div className="flex flex-col items-center">
-                            <span className="font-semibold text-gray-700 text-sm dark:text-gray-300">
-                                Restliche FlexOffice Zeit
+                        <div className={"flex flex-col items-center"}>
+                            <span className={"text-sm font-semibold text-gray-700 dark:text-gray-300"}>
+                                {"Gearbeitete Tage\r"}
                             </span>
-                            <span className="font-bold text-lg">{parseTimeToString(restFlexOfficeTime)}</span>
+                            <span className={"text-lg font-bold"}>{formatNumber(workedDays)}</span>
+                        </div>
+                        <div className={"flex flex-col items-center"}>
+                            <span className={"text-sm font-semibold text-gray-700 dark:text-gray-300"}>
+                                {"Restliche FlexOffice Zeit\r"}
+                            </span>
+                            <span className={"text-lg font-bold"}>{parseTimeToString(restFlexOfficeTime)}</span>
                         </div>
                     </div>
                 </div>
