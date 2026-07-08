@@ -1,6 +1,5 @@
-import type { FloatTime, Time } from "../../src/static/importantTypes.ts";
+import type { FloatTime, Time } from "../../src/utils/importantTypes.ts";
 
-import { defaultBreakTime, defaultWorkTime } from "../../src/static/defaultValues.ts";
 import {
     calculateDecreasedValue,
     calculateEndForFloat,
@@ -19,6 +18,7 @@ import {
     roundStart,
     roundTimeForFloat
 } from "../../src/utils/calculatingTimes.ts";
+import { defaultBreakTime, defaultWorkTime } from "../../src/utils/defaultValues.ts";
 import * as storage from "../../src/utils/storage/localStorageManger.ts";
 import { isValidTime } from "../../src/utils/typeUtilities/time.ts";
 

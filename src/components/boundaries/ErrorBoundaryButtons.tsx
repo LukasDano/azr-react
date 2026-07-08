@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { History, MailPlus, RotateCcw } from "lucide-react";
 
-import { FromFunctionButton } from "../content/miscellaneous/BaseButton.tsx";
+import { FromFunctionButton } from "../library/BaseButton";
 
 export const ReloadPageButton = (): ReactNode => (
     <FromFunctionButton onClick={() => globalThis.location.reload()} icon={<RotateCcw />} tooltip={"Reload"} />

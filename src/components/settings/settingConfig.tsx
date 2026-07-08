@@ -1,9 +1,9 @@
 import { Palette, Pickaxe } from "lucide-react";
 
-import type { Tab } from "../content/miscellaneous/TabBar.tsx";
+import type { Tab } from "../library/TabBar.tsx";
 
-import { availableThemes, backgroundThemes } from "../../utils/themes.ts";
 import { notificationPositions } from "../../utils/notifications.ts";
+import { availableThemes, backgroundThemes } from "../../utils/themes.ts";
 
 const tabIconClasses = "h-5 w-5";
 

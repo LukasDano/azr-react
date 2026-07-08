@@ -1,9 +1,11 @@
 import type { FC, ReactNode } from "react";
 
 import { useContext } from "react";
-import { Tooltip } from "./Tooltip";
-import { SettingContext, type SettingContextValues } from "../context/SettingContext";
+
 import { getThemeClasses } from "../../utils/themes";
+import { SettingContext } from '../context/SettingContext';
+import type { SettingContextValues } from '../context/SettingContext';
+import { Tooltip } from "./Tooltip";
 
 export type Tab = {
     icon: ReactNode;

@@ -1,24 +1,16 @@
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 
 type FormInputProps = {
-    label: string;
+    label: ReactNode;
     value: string | number;
     onChange: (val: string) => void;
     type?: "text" | "number";
-    id?: string;
+    id: string;
     min?: number;
     max?: number;
 };
 
-export const BaseFormInput: FC<FormInputProps> = ({
-    label,
-    value,
-    onChange,
-    id = label.toLowerCase(),
-    type = "text",
-    min = 0,
-    max
-}) => {
+export const BaseFormInput: FC<FormInputProps> = ({ label, value, onChange, id, type = "text", min = 0, max }) => {
     return (
         <>
             <label htmlFor={id} className={"mb-1 block font-medium"}>
@@ -26,7 +18,7 @@ export const BaseFormInput: FC<FormInputProps> = ({
             </label>
             <input
                 id={id}
-                aria-label={label}
+                aria-label={id}
                 name={id}
                 type={type}
                 value={value}

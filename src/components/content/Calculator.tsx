@@ -8,14 +8,6 @@ import type { AppContextValues } from "../context/AppContext.tsx";
 import type { SettingContextValues } from "../context/SettingContext.tsx";
 
 import {
-    defaultBreakTime,
-    defaultFloatForSixHourMode,
-    defaultFloatValue,
-    defaultWorkTime,
-    defaultWorkTimeForSixHourMode,
-    emptyTimeValue
-} from "../../utils/defaultValues.ts";
-import {
     calculateGleitzeit,
     calculateIncreasedValue,
     calculateIstTime,
@@ -23,6 +15,14 @@ import {
     calculateOptimizedEnd,
     roundTimeForFloat
 } from "../../utils/calculatingTimes.ts";
+import {
+    defaultBreakTime,
+    defaultFloatForSixHourMode,
+    defaultFloatValue,
+    defaultWorkTime,
+    defaultWorkTimeForSixHourMode,
+    emptyTimeValue
+} from "../../utils/defaultValues.ts";
 import { sendNotification } from "../../utils/notifications.ts";
 import { getStorageValue } from "../../utils/storage/localStorageManger.ts";
 import { parseFloatTimeFromRawTimeValues } from "../../utils/typeUtilities/floatTime.ts";

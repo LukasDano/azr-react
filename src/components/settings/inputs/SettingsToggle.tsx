@@ -4,8 +4,8 @@ import { useContext, useState } from "react";
 
 import type { SettingContextValues } from "../../context/SettingContext";
 
-import { getThemeClasses } from "../../../utils/themes.ts";
 import { sendNotification } from "../../../utils/notifications.ts";
+import { getThemeClasses } from "../../../utils/themes.ts";
 import { SettingContext } from "../../context/SettingContext";
 
 type SettingsToggleProps = {

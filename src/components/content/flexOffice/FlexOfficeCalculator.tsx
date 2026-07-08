@@ -1,5 +1,6 @@
 import type { FC } from "react";
 
+import { Info } from "lucide-react";
 import { useState } from "react";
 
 import type { Time } from "../../../utils/importantTypes";
@@ -17,10 +18,11 @@ import {
     setFlexOfficeCookie
 } from "../../../utils/flexOfficeUtility";
 import { checkIfTimeIsBelowZero } from "../../../utils/typeUtilities/time";
+import { BaseButton } from "../../library/BaseButton";
+import { BaseModal } from "../../library/BaseModal";
+import { Tooltip } from "../../library/Tooltip";
 import { BaseFormInput } from "../inputs/BaseValueIntput";
 import { DropDownSelect } from "../inputs/DropDownSelect";
-import { BaseButton } from "../miscellaneous/BaseButton";
-import { BaseModal } from "../miscellaneous/BaseModal";
 import { FlexOfficeResult } from "./FlexOfficeResult";
 
 type FlexOfficeCalculatorProps = {
@@ -66,6 +68,7 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
                 <div className={"flex w-full flex-col space-y-4"}>
                     <DropDownSelect
                         name={"Quote"}
+                        tooltipHint={"Anteil der im Flex-Office erbracht werden darf"}
                         options={flexOfficeQuoten.map((q) => `${q}%`)}
                         defaultOption={`${selectedFlexQuote}%`}
                         onChange={(val) => setSelectedFlexQuote(Number.parseInt(val?.split("%")[0] as string, 10))}
@@ -88,8 +91,9 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
                     <div className={"flex w-full flex-row space-x-4"}>
                         <div className={"flex-1"}>
                             <BaseFormInput
-                                type={"number"}
                                 label={"Abwesenheitstage"}
+                                id={"Abwesenheitstage"}
+                                type={"number"}
                                 value={offDays}
                                 onChange={(val) => setOffDays(Number.parseInt(val, 10))}
                                 max={calculateMaxDaysForMonthByString(selectedMonth)}
@@ -98,8 +102,16 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
 
                         <div className={"flex-1"}>
                             <BaseFormInput
+                                id={"Monats Stunden"}
+                                label={
+                                    <div className={"flex flex-row items-center justify-center gap-2"}>
+                                        <span>{"Monats Stunden"}</span>
+                                        <Tooltip tooltip={"Flex-Office Stunden diesen Monat"}>
+                                            <Info className={"h-5 w-5"} />
+                                        </Tooltip>
+                                    </div>
+                                }
                                 type={"number"}
-                                label={"Monats Stunden"}
                                 value={flexHours}
                                 onChange={(val) => setFlexHours(Number.parseInt(val, 10))}
                             />
@@ -107,8 +119,16 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
 
                         <div className={"flex-1"}>
                             <BaseFormInput
+                                id={"Monats Minuten"}
+                                label={
+                                    <div className={"flex flex-row items-center justify-center gap-2"}>
+                                        <span>{"Monats Minuten"}</span>
+                                        <Tooltip tooltip={"Flex-Office Minuten diesen Monat"}>
+                                            <Info className={"h-5 w-5"} />
+                                        </Tooltip>
+                                    </div>
+                                }
                                 type={"number"}
-                                label={"Monats Minuten"}
                                 value={flexMins}
                                 onChange={(val) => setFlexMins(Number.parseInt(val, 10))}
                                 max={60}

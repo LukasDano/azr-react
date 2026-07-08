@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FaRegSave } from "react-icons/fa";
 
 import { sendNotification } from "../../../utils/notifications.ts";
-import { BaseButton } from "../../content/miscellaneous/BaseButton";
+import { BaseButton } from "../../library/BaseButton.tsx";
 
 type SettingsInputValue = string | number;
 

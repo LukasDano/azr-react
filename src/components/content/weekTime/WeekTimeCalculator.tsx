@@ -8,9 +8,9 @@ import { emptyTimeValue } from "../../../utils/defaultValues.ts";
 import { getCookie, setCookieUntilEndOfWeek } from "../../../utils/storage/cookieManager.ts";
 import { parseWeekTimeToTime } from "../../../utils/typeUtilities/weekTime.ts";
 import { calculateWeekOverTime } from "../../../utils/weekTimeCalculatingUtility.ts";
+import { BaseButton } from "../../library/BaseButton.tsx";
+import { BaseModal } from "../../library/BaseModal.tsx";
 import { TimeInputField } from "../inputs/TimeInputField.tsx";
-import { BaseButton } from "../miscellaneous/BaseButton.tsx";
-import { BaseModal } from "../miscellaneous/BaseModal.tsx";
 import { WeekTimeResult } from "./WeekTimeResult.tsx";
 
 type WeekTimeCalculatorProps = {

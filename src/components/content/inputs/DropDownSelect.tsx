@@ -1,13 +1,17 @@
 import type { FC } from "react";
 import type { SingleValue } from "react-select";
 
+import { Info } from "lucide-react";
 import { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
+import { Tooltip } from "../../library/Tooltip";
+
 type MultipleValueSelectorProps = {
     name: string;
     description?: string;
+    tooltipHint?: string;
     defaultOption: string;
     options: string[];
     onChange: (newOptions: SingleValue<string>) => void;
@@ -16,6 +20,7 @@ type MultipleValueSelectorProps = {
 export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
     name,
     description = "",
+    tooltipHint: hiddenDescription,
     defaultOption,
     options,
     onChange
@@ -41,7 +46,15 @@ export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
     return (
         <div className={"mb-3 flex justify-between"}>
             <div className={"mr-6 content-center"}>
-                <span className={"font-medium text-gray-900 dark:text-gray-100"}>{name}</span>
+                <div className={"flex flex-row items-center justify-center gap-2"}>
+                    <span className={"font-medium text-gray-900 dark:text-gray-100"}>{name}</span>
+                    {hiddenDescription && (
+                        <Tooltip tooltip={hiddenDescription}>
+                            <Info className={"h-5 w-5"} />
+                        </Tooltip>
+                    )}
+                </div>
+
                 <span className={"block max-w-[20vw] font-light text-gray-900 dark:text-gray-200"}>{description}</span>
             </div>
             <div className={"ms-auto inline-flex cursor-pointer items-center"}>

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { BaseModal } from "../content/miscellaneous/BaseModal.tsx";
+import { BaseModal } from "../library/BaseModal.tsx";
 import { CreateIssueButton, UseTheOldVersionButton } from "./ErrorBoundaryButtons.tsx";
 
 export type DefaultErrorBoundaryProps = {

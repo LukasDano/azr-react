@@ -2,19 +2,19 @@ import type { FC } from "react";
 
 import { useContext, useMemo, useState } from "react";
 
-import type { BackgroundTheme, ColorTheme, ThemeType } from "../../utils/themes.ts";
 import type { ToastPosition } from "../../utils/notifications.ts";
+import type { BackgroundTheme, ColorTheme, ThemeType } from "../../utils/themes.ts";
 import type { CountdownUnit } from "../content/countdown/CountdownElement.tsx";
 import type { SettingContextValues } from "../context/SettingContext";
 import type { SettingId } from "./settingConfig.tsx";
 
 import { name, version } from "../../../package.json";
-import { getBackgroundTheme } from "../../utils/themes.ts";
 import { SettingsError } from "../../utils/errors/SettingsError.ts";
 import { sendNotification } from "../../utils/notifications.ts";
+import { getBackgroundTheme } from "../../utils/themes.ts";
 import { DropDownSelect } from "../content/inputs/DropDownSelect.tsx";
-import { TabBar } from "../content/miscellaneous/TabBar.tsx";
 import { SettingContext } from "../context/SettingContext";
+import { TabBar } from "../library/TabBar.tsx";
 import { ColorPicker } from "./inputs/ColorSelector.tsx";
 import { SettingsToggle } from "./inputs/SettingsToggle";
 import { settingsConfig, settingTabs, settingTabsByName } from "./settingConfig.tsx";
