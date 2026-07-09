@@ -23,7 +23,6 @@
         "update:dependencies": "vpm.exe outdated && npm run ox:fmt"
     },
     "dependencies": {
-        "@headlessui/react": "^2.2.10",
         "@tanstack/react-hotkeys": "^0.10.0",
         "@tanstack/react-query": "^5.101.2",
         "@tippyjs/react": "^4.2.6",

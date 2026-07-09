@@ -33,9 +33,9 @@ import {
 } from "../../utils/typeUtilities/time.ts";
 import { AppContext } from "../context/AppContext.tsx";
 import { SettingContext } from "../context/SettingContext.tsx";
+import { FloatTimeInputField } from "../library/inputs/FloatTimeInputField.tsx";
+import { TimeInputField } from "../library/inputs/TimeInputField.tsx";
 import { Countdown } from "./countdown/Countdown.tsx";
-import { FloatTimeInputField } from "./inputs/FloatTimeInputField.tsx";
-import { TimeInputField } from "./inputs/TimeInputField.tsx";
 
 const Calculator: FC = () => {
     const {

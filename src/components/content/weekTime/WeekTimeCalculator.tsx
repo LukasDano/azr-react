@@ -10,7 +10,7 @@ import { parseWeekTimeToTime } from "../../../utils/typeUtilities/weekTime.ts";
 import { calculateWeekOverTime } from "../../../utils/weekTimeCalculatingUtility.ts";
 import { BaseButton } from "../../library/BaseButton.tsx";
 import { BaseModal } from "../../library/BaseModal.tsx";
-import { TimeInputField } from "../inputs/TimeInputField.tsx";
+import { TimeInputField } from "../../library/inputs/TimeInputField.tsx";
 import { WeekTimeResult } from "./WeekTimeResult.tsx";
 
 type WeekTimeCalculatorProps = {

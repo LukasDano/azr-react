@@ -12,8 +12,8 @@ import { name, version } from "../../../package.json";
 import { SettingsError } from "../../utils/errors/SettingsError.ts";
 import { sendNotification } from "../../utils/notifications.ts";
 import { getBackgroundTheme } from "../../utils/themes.ts";
-import { DropDownSelect } from "../content/inputs/DropDownSelect.tsx";
 import { SettingContext } from "../context/SettingContext";
+import { MultipleValueSelector } from "../library/inputs/MultipleValueSelector.tsx";
 import { TabBar } from "../library/TabBar.tsx";
 import { ColorPicker } from "./inputs/ColorSelector.tsx";
 import { SettingsToggle } from "./inputs/SettingsToggle";
@@ -176,7 +176,7 @@ export const Settings: FC = () => {
                         }
 
                         return (
-                            <DropDownSelect
+                            <MultipleValueSelector
                                 key={stg.id}
                                 name={stg.name}
                                 defaultOption={findValueById(stg.id) as string}

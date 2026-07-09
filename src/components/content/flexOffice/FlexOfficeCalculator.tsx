@@ -23,9 +23,9 @@ import {
 import { checkIfTimeIsBelowZero } from "../../../utils/typeUtilities/time";
 import { BaseButton } from "../../library/BaseButton";
 import { BaseModal } from "../../library/BaseModal";
+import { BaseFormInput } from "../../library/inputs/BaseValueIntput";
+import { MultipleValueSelector } from "../../library/inputs/MultipleValueSelector.tsx";
 import { Tooltip } from "../../library/Tooltip";
-import { BaseFormInput } from "../inputs/BaseValueIntput";
-import { DropDownSelect } from "../inputs/DropDownSelect";
 import { FlexOfficeResult } from "./FlexOfficeResult";
 
 type FlexOfficeCalculatorProps = {
@@ -80,7 +80,7 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
         <BaseModal modalTitle={"Flex-Office-Rechner"} isOpen={isOpen} onClose={onClose}>
             <div className={"flex flex-col gap-6"}>
                 <div className={"flex w-full flex-col space-y-4"}>
-                    <DropDownSelect
+                    <MultipleValueSelector
                         name={"Quote"}
                         tooltipHint={"Anteil der im Flex-Office erbracht werden darf"}
                         options={flexOfficeQuoten.map((q) => `${q}%`)}
@@ -88,7 +88,7 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
                         onChange={(val) => setSelectedFlexQuote(Number.parseInt(val?.split("%")[0] as string, 10))}
                     />
 
-                    <DropDownSelect
+                    <MultipleValueSelector
                         name={"Monat"}
                         options={months}
                         defaultOption={currentMonthName}

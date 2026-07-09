@@ -18,9 +18,9 @@ import { getBackgroundTheme } from "../../../utils/themes.ts";
 import { parseTimeToString } from "../../../utils/typeUtilities/time";
 import { AppContext } from "../../context/AppContext";
 import { SettingContext } from "../../context/SettingContext";
+import { SingleValueSelector } from "../../library/inputs/SingleValueSelector.tsx";
 import { ActionHeader } from "./ActionHeader";
 import { HeaderButton } from "./HeaderButton";
-import { HeaderDropDownSelect } from "./HeaderDropDownSelect.tsx";
 
 type HeaderProps = {
     openSettings: () => void;
@@ -62,11 +62,12 @@ export const Header: FC<HeaderProps> = ({
                 <h1 className={"text-4xl font-bold text-white"}>{"Arbeitszeitrechner"}</h1>
 
                 <div className={"flex flex-wrap items-center justify-end gap-6"}>
-                    <HeaderDropDownSelect
-                        selectedItem={parseTimeToString(workTime)}
-                        items={availableWorkTimes}
-                        onChange={(val) => handleWorkTimeModeChange(val)}
+                    <SingleValueSelector
+                        defaultOption={parseTimeToString(workTime)}
+                        options={availableWorkTimes}
+                        onChange={(val) => handleWorkTimeModeChange(val as string)}
                     />
+
                     <HeaderButton
                         icon={<MdHelpOutline className={"h-6 w-6"} />}
                         tooltip={"Problem melden"}
