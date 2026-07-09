@@ -29,6 +29,7 @@ type HeaderProps = {
     openFlexOffice: () => void;
     resetAction: () => void;
     currentStatsAction: () => void;
+    resetInputs: () => void;
 };
 
 export const Header: FC<HeaderProps> = ({
@@ -36,7 +37,8 @@ export const Header: FC<HeaderProps> = ({
     openWeekTime,
     openFlexOffice,
     resetAction,
-    currentStatsAction
+    currentStatsAction,
+    resetInputs
 }) => {
     const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
     const { breakTime, updateBreakTime, workTime, updateWorkTime } = useContext<AppContextValues>(AppContext);
@@ -129,9 +131,10 @@ export const Header: FC<HeaderProps> = ({
             {actionHeaderOpen && (
                 <ActionHeader
                     currentStatsAction={currentStatsAction}
-                    resetAction={resetAction}
+                    resetPageAction={resetAction}
                     openWeekTimeAction={openWeekTime}
                     openFlexOfficeAction={openFlexOffice}
+                    resetInputs={resetInputs}
                 />
             )}
         </>

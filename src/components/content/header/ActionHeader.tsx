@@ -1,8 +1,7 @@
 import type { FC } from "react";
 
-import { CalendarDays, ClockFading, HouseWifi } from "lucide-react";
+import { CalendarDays, ClockFading, HouseWifi, Calculator, BrushCleaning } from "lucide-react";
 import { useContext } from "react";
-import { MdOutlineResetTv } from "react-icons/md";
 
 import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
 
@@ -12,16 +11,18 @@ import { HeaderButton } from "./HeaderButton";
 
 type ActionHeaderProps = {
     currentStatsAction: () => void;
-    resetAction: () => void;
+    resetPageAction: () => void;
     openWeekTimeAction: () => void;
     openFlexOfficeAction: () => void;
+    resetInputs: () => void;
 };
 
 export const ActionHeader: FC<ActionHeaderProps> = ({
     currentStatsAction,
-    resetAction,
+    resetPageAction,
     openWeekTimeAction,
-    openFlexOfficeAction
+    openFlexOfficeAction,
+    resetInputs
 }) => {
     const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
 
@@ -37,7 +38,7 @@ export const ActionHeader: FC<ActionHeaderProps> = ({
                 />
                 <HeaderButton
                     icon={<HouseWifi className={"h-6 w-6"} />}
-                    tooltip={`Flexofficerechner ${showShortcuts ? "[alt + h]" : ""}`}
+                    tooltip={`Flex-Office Rechner ${showShortcuts ? "[alt + h]" : ""}`}
                     onClick={openFlexOfficeAction}
                 />
                 <HeaderButton
@@ -46,9 +47,14 @@ export const ActionHeader: FC<ActionHeaderProps> = ({
                     onClick={currentStatsAction}
                 />
                 <HeaderButton
-                    icon={<MdOutlineResetTv className={"h-6 w-6"} />}
-                    tooltip={`Eingaben zurücksetzen ${showShortcuts ? "[F1]" : ""}`}
-                    onClick={resetAction}
+                    icon={<Calculator className={"h-6 w-6"} />}
+                    tooltip={`Neu berechnen ${showShortcuts ? "[F2]" : ""}`}
+                    onClick={resetInputs}
+                />
+                <HeaderButton
+                    icon={<BrushCleaning className={"h-6 w-6"} />}
+                    tooltip={`Eingaben leeren ${showShortcuts ? "[F1]" : ""}`}
+                    onClick={resetPageAction}
                 />
             </div>
         </nav>

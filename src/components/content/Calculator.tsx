@@ -30,7 +30,11 @@ import { FloatTimeInputField } from "../library/inputs/FloatTimeInputField.tsx";
 import { TimeInputField } from "../library/inputs/TimeInputField.tsx";
 import { Countdown } from "./countdown/Countdown.tsx";
 
-const Calculator: FC = () => {
+type CalculatorProps = {
+    updateKey: number;
+};
+
+const Calculator: FC<CalculatorProps> = ({ updateKey }) => {
     const { startTime, updateStartTime, floatTime, updateFloatTime, endTime, updateEndTime, breakTime, workTime } =
         useContext<AppContextValues>(AppContext);
 
@@ -56,13 +60,16 @@ const Calculator: FC = () => {
         updateFloatTime(defaultFloatValue);
     }, [startTime, breakTime, workTime, updateFloatTime, handleEndUpdate]);
 
-    const handleStartTimeChange = (val: Time): void => {
-        const endTime = calculateNormalEnd(val, breakTime, workTime);
+    const handleStartTimeChange = useCallback(
+        (val: Time): void => {
+            const endTime = calculateNormalEnd(val, breakTime, workTime);
 
-        updateStartTime(val);
-        handleEndUpdate(endTime);
-        updateFloatTime(defaultFloatValue);
-    };
+            updateStartTime(val);
+            handleEndUpdate(endTime);
+            updateFloatTime(defaultFloatValue);
+        },
+        [breakTime, workTime, updateStartTime, handleEndUpdate, updateFloatTime]
+    );
 
     const handleFloatUpdate = useCallback(
         (val: FloatTime): void => {
@@ -96,6 +103,10 @@ const Calculator: FC = () => {
             handleFloatUpdate(updatedValue);
         }
     };
+
+    useEffect(() => {
+        handleStartTimeChange(startTime);
+    }, [startTime, updateKey, handleStartTimeChange]);
 
     useEffect(() => {
         handleBreakTimeChange();
