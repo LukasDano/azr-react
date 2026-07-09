@@ -1,8 +1,8 @@
 import type { FC } from "react";
 
-import type { Time } from "../../../utils/importantTypes";
+import type { Time } from "../../../utils/importantTypes.ts";
 
-import { cleanTime, parseStringToTime, parseTimeToString } from "../../../utils/typeUtilities/time";
+import { cleanTime, parseStringToTime, parseTimeToString } from "../../../utils/typeUtilities/time.ts";
 
 type TimeInputFieldProps = {
     label: string;

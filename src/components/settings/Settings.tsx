@@ -5,15 +5,15 @@ import { useContext, useMemo, useState } from "react";
 import type { ToastPosition } from "../../utils/notifications.ts";
 import type { BackgroundTheme, ColorTheme, ThemeType } from "../../utils/themes.ts";
 import type { CountdownUnit } from "../content/countdown/CountdownElement.tsx";
-import type { SettingContextValues } from "../context/SettingContext";
+import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 import type { SettingId } from "./settingConfig.tsx";
 
 import { name, version } from "../../../package.json";
 import { SettingsError } from "../../utils/errors/SettingsError.ts";
 import { sendNotification } from "../../utils/notifications.ts";
 import { getBackgroundTheme } from "../../utils/themes.ts";
-import { DropDownSelect } from "../content/inputs/DropDownSelect.tsx";
-import { SettingContext } from "../context/SettingContext";
+import { SettingContext } from "../context/setting/SettingContext.tsx";
+import { MultipleValueSelector } from "../library/inputs/MultipleValueSelector.tsx";
 import { TabBar } from "../library/TabBar.tsx";
 import { ColorPicker } from "./inputs/ColorSelector.tsx";
 import { SettingsToggle } from "./inputs/SettingsToggle";
@@ -176,7 +176,7 @@ export const Settings: FC = () => {
                         }
 
                         return (
-                            <DropDownSelect
+                            <MultipleValueSelector
                                 key={stg.id}
                                 name={stg.name}
                                 defaultOption={findValueById(stg.id) as string}

@@ -1,6 +1,6 @@
 {
     "name": "azr-react",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "private": true,
     "homepage": "https://LukasDano.github.io/azr-react",
     "type": "module",
@@ -23,11 +23,11 @@
         "update:dependencies": "vpm.exe outdated && npm run ox:fmt"
     },
     "dependencies": {
-        "@headlessui/react": "^2.2.10",
         "@tanstack/react-hotkeys": "^0.10.0",
+        "@tanstack/react-query": "^5.101.2",
         "@tippyjs/react": "^4.2.6",
         "@uiw/react-color": "^2.10.3",
-        "lucide-react": "^1.23.0",
+        "lucide-react": "^1.24.0",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
         "react-icons": "^5.7.0",
@@ -51,7 +51,7 @@
         "oxlint": "1.73.0",
         "oxlint-tsgolint": "0.24.0",
         "typescript": "^7.0.2",
-        "vite": "^8.1.3",
+        "vite": "^8.1.4",
         "vitest": "^4.1.10"
     }
 }

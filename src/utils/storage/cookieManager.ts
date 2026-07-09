@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import type { FloatTime, Time, WeekTime } from "../importantTypes.ts";
 
 import {
@@ -8,18 +10,25 @@ import {
     emptyTimeValue
 } from "../defaultValues.ts";
 
-type CookieKey = "startTime" | "floatTime" | "endTime" | "weekTime" | "breakTime" | "workTime" | "flexOffice";
+type CookieKey =
+    | "azr_startTime"
+    | "azr_floatTime"
+    | "azr_endTime"
+    | "azr_weekTime"
+    | "azr_breakTime"
+    | "azr_workTime"
+    | "azr_flexOffice";
 
 type CookieValue = Time | FloatTime | WeekTime | string | Record<string, number>[];
 
 const defaultValues: Record<CookieKey, CookieValue> = {
-    startTime: emptyTimeValue,
-    floatTime: defaultFloatValue,
-    endTime: emptyTimeValue,
-    weekTime: defaultWeekTime,
-    breakTime: defaultBreakTime,
-    workTime: defaultWorkTime,
-    flexOffice: []
+    azr_startTime: emptyTimeValue,
+    azr_floatTime: defaultFloatValue,
+    azr_endTime: emptyTimeValue,
+    azr_weekTime: defaultWeekTime,
+    azr_breakTime: defaultBreakTime,
+    azr_workTime: defaultWorkTime,
+    azr_flexOffice: []
 };
 
 export const deleteCookie = (key: CookieKey): void => {
@@ -96,4 +105,51 @@ export const setCookieForOneYear = (key: CookieKey, val: CookieValue): void => {
     const oneYearFromNow = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate(), 23, 59, 59);
 
     setCookie(key, val, oneYearFromNow);
+};
+
+type CookieSetFn =
+    | "setCookie"
+    | "setCookieFor10Minutes"
+    | "setCookieUntilMidnight"
+    | "setCookieUntilEndOfWeek"
+    | "setCookieUntilEndOfMonth"
+    | "setCookieForOneYear";
+
+type UseCookieParams = {
+    key: CookieKey;
+    cookieSetFn: CookieSetFn;
+};
+
+export const useCookieState = <T>({ key, cookieSetFn }: UseCookieParams): [T, (val: T) => void] => {
+    const [state, setState] = useState<T>(getCookie(key) as T);
+
+    const setValue = (val: T): void => {
+        setState(val);
+
+        switch (cookieSetFn) {
+            case "setCookie":
+                setCookie(key, val as CookieValue);
+                break;
+            case "setCookieFor10Minutes":
+                setCookieFor10Minutes(key, val as CookieValue);
+                break;
+            case "setCookieUntilMidnight":
+                setCookieUntilMidnight(key, val as CookieValue);
+                break;
+            case "setCookieUntilEndOfWeek":
+                setCookieUntilEndOfWeek(key, val as CookieValue);
+                break;
+            case "setCookieUntilEndOfMonth":
+                setCookieUntilEndOfMonth(key, val as CookieValue);
+                break;
+            case "setCookieForOneYear":
+                setCookieForOneYear(key, val as CookieValue);
+                break;
+            default:
+                setCookie(key, val as CookieValue);
+                break;
+        }
+    };
+
+    return [state, setValue];
 };

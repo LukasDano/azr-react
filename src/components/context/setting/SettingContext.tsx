@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
-import type { ToastPosition } from "../../utils/notifications.ts";
-import type { BackgroundTheme, ColorTheme, CountdownColors } from "../../utils/themes.ts";
+import type { ToastPosition } from "../../../utils/notifications.ts";
+import type { BackgroundTheme, ColorTheme, CountdownColors } from "../../../utils/themes.ts";
 
 export type SettingContextValues = {
     darkModeActive: boolean;

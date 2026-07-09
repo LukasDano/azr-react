@@ -6,7 +6,13 @@ import { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
-import { Tooltip } from "../../library/Tooltip";
+import { Tooltip } from "../Tooltip.tsx";
+
+export type SelectOption = {
+    label: string;
+    value: string;
+    selected: boolean;
+};
 
 type MultipleValueSelectorProps = {
     name: string;
@@ -17,7 +23,7 @@ type MultipleValueSelectorProps = {
     onChange: (newOptions: SingleValue<string>) => void;
 };
 
-export const DropDownSelect: FC<MultipleValueSelectorProps> = ({
+export const MultipleValueSelector: FC<MultipleValueSelectorProps> = ({
     name,
     description = "",
     tooltipHint: hiddenDescription,

@@ -2,11 +2,11 @@ import type { FC } from "react";
 
 import { useContext, useState } from "react";
 
-import type { SettingContextValues } from "../../context/SettingContext";
+import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
 
 import { sendNotification } from "../../../utils/notifications.ts";
 import { getThemeClasses } from "../../../utils/themes.ts";
-import { SettingContext } from "../../context/SettingContext";
+import { SettingContext } from "../../context/setting/SettingContext.tsx";
 
 type SettingsToggleProps = {
     onToggle: (value: boolean) => void;

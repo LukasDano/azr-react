@@ -1,6 +1,7 @@
 ﻿import type { Time } from "./importantTypes.ts";
 
 import { getMonthName, getValidDateString } from "./dateUtility";
+import { emptyTimeValue } from "./defaultValues.ts";
 import { getCookie, setCookieForOneYear } from "./storage/cookieManager.ts";
 import { minutesToTime } from "./typeUtilities/time";
 
@@ -235,7 +236,7 @@ export const getValueForKeyFromCookie = (key: FlexOfficeCookieKeys, monthStr: st
 type FlexOfficeCookieKeys = "offDays" | "flexHours" | "flexMins";
 
 export const setFlexOfficeCookie = (month: string, offDays: number, flexTime: Time): void => {
-    const flexOfficeCookieList = getCookie("flexOffice") as Record<string, number>[];
+    const flexOfficeCookieList = getCookie("azr_flexOffice") as Record<string, number>[];
 
     const updatedCookieValue: Record<FlexOfficeCookieKeys, number> = {
         offDays: offDays,
@@ -246,11 +247,11 @@ export const setFlexOfficeCookie = (month: string, offDays: number, flexTime: Ti
     const monthNum = getMonthNumberFromMonthString(month) as number;
     flexOfficeCookieList[monthNum] = updatedCookieValue;
 
-    setCookieForOneYear("flexOffice", flexOfficeCookieList);
+    setCookieForOneYear("azr_flexOffice", flexOfficeCookieList);
 };
 
 export const getMonthValueOfFlexOfficeCookie = (month: string): Record<FlexOfficeCookieKeys, number> => {
-    const flexOfficeCookieList = getCookie("flexOffice") as Record<string, number>[];
+    const flexOfficeCookieList = getCookie("azr_flexOffice") as Record<string, number>[];
     const monthNum = getMonthNumberFromMonthString(month) as number;
 
     if (flexOfficeCookieList.length <= monthNum)
@@ -261,4 +262,18 @@ export const getMonthValueOfFlexOfficeCookie = (month: string): Record<FlexOffic
         };
 
     return flexOfficeCookieList[monthNum];
+};
+
+export type FlexOfficeResultContainer = {
+    calculatedMonth: number;
+    monthWorkDays: number;
+    workedDays: number;
+    restFlexOfficeTime: Time;
+};
+
+export const emtpyFlexOfficeResultContainer: FlexOfficeResultContainer = {
+    calculatedMonth: 0,
+    monthWorkDays: 0,
+    workedDays: 0,
+    restFlexOfficeTime: emptyTimeValue
 };

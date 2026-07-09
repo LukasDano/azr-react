@@ -101,3 +101,12 @@ export const checkIfTimeIsBelowZero = (time: Time): Time => {
     if (hours < 0 || mins < 0) return [0, 0];
     return time;
 };
+
+export const newTime = ({ hours = 0, minutes = 0 }: { hours?: number; minutes?: number }): Time => [hours, minutes];
+
+export const isSmallerTime = (timeA: Time, timeB: Time): boolean => {
+    const [hoursA, minutesA] = timeA;
+    const [hoursB, minutesB] = timeB;
+
+    return hoursA === hoursB && minutesA === minutesB;
+};

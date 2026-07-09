@@ -1,14 +1,14 @@
 import type { FC, KeyboardEvent } from "react";
 
-import type { FloatTime } from "../../../utils/importantTypes";
+import type { FloatTime } from "../../../utils/importantTypes.ts";
 
-import { calculateDecreasedValue, calculateIncreasedValue } from "../../../utils/calculatingTimes";
+import { calculateDecreasedValue, calculateIncreasedValue } from "../../../utils/calculatingTimes.ts";
 import {
     isValidFloatTimeValue as isValidFloatTimeStr,
     parseFloatTimeFromRawTimeValues,
     parseFloatTimeToString,
     parseStringToFloatTime
-} from "../../../utils/typeUtilities/floatTime";
+} from "../../../utils/typeUtilities/floatTime.ts";
 
 type FloatTimeInputFieldProps = {
     label: string;

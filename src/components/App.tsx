@@ -1,12 +1,11 @@
 import type { FC } from "react";
 
 import { useHotkey } from "@tanstack/react-hotkeys";
-import { Loader } from "lucide-react";
 import { lazy, Suspense, useContext, useState } from "react";
 import { Flip, ToastContainer } from "react-toastify";
 
-import type { AppContextValues } from "./context/AppContext";
-import type { SettingContextValues } from "./context/SettingContext";
+import type { AppContextValues } from "./context/app/AppContext.tsx";
+import type { SettingContextValues } from "./context/setting/SettingContext.tsx";
 
 import {
     calculateGleitzeit,
@@ -21,9 +20,10 @@ import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from "../utils/
 import { ErrorBoundary } from "./boundaries/ErrorBoundary.tsx";
 import { PanelErrorBoundary } from "./boundaries/PanelErrorBoundary.tsx";
 import { Header } from "./content/header/Header";
-import { AppContext } from "./context/AppContext";
-import { SettingContext } from "./context/SettingContext";
+import { AppContext } from "./context/app/AppContext.tsx";
+import { SettingContext } from "./context/setting/SettingContext.tsx";
 import { BaseModal } from "./library/BaseModal.tsx";
+import { Loader } from "./library/Loader.tsx";
 import { Settings } from "./settings/Settings";
 
 const Calculator = lazy(() => import("./content/Calculator.tsx"));
@@ -47,13 +47,17 @@ export const App: FC = () => {
     const [weekTimeOpen, setWeekTimeOpen] = useState<boolean>(false);
     const [flexOfficeOpen, setFlexOfficeOpen] = useState<boolean>(false);
 
-    const resetTimeValues = (): void => {
+    const [updateKey, setUpdateKey] = useState<number>(0);
+
+    const resetPageValues = (): void => {
         updateStartTime(emptyTimeValue);
         updateFloatTime(defaultFloatValue);
         updateEndTime(emptyTimeValue);
         updateWorkTime(defaultWorkTime);
         updateBreakTime(defaultBreakTime);
     };
+
+    const resetEverythingToCurrentStartTime = (): void => setUpdateKey((prev) => prev + 1);
 
     const sendMsgWithCurrentStats = (): void => {
         if (isDefaultTimeValue(startTime)) {
@@ -79,7 +83,8 @@ export const App: FC = () => {
     useHotkey({ key: "w", alt: true }, () => setWeekTimeOpen(true), { requireReset: true });
     useHotkey({ key: "h", alt: true }, () => setFlexOfficeOpen(true), { requireReset: true });
     useHotkey({ key: "c", alt: true }, sendMsgWithCurrentStats, { requireReset: true });
-    useHotkey({ key: "F1" }, resetTimeValues, { requireReset: true, preventDefault: true });
+    useHotkey({ key: "F1" }, resetPageValues, { requireReset: true, preventDefault: true });
+    useHotkey({ key: "F2" }, resetEverythingToCurrentStartTime, { requireReset: true, preventDefault: true });
 
     return (
         <div id={"azr-react-app"} className={darkModeActive ? "dark" : "light"}>
@@ -115,8 +120,9 @@ export const App: FC = () => {
                     openSettings={() => setSettingsOpen(true)}
                     openWeekTime={() => setWeekTimeOpen(true)}
                     openFlexOffice={() => setFlexOfficeOpen(true)}
-                    resetAction={resetTimeValues}
+                    resetAction={resetPageValues}
                     currentStatsAction={sendMsgWithCurrentStats}
+                    resetInputs={resetEverythingToCurrentStartTime}
                 />
 
                 <Suspense fallback={<Loader />}>
@@ -136,7 +142,7 @@ export const App: FC = () => {
                 </Suspense>
 
                 <Suspense fallback={<Loader />}>
-                    <Calculator />
+                    <Calculator updateKey={updateKey} />
                 </Suspense>
             </div>
         </div>
