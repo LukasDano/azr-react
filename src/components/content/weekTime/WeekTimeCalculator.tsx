@@ -19,13 +19,13 @@ type WeekTimeCalculatorProps = {
 };
 
 const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClose }) => {
-    const [weekTime, setWeekTime] = useState<WeekTime>(getCookie("weekTime") as WeekTime);
+    const [weekTime, setWeekTime] = useState<WeekTime>(getCookie("azr_weekTime") as WeekTime);
     const [weekWorkTime, setWeekWorkTime] = useState<Time>(emptyTimeValue);
     const [weekOverTime, setWeekOverTime] = useState<Time>(emptyTimeValue);
     const [showResult, setShowResult] = useState<boolean>(false);
 
     useEffect(() => {
-        setCookieUntilEndOfWeek("weekTime", weekTime);
+        setCookieUntilEndOfWeek("azr_weekTime", weekTime);
     }, [weekTime]);
 
     const handleWeekTimeChange = (key: WeekDay, val: Time): void => {

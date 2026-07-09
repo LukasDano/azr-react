@@ -236,7 +236,7 @@ export const getValueForKeyFromCookie = (key: FlexOfficeCookieKeys, monthStr: st
 type FlexOfficeCookieKeys = "offDays" | "flexHours" | "flexMins";
 
 export const setFlexOfficeCookie = (month: string, offDays: number, flexTime: Time): void => {
-    const flexOfficeCookieList = getCookie("flexOffice") as Record<string, number>[];
+    const flexOfficeCookieList = getCookie("azr_flexOffice") as Record<string, number>[];
 
     const updatedCookieValue: Record<FlexOfficeCookieKeys, number> = {
         offDays: offDays,
@@ -247,11 +247,11 @@ export const setFlexOfficeCookie = (month: string, offDays: number, flexTime: Ti
     const monthNum = getMonthNumberFromMonthString(month) as number;
     flexOfficeCookieList[monthNum] = updatedCookieValue;
 
-    setCookieForOneYear("flexOffice", flexOfficeCookieList);
+    setCookieForOneYear("azr_flexOffice", flexOfficeCookieList);
 };
 
 export const getMonthValueOfFlexOfficeCookie = (month: string): Record<FlexOfficeCookieKeys, number> => {
-    const flexOfficeCookieList = getCookie("flexOffice") as Record<string, number>[];
+    const flexOfficeCookieList = getCookie("azr_flexOffice") as Record<string, number>[];
     const monthNum = getMonthNumberFromMonthString(month) as number;
 
     if (flexOfficeCookieList.length <= monthNum)

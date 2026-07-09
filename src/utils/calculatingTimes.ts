@@ -147,7 +147,7 @@ export const calculateIstTime = (startTime: Time, endTime: Time, pauseTime: Time
  */
 export const calculateGleitzeit = (istTime: Time): Time => {
     const [istHours, istMins] = istTime;
-    const [sollHours, sollMins] = getCookie("workTime") as Time;
+    const [sollHours, sollMins] = getCookie("azr_workTime") as Time;
 
     let gleitHours = istHours - sollHours;
     let gleitMins = istMins - sollMins;

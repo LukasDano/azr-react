@@ -8,18 +8,25 @@ import {
     emptyTimeValue
 } from "../defaultValues.ts";
 
-type CookieKey = "startTime" | "floatTime" | "endTime" | "weekTime" | "breakTime" | "workTime" | "flexOffice";
+type CookieKey =
+    | "azr_startTime"
+    | "azr_floatTime"
+    | "azr_endTime"
+    | "azr_weekTime"
+    | "azr_breakTime"
+    | "azr_workTime"
+    | "azr_flexOffice";
 
 type CookieValue = Time | FloatTime | WeekTime | string | Record<string, number>[];
 
 const defaultValues: Record<CookieKey, CookieValue> = {
-    startTime: emptyTimeValue,
-    floatTime: defaultFloatValue,
-    endTime: emptyTimeValue,
-    weekTime: defaultWeekTime,
-    breakTime: defaultBreakTime,
-    workTime: defaultWorkTime,
-    flexOffice: []
+    azr_startTime: emptyTimeValue,
+    azr_floatTime: defaultFloatValue,
+    azr_endTime: emptyTimeValue,
+    azr_weekTime: defaultWeekTime,
+    azr_breakTime: defaultBreakTime,
+    azr_workTime: defaultWorkTime,
+    azr_flexOffice: []
 };
 
 export const deleteCookie = (key: CookieKey): void => {
