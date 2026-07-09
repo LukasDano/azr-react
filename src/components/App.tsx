@@ -4,8 +4,8 @@ import { useHotkey } from "@tanstack/react-hotkeys";
 import { lazy, Suspense, useContext, useState } from "react";
 import { Flip, ToastContainer } from "react-toastify";
 
-import type { AppContextValues } from "./context/AppContext";
-import type { SettingContextValues } from "./context/SettingContext";
+import type { AppContextValues } from "./context/app/AppContext.tsx";
+import type { SettingContextValues } from "./context/setting/SettingContext.tsx";
 
 import {
     calculateGleitzeit,
@@ -20,8 +20,8 @@ import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from "../utils/
 import { ErrorBoundary } from "./boundaries/ErrorBoundary.tsx";
 import { PanelErrorBoundary } from "./boundaries/PanelErrorBoundary.tsx";
 import { Header } from "./content/header/Header";
-import { AppContext } from "./context/AppContext";
-import { SettingContext } from "./context/SettingContext";
+import { AppContext } from "./context/app/AppContext.tsx";
+import { SettingContext } from "./context/setting/SettingContext.tsx";
 import { BaseModal } from "./library/BaseModal.tsx";
 import { Loader } from "./library/Loader.tsx";
 import { Settings } from "./settings/Settings";

@@ -14,10 +14,10 @@ import {
     ScaleLoader
 } from "react-spinners";
 
-import type { SettingContextValues } from "../context/SettingContext";
+import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
 import { getColorForTheme } from "../../utils/utils.ts";
-import { SettingContext } from "../context/SettingContext";
+import { SettingContext } from "../context/setting/SettingContext.tsx";
 
 type LoaderIcon = "bounce" | "climbing" | "clock" | "fade" | "grid" | "hash" | "ring" | "pulse" | "scale" | "puff";
 

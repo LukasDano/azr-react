@@ -14,6 +14,7 @@ type SingleValueSelectorProps = {
     options: string[];
     onChange: (newOptions: SingleValue<string>) => void;
     useBottomMargin?: boolean;
+    alwaysHasDarkBackground?: boolean;
 };
 
 export const SingleValueSelector: FC<SingleValueSelectorProps> = ({
@@ -22,7 +23,8 @@ export const SingleValueSelector: FC<SingleValueSelectorProps> = ({
     defaultOption,
     options,
     onChange,
-    useBottomMargin = false
+    useBottomMargin = false,
+    alwaysHasDarkBackground = false
 }) => {
     const [selectedOption, setSelectedOption] = useState<SingleValue<string>>(defaultOption);
     const animatedComponents = makeAnimated();
@@ -47,7 +49,11 @@ export const SingleValueSelector: FC<SingleValueSelectorProps> = ({
         <div className={`${useBottomMargin ? "mb-3" : ""} flex flex-col`}>
             {name && (
                 <label className={"mb-2"}>
-                    <span className={"block font-medium text-gray-900 dark:text-gray-100"}>{name}</span>
+                    <span
+                        className={`block font-medium ${alwaysHasDarkBackground ? "text-gray-100" : "text-gray-900 dark:text-gray-100"}`}
+                    >
+                        {name}
+                    </span>
                     {description && (
                         <span className={"block max-w-[20vw] font-light text-gray-900 dark:text-gray-200"}>
                             {description}

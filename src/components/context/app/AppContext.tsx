@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import type { FloatTime, Time } from "../../utils/importantTypes";
+import type { FloatTime, Time } from "../../../utils/importantTypes.ts";
 
 export type AppContextValues = {
     startTime: Time;

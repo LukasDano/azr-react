@@ -4,11 +4,11 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 import type { CountdownColors } from "../../../utils/themes.ts";
 import type { CountdownTime } from "../../../utils/utils.ts";
-import type { SettingContextValues } from "../../context/SettingContext.tsx";
+import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
 
 import { defaultCountdownTheme, getBackgroundTheme } from "../../../utils/themes.ts";
 import { createCountdownElements } from "../../../utils/utils.ts";
-import { SettingContext } from "../../context/SettingContext.tsx";
+import { SettingContext } from "../../context/setting/SettingContext.tsx";
 import { CountdownElement } from "./CountdownElement.tsx";
 
 type CountdownProps = {

@@ -2,10 +2,10 @@ import type { FC, ReactNode } from "react";
 
 import { useContext } from "react";
 
-import type { SettingContextValues } from "../context/SettingContext.tsx";
+import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
 import { getThemeClasses } from "../../utils/themes.ts";
-import { SettingContext } from "../context/SettingContext.tsx";
+import { SettingContext } from "../context/setting/SettingContext.tsx";
 import { Tooltip } from "./Tooltip.tsx";
 
 type FromFunctionButtonProps = {

@@ -3,8 +3,8 @@ import type { FC } from "react";
 import { useCallback, useContext, useEffect } from "react";
 
 import type { FloatTime, Time } from "../../utils/importantTypes.ts";
-import type { AppContextValues } from "../context/AppContext.tsx";
-import type { SettingContextValues } from "../context/SettingContext.tsx";
+import type { AppContextValues } from "../context/app/AppContext.tsx";
+import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
 import {
     calculateGleitzeit,
@@ -14,14 +14,7 @@ import {
     calculateOptimizedEnd,
     roundTimeForFloat
 } from "../../utils/calculatingTimes.ts";
-import {
-    defaultBreakTime,
-    defaultFloatForSixHourMode,
-    defaultFloatValue,
-    defaultWorkTime,
-    defaultWorkTimeForSixHourMode,
-    emptyTimeValue
-} from "../../utils/defaultValues.ts";
+import { defaultFloatValue, defaultWorkTime } from "../../utils/defaultValues.ts";
 import { sendNotification } from "../../utils/notifications.ts";
 import { parseFloatTimeFromRawTimeValues } from "../../utils/typeUtilities/floatTime.ts";
 import {
@@ -31,27 +24,37 @@ import {
     isSameTime,
     parseTimeToDate
 } from "../../utils/typeUtilities/time.ts";
-import { AppContext } from "../context/AppContext.tsx";
-import { SettingContext } from "../context/SettingContext.tsx";
+import { AppContext } from "../context/app/AppContext.tsx";
+import { SettingContext } from "../context/setting/SettingContext.tsx";
 import { FloatTimeInputField } from "../library/inputs/FloatTimeInputField.tsx";
 import { TimeInputField } from "../library/inputs/TimeInputField.tsx";
 import { Countdown } from "./countdown/Countdown.tsx";
 
 const Calculator: FC = () => {
-    const {
-        startTime,
-        updateStartTime,
-        floatTime,
-        updateFloatTime,
-        endTime,
-        updateEndTime,
-        breakTime,
-        updateBreakTime,
-        workTime,
-        updateWorkTime
-    } = useContext<AppContextValues>(AppContext);
+    const { startTime, updateStartTime, floatTime, updateFloatTime, endTime, updateEndTime, breakTime, workTime } =
+        useContext<AppContextValues>(AppContext);
 
     const { overTimeAutomatic, countdownColors } = useContext<SettingContextValues>(SettingContext);
+
+    const handleEndUpdate = useCallback(
+        (val: Time): void => {
+            updateEndTime(val);
+
+            const ist = calculateIstTime(startTime, val, breakTime);
+            const float = calculateGleitzeit(ist);
+            const parsed = parseFloatTimeFromRawTimeValues(float);
+            updateFloatTime(parsed);
+        },
+        [startTime, breakTime, updateEndTime, updateFloatTime]
+    );
+
+    const handleBreakTimeChange = useCallback((): void => {
+        const endTime = calculateNormalEnd(startTime, breakTime, workTime);
+        const optimizedEnd = calculateOptimizedEnd(endTime);
+
+        handleEndUpdate(optimizedEnd);
+        updateFloatTime(defaultFloatValue);
+    }, [startTime, breakTime, workTime, updateFloatTime, handleEndUpdate]);
 
     const handleStartTimeChange = (val: Time): void => {
         const endTime = calculateNormalEnd(val, breakTime, workTime);
@@ -59,20 +62,6 @@ const Calculator: FC = () => {
         updateStartTime(val);
         handleEndUpdate(endTime);
         updateFloatTime(defaultFloatValue);
-    };
-
-    const handleEndUpdate = (val: Time): void => {
-        updateEndTime(val);
-
-        const ist = calculateIstTime(startTime, val, breakTime);
-        const float = calculateGleitzeit(ist);
-        const parsed = parseFloatTimeFromRawTimeValues(float);
-        updateFloatTime(parsed);
-
-        if (!isSameTime(defaultWorkTimeForSixHourMode, getLaterTime(ist, defaultWorkTimeForSixHourMode))) {
-            updateBreakTime(defaultBreakTime);
-            updateWorkTime(defaultWorkTime);
-        }
     };
 
     const handleFloatUpdate = useCallback(
@@ -109,12 +98,8 @@ const Calculator: FC = () => {
     };
 
     useEffect(() => {
-        const floatForBreakTime = isSameTime(breakTime, defaultBreakTime)
-            ? defaultFloatValue
-            : defaultFloatForSixHourMode;
-
-        if (!isSameTime(startTime, emptyTimeValue)) handleFloatUpdate(floatForBreakTime);
-    }, [breakTime, startTime, handleFloatUpdate]);
+        handleBreakTimeChange();
+    }, [breakTime, handleBreakTimeChange]);
 
     return (
         <div className={"mx-auto w-full max-w-3xl px-4 py-8"}>

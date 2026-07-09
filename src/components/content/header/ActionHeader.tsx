@@ -4,10 +4,10 @@ import { CalendarDays, ClockFading, HouseWifi } from "lucide-react";
 import { useContext } from "react";
 import { MdOutlineResetTv } from "react-icons/md";
 
-import type { SettingContextValues } from "../../context/SettingContext";
+import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
 
 import { getBackgroundTheme } from "../../../utils/themes.ts";
-import { SettingContext } from "../../context/SettingContext";
+import { SettingContext } from "../../context/setting/SettingContext.tsx";
 import { HeaderButton } from "./HeaderButton";
 
 type ActionHeaderProps = {

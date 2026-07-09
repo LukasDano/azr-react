@@ -2,10 +2,10 @@ import type { FC, ReactNode } from "react";
 
 import { useMemo } from "react";
 
-import type { FloatTime, Time } from "../../utils/importantTypes.ts";
+import type { FloatTime, Time } from "../../../utils/importantTypes.ts";
 import type { AppContextValues } from "./AppContext.tsx";
 
-import { useCookieState } from "../../utils/storage/cookieManager.ts";
+import { useCookieState } from "../../../utils/storage/cookieManager.ts";
 import { AppContext } from "./AppContext.tsx";
 
 type AppContextProviderProps = {

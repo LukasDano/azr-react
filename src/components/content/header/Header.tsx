@@ -1,12 +1,13 @@
 import type { FC } from "react";
 
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo } from "react";
 import { MdHelpOutline } from "react-icons/md";
 import { PiGearDuotone } from "react-icons/pi";
 
-import type { AppContextValues } from "../../context/AppContext";
-import type { SettingContextValues } from "../../context/SettingContext";
+import type { Time } from "../../../utils/importantTypes.ts";
+import type { AppContextValues } from "../../context/app/AppContext.tsx";
+import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
 
 import {
     defaultBreakTime,
@@ -15,9 +16,9 @@ import {
     emptyTimeValue
 } from "../../../utils/defaultValues.ts";
 import { getBackgroundTheme } from "../../../utils/themes.ts";
-import { parseTimeToString } from "../../../utils/typeUtilities/time";
-import { AppContext } from "../../context/AppContext";
-import { SettingContext } from "../../context/SettingContext";
+import { isSameTime, newTime, parseStringToTime, parseTimeToString } from "../../../utils/typeUtilities/time";
+import { AppContext } from "../../context/app/AppContext.tsx";
+import { SettingContext } from "../../context/setting/SettingContext.tsx";
 import { SingleValueSelector } from "../../library/inputs/SingleValueSelector.tsx";
 import { ActionHeader } from "./ActionHeader";
 import { HeaderButton } from "./HeaderButton";
@@ -38,11 +39,27 @@ export const Header: FC<HeaderProps> = ({
     currentStatsAction
 }) => {
     const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
-    const { updateBreakTime, workTime, updateWorkTime } = useContext<AppContextValues>(AppContext);
+    const { breakTime, updateBreakTime, workTime, updateWorkTime } = useContext<AppContextValues>(AppContext);
 
     const [actionHeaderOpen, setActionHeaderOpen] = useState<boolean>(false);
 
-    const availableWorkTimes = [defaultWorkTime, defaultWorkTimeForSixHourMode].map(parseTimeToString);
+    const availableWorkTimes = useMemo<string[]>(
+        () => [defaultWorkTime, defaultWorkTimeForSixHourMode].map(parseTimeToString),
+        []
+    );
+
+    const availableBreakTimes = useMemo<string[]>(() => {
+        const lowestBreakMinutes = 30;
+        const highestBreakMinutes = 60;
+
+        const result: Time[] = [];
+
+        for (let i: number = lowestBreakMinutes; i < highestBreakMinutes; i++) result.push(newTime({ minutes: i }));
+
+        result.push(newTime({ hours: 1 }));
+
+        return result.map(parseTimeToString);
+    }, []);
 
     const handleWorkTimeModeChange = (workTimeStr: string): void => {
         if (workTimeStr === "06:00") {
@@ -54,6 +71,12 @@ export const Header: FC<HeaderProps> = ({
         }
     };
 
+    const handleBreakTimeChange = (breakTimeStr: string): void => {
+        const newBreakTime = parseStringToTime(breakTimeStr);
+        updateBreakTime(newBreakTime);
+        updateWorkTime(defaultWorkTime);
+    };
+
     return (
         <>
             <nav
@@ -62,7 +85,19 @@ export const Header: FC<HeaderProps> = ({
                 <h1 className={"text-4xl font-bold text-white"}>{"Arbeitszeitrechner"}</h1>
 
                 <div className={"flex flex-wrap items-center justify-end gap-6"}>
+                    {isSameTime(workTime, defaultWorkTime) && (
+                        <SingleValueSelector
+                            name={"Pause"}
+                            alwaysHasDarkBackground={true}
+                            defaultOption={parseTimeToString(breakTime)}
+                            options={availableBreakTimes}
+                            onChange={(val) => handleBreakTimeChange(val as string)}
+                        />
+                    )}
+
                     <SingleValueSelector
+                        name={"Arbeitszeit"}
+                        alwaysHasDarkBackground={true}
                         defaultOption={parseTimeToString(workTime)}
                         options={availableWorkTimes}
                         onChange={(val) => handleWorkTimeModeChange(val as string)}
