@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import type { FloatTime, Time, WeekTime } from "../importantTypes.ts";
 
 import {
@@ -103,4 +105,51 @@ export const setCookieForOneYear = (key: CookieKey, val: CookieValue): void => {
     const oneYearFromNow = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate(), 23, 59, 59);
 
     setCookie(key, val, oneYearFromNow);
+};
+
+type CookieSetFn =
+    | "setCookie"
+    | "setCookieFor10Minutes"
+    | "setCookieUntilMidnight"
+    | "setCookieUntilEndOfWeek"
+    | "setCookieUntilEndOfMonth"
+    | "setCookieForOneYear";
+
+type UseCookieParams = {
+    key: CookieKey;
+    cookieSetFn: CookieSetFn;
+};
+
+export const useCookieState = <T>({ key, cookieSetFn }: UseCookieParams): [T, (val: T) => void] => {
+    const [state, setState] = useState<T>(getCookie(key) as T);
+
+    const setValue = (val: T): void => {
+        setState(val);
+
+        switch (cookieSetFn) {
+            case "setCookie":
+                setCookie(key, val as CookieValue);
+                break;
+            case "setCookieFor10Minutes":
+                setCookieFor10Minutes(key, val as CookieValue);
+                break;
+            case "setCookieUntilMidnight":
+                setCookieUntilMidnight(key, val as CookieValue);
+                break;
+            case "setCookieUntilEndOfWeek":
+                setCookieUntilEndOfWeek(key, val as CookieValue);
+                break;
+            case "setCookieUntilEndOfMonth":
+                setCookieUntilEndOfMonth(key, val as CookieValue);
+                break;
+            case "setCookieForOneYear":
+                setCookieForOneYear(key, val as CookieValue);
+                break;
+            default:
+                setCookie(key, val as CookieValue);
+                break;
+        }
+    };
+
+    return [state, setValue];
 };

@@ -1,11 +1,11 @@
 import type { FC } from "react";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import type { Time, WeekDay, WeekTime } from "../../../utils/importantTypes.ts";
 
 import { emptyTimeValue } from "../../../utils/defaultValues.ts";
-import { getCookie, setCookieUntilEndOfWeek } from "../../../utils/storage/cookieManager.ts";
+import { useCookieState } from "../../../utils/storage/cookieManager.ts";
 import { parseWeekTimeToTime } from "../../../utils/typeUtilities/weekTime.ts";
 import { calculateWeekOverTime } from "../../../utils/weekTimeCalculatingUtility.ts";
 import { BaseButton } from "../../library/BaseButton.tsx";
@@ -19,14 +19,14 @@ type WeekTimeCalculatorProps = {
 };
 
 const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClose }) => {
-    const [weekTime, setWeekTime] = useState<WeekTime>(getCookie("azr_weekTime") as WeekTime);
+    const [weekTime, updateWeekTime] = useCookieState<WeekTime>({
+        key: "azr_weekTime",
+        cookieSetFn: "setCookieUntilEndOfWeek"
+    });
+
     const [weekWorkTime, setWeekWorkTime] = useState<Time>(emptyTimeValue);
     const [weekOverTime, setWeekOverTime] = useState<Time>(emptyTimeValue);
     const [showResult, setShowResult] = useState<boolean>(false);
-
-    useEffect(() => {
-        setCookieUntilEndOfWeek("azr_weekTime", weekTime);
-    }, [weekTime]);
 
     const handleWeekTimeChange = (key: WeekDay, val: Time): void => {
         const upadtedWeekTime = {
@@ -34,7 +34,7 @@ const WeekTimeCalculator: FC<WeekTimeCalculatorProps> = ({ isOpen, onClose }) =>
             [key]: val
         };
 
-        setWeekTime(upadtedWeekTime);
+        updateWeekTime(upadtedWeekTime);
         if (showResult) setShowResult(false);
 
         const weekTimeAsTime = parseWeekTimeToTime(upadtedWeekTime);

@@ -3,7 +3,6 @@ import type { FC } from "react";
 import { useCallback, useContext, useEffect } from "react";
 
 import type { FloatTime, Time } from "../../utils/importantTypes.ts";
-import type { CountdownColors } from "../../utils/themes.ts";
 import type { AppContextValues } from "../context/AppContext.tsx";
 import type { SettingContextValues } from "../context/SettingContext.tsx";
 
@@ -24,7 +23,6 @@ import {
     emptyTimeValue
 } from "../../utils/defaultValues.ts";
 import { sendNotification } from "../../utils/notifications.ts";
-import { getStorageValue } from "../../utils/storage/storageManger.ts";
 import { parseFloatTimeFromRawTimeValues } from "../../utils/typeUtilities/floatTime.ts";
 import {
     getCurrentTime,
@@ -53,7 +51,7 @@ const Calculator: FC = () => {
         updateWorkTime
     } = useContext<AppContextValues>(AppContext);
 
-    const { overTimeAutomatic } = useContext<SettingContextValues>(SettingContext);
+    const { overTimeAutomatic, countdownColors } = useContext<SettingContextValues>(SettingContext);
 
     const handleStartTimeChange = (val: Time): void => {
         const endTime = calculateNormalEnd(val, breakTime, workTime);
@@ -149,7 +147,7 @@ const Calculator: FC = () => {
             <div className={"pt-4"}>
                 <Countdown
                     end={parseTimeToDate(endTime)}
-                    colorTheme={getStorageValue("azr_countdownColors") as CountdownColors}
+                    colorTheme={countdownColors}
                     onEnd={() => {
                         if (!isDefaultTimeValue(endTime)) handleWorkTimeEnd();
                     }}

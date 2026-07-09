@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import type { Time } from "../importantTypes.ts";
 import type { ColorTheme, CountdownColors } from "../themes.ts";
 
@@ -32,4 +34,15 @@ export const getStorageValue = (key: StorageKey): StorageValue => {
 export const setStorageValue = (key: StorageKey, value: StorageValue): void => {
     const valAsString = JSON.stringify(value);
     localStorage.setItem(key, valAsString);
+};
+
+export const useStorageState = <T>(key: StorageKey): [T, (val: T) => void] => {
+    const [state, setState] = useState<T>(getStorageValue(key) as T);
+
+    const setValue = (val: T): void => {
+        setState(val);
+        setStorageValue(key, val as StorageValue);
+    };
+
+    return [state, setValue];
 };
