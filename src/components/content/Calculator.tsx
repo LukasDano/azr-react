@@ -14,7 +14,7 @@ import {
     calculateOptimizedEnd,
     roundTimeForFloat
 } from "../../utils/calculatingTimes.ts";
-import { defaultFloatValue, defaultWorkTime } from "../../utils/defaultValues.ts";
+import { defaultFloatValue, defaultWorkTime, emptyTimeValue } from "../../utils/defaultValues.ts";
 import { sendNotification } from "../../utils/notifications.ts";
 import { parseFloatTimeFromRawTimeValues } from "../../utils/typeUtilities/floatTime.ts";
 import {
@@ -105,11 +105,11 @@ const Calculator: FC<CalculatorProps> = ({ updateKey }) => {
     };
 
     useEffect(() => {
-        handleStartTimeChange(startTime);
+        if (!isSameTime(startTime, emptyTimeValue)) handleStartTimeChange(startTime);
     }, [startTime, updateKey, handleStartTimeChange]);
 
     useEffect(() => {
-        handleBreakTimeChange();
+        if (!isSameTime(startTime, emptyTimeValue)) handleBreakTimeChange();
     }, [breakTime, handleBreakTimeChange]);
 
     return (
