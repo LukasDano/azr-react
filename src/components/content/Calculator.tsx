@@ -110,7 +110,7 @@ const Calculator: FC<CalculatorProps> = ({ updateKey }) => {
 
     useEffect(() => {
         if (!isSameTime(startTime, emptyTimeValue)) handleBreakTimeChange();
-    }, [breakTime, handleBreakTimeChange]);
+    }, [startTime, breakTime, handleBreakTimeChange]);
 
     return (
         <div className={"mx-auto w-full max-w-3xl px-4 py-8"}>
