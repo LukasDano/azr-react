@@ -24,7 +24,7 @@ import {
     emptyTimeValue
 } from "../../utils/defaultValues.ts";
 import { sendNotification } from "../../utils/notifications.ts";
-import { getStorageValue } from "../../utils/storage/localStorageManger.ts";
+import { getStorageValue } from "../../utils/storage/storageManger.ts";
 import { parseFloatTimeFromRawTimeValues } from "../../utils/typeUtilities/floatTime.ts";
 import {
     getCurrentTime,
@@ -149,7 +149,7 @@ const Calculator: FC = () => {
             <div className={"pt-4"}>
                 <Countdown
                     end={parseTimeToDate(endTime)}
-                    colorTheme={getStorageValue("countdownColors") as CountdownColors}
+                    colorTheme={getStorageValue("azr_countdownColors") as CountdownColors}
                     onEnd={() => {
                         if (!isDefaultTimeValue(endTime)) handleWorkTimeEnd();
                     }}

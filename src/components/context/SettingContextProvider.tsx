@@ -6,7 +6,7 @@ import type { ToastPosition } from "../../utils/notifications.ts";
 import type { BackgroundTheme, ColorTheme, CountdownColors } from "../../utils/themes.ts";
 import type { SettingContextValues } from "./SettingContext.tsx";
 
-import { getStorageValue, setStorageValue } from "../../utils/storage/localStorageManger.ts";
+import { getStorageValue, setStorageValue } from "../../utils/storage/storageManger.ts";
 import { SettingContext } from "./SettingContext.tsx";
 
 type SettingContextProviderProps = {
@@ -14,56 +14,56 @@ type SettingContextProviderProps = {
 };
 
 export const SettingContextProvider: FC<SettingContextProviderProps> = ({ children }) => {
-    const [darkModeActive, setDarkModeActive] = useState<boolean>(getStorageValue("darkModeActive") as boolean);
+    const [darkModeActive, setDarkModeActive] = useState<boolean>(getStorageValue("azr_darkModeActive") as boolean);
     const [countdownColors, setCountdownColors] = useState<CountdownColors>(
-        getStorageValue("countdownColors") as CountdownColors
+        getStorageValue("azr_countdownColors") as CountdownColors
     );
-    const [colorTheme, setColorTheme] = useState<ColorTheme>(getStorageValue("colorTheme") as ColorTheme);
+    const [colorTheme, setColorTheme] = useState<ColorTheme>(getStorageValue("azr_colorTheme") as ColorTheme);
     const [overTimeAutomatic, setOverTimeAutomatic] = useState<boolean>(
-        getStorageValue("overTimeAutomatic") as boolean
+        getStorageValue("azr_overTimeAutomatic") as boolean
     );
-    const [showShortcuts, setShowShortcuts] = useState<boolean>(getStorageValue("showShortcuts") as boolean);
+    const [showShortcuts, setShowShortcuts] = useState<boolean>(getStorageValue("azr_showShortcuts") as boolean);
     const [toastPosition, setToastPosition] = useState<ToastPosition>(
-        getStorageValue("toastPosition") as ToastPosition
+        getStorageValue("azr_toastPosition") as ToastPosition
     );
 
     const [backgroundTheme, setBackgroundTheme] = useState<BackgroundTheme>(
-        getStorageValue("backgroundTheme") as BackgroundTheme
+        getStorageValue("azr_backgroundTheme") as BackgroundTheme
     );
 
     const updateDarkModeActive = (val: boolean): void => {
         setDarkModeActive(val);
-        setStorageValue("darkModeActive", val);
+        setStorageValue("azr_darkModeActive", val);
     };
 
     const updateCountdownColors = (val: CountdownColors): void => {
         setCountdownColors(val);
-        setStorageValue("countdownColors", val);
+        setStorageValue("azr_countdownColors", val);
     };
 
     const updateColorTheme = (val: ColorTheme): void => {
         setColorTheme(val);
-        setStorageValue("colorTheme", val);
+        setStorageValue("azr_colorTheme", val);
     };
 
     const updateOverTimeAutomatic = (val: boolean): void => {
         setOverTimeAutomatic(val);
-        setStorageValue("overTimeAutomatic", val);
+        setStorageValue("azr_overTimeAutomatic", val);
     };
 
     const updateShowShortcuts = (val: boolean): void => {
         setShowShortcuts(val);
-        setStorageValue("showShortcuts", val);
+        setStorageValue("azr_showShortcuts", val);
     };
 
     const updateToastPosition = (val: ToastPosition): void => {
         setToastPosition(val);
-        setStorageValue("toastPosition", val);
+        setStorageValue("azr_toastPosition", val);
     };
 
     const updateBackgroundTheme = (val: BackgroundTheme): void => {
         setBackgroundTheme(val);
-        setStorageValue("backgroundTheme", val);
+        setStorageValue("azr_backgroundTheme", val);
     };
 
     const settingContextValues = useMemo<SettingContextValues>(

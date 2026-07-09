@@ -1,6 +1,7 @@
 ﻿import type { Time } from "./importantTypes.ts";
 
 import { getMonthName, getValidDateString } from "./dateUtility";
+import { emptyTimeValue } from "./defaultValues.ts";
 import { getCookie, setCookieForOneYear } from "./storage/cookieManager.ts";
 import { minutesToTime } from "./typeUtilities/time";
 
@@ -261,4 +262,18 @@ export const getMonthValueOfFlexOfficeCookie = (month: string): Record<FlexOffic
         };
 
     return flexOfficeCookieList[monthNum];
+};
+
+export type FlexOfficeResultContainer = {
+    calculatedMonth: number;
+    monthWorkDays: number;
+    workedDays: number;
+    restFlexOfficeTime: Time;
+};
+
+export const emtpyFlexOfficeResultContainer: FlexOfficeResultContainer = {
+    calculatedMonth: 0,
+    monthWorkDays: 0,
+    workedDays: 0,
+    restFlexOfficeTime: emptyTimeValue
 };

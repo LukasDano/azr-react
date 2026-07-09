@@ -23,10 +23,11 @@ type LoaderIcon = "bounce" | "climbing" | "clock" | "fade" | "grid" | "hash" | "
 
 type LoaderProps = {
     loaderIcon?: LoaderIcon;
-    loaderSize?: number;
+    loaderSize?: number | null;
+    useFullHeight?: boolean;
 };
 
-export const Loader: FC<LoaderProps> = ({ loaderIcon = "clock", loaderSize = null }) => {
+export const Loader: FC<LoaderProps> = ({ loaderIcon = "clock", loaderSize = null, useFullHeight = true }) => {
     const { darkModeActive, colorTheme } = useContext<SettingContextValues>(SettingContext);
 
     const loader = useMemo<ReactElement>(() => {
@@ -48,5 +49,9 @@ export const Loader: FC<LoaderProps> = ({ loaderIcon = "clock", loaderSize = nul
         return loaders[loaderIcon];
     }, [darkModeActive, colorTheme, loaderSize, loaderIcon]);
 
-    return <div className={"flex min-h-screen flex-col items-center justify-center"}>{loader}</div>;
+    return (
+        <div className={`flex ${useFullHeight ? "min-h-screen" : ""} flex-col items-center justify-center`}>
+            {loader}
+        </div>
+    );
 };

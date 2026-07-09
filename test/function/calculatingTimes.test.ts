@@ -19,7 +19,7 @@ import {
     roundTimeForFloat
 } from "../../src/utils/calculatingTimes.ts";
 import { defaultBreakTime, defaultWorkTime } from "../../src/utils/defaultValues.ts";
-import * as storage from "../../src/utils/storage/localStorageManger.ts";
+import * as storage from "../../src/utils/storage/storageManger.ts";
 import { isValidTime } from "../../src/utils/typeUtilities/time.ts";
 
 describe("calculateStartEndeTimeDiff", () => {

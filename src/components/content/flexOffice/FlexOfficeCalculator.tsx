@@ -1,15 +1,18 @@
 import type { FC } from "react";
 
+import { useQuery } from "@tanstack/react-query";
 import { Info } from "lucide-react";
 import { useState } from "react";
 
+import type { FlexOfficeResultContainer } from "../../../utils/flexOfficeUtility";
 import type { Time } from "../../../utils/importantTypes";
 
-import { defaultQuote, emptyTimeValue, flexOfficeQuoten } from "../../../utils/defaultValues";
+import { defaultQuote, flexOfficeQuoten } from "../../../utils/defaultValues";
 import {
     calculateFlexOfficeStats,
     calculateMaxDaysForMonthByString,
     currentMonthName,
+    emtpyFlexOfficeResultContainer,
     findYearForMonthWithSixMonthRange,
     getMonthNumberFromMonthString,
     getValueForKeyFromCookie,
@@ -36,12 +39,11 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
     const [offDays, setOffDays] = useState<number>(getValueForKeyFromCookie("offDays"));
     const [flexHours, setFlexHours] = useState<number>(getValueForKeyFromCookie("flexHours"));
     const [flexMins, setFlexMins] = useState<number>(getValueForKeyFromCookie("flexMins"));
+
     const [selectedFlexQuote, setSelectedFlexQuote] = useState<number>(defaultQuote);
     const [selectedMonth, setSelectedMonth] = useState<string>(currentMonthName);
-    const [workDays, setWorkDays] = useState<number>(0);
-    const [restFlexTime, setRestFlexTime] = useState<Time>(emptyTimeValue);
 
-    const handleCalculate = async (): Promise<void> => {
+    const handleCalculate = async (): Promise<FlexOfficeResultContainer> => {
         const flexTime: Time = [flexHours, flexMins];
         const selectedMonthNum = getMonthNumberFromMonthString(selectedMonth) as number;
         const year = findYearForMonthWithSixMonthRange(selectedMonthNum);
@@ -56,11 +58,23 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
         );
         restFlexTimeThisMonth = checkIfTimeIsBelowZero(restFlexTimeThisMonth);
 
-        setWorkDays(workDaysInMonth);
-        setRestFlexTime(restFlexTimeThisMonth);
-
         setFlexOfficeCookie(selectedMonth, offDays, [flexHours, flexMins]);
+
+        setShowResult(true);
+
+        return {
+            calculatedMonth: getMonthNumberFromMonthString(selectedMonth) as number,
+            monthWorkDays: workDaysInMonth,
+            workedDays: workDaysInMonth - offDays,
+            restFlexOfficeTime: restFlexTimeThisMonth
+        };
     };
+
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["handleCalculate"],
+        queryFn: handleCalculate,
+        enabled: showResult
+    });
 
     return (
         <BaseModal modalTitle={"Flex-Office-Rechner"} isOpen={isOpen} onClose={onClose}>
@@ -136,22 +150,19 @@ const FlexOfficeCalculator: FC<FlexOfficeCalculatorProps> = ({ isOpen, onClose }
                         </div>
                     </div>
 
-                    <FlexOfficeResult
-                        show={showResult}
-                        calculatedMonth={getMonthNumberFromMonthString(selectedMonth) as number}
-                        monthWorkDays={workDays}
-                        workedDays={workDays - offDays}
-                        restFlexOfficeTime={restFlexTime}
-                    />
+                    {showResult && (
+                        <FlexOfficeResult
+                            result={data ?? emtpyFlexOfficeResultContainer}
+                            isLoading={isLoading}
+                            isError={isError}
+                        />
+                    )}
 
                     <div className={"flex w-full items-center justify-center"}>
                         <BaseButton
                             text={"Berechnen"}
-                            tooltip={"Flexoffice Zeit berechnen"}
-                            onClick={async () => {
-                                await handleCalculate();
-                                setShowResult(true);
-                            }}
+                            tooltip={"Flex-Office Zeit berechnen"}
+                            onClick={handleCalculate}
                         />
                     </div>
                 </div>
