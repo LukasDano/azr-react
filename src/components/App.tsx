@@ -1,7 +1,6 @@
 import type { FC } from "react";
 
 import { useHotkey } from "@tanstack/react-hotkeys";
-import { Loader } from "lucide-react";
 import { lazy, Suspense, useContext, useState } from "react";
 import { Flip, ToastContainer } from "react-toastify";
 
@@ -24,6 +23,7 @@ import { Header } from "./content/header/Header";
 import { AppContext } from "./context/AppContext";
 import { SettingContext } from "./context/SettingContext";
 import { BaseModal } from "./library/BaseModal.tsx";
+import { Loader } from "./library/Loader.tsx";
 import { Settings } from "./settings/Settings";
 
 const Calculator = lazy(() => import("./content/Calculator.tsx"));
