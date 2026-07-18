@@ -27,18 +27,18 @@
         "@tanstack/react-query": "^5.101.2",
         "@tippyjs/react": "^4.2.6",
         "@uiw/react-color": "^2.10.3",
-        "lucide-react": "^1.24.0",
+        "lucide-react": "^1.25.0",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
         "react-icons": "^5.7.0",
         "react-select": "^5.10.2",
         "react-spinners": "^0.17.0",
         "react-toastify": "^11.1.0",
-        "tailwindcss": "^4.3.2"
+        "tailwindcss": "^4.3.3"
     },
     "devDependencies": {
         "@rolldown/plugin-babel": "^0.2.3",
-        "@tailwindcss/vite": "^4.3.2",
+        "@tailwindcss/vite": "^4.3.3",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
         "@types/node": "^26.1.1",
@@ -47,11 +47,11 @@
         "@vitejs/plugin-react": "^6.0.3",
         "babel-plugin-react-compiler": "^1.0.0",
         "jsdom": "^29.1.1",
-        "oxfmt": "^0.58.0",
-        "oxlint": "1.73.0",
-        "oxlint-tsgolint": "0.24.0",
+        "oxfmt": "^0.59.0",
+        "oxlint": "1.74.0",
+        "oxlint-tsgolint": "0.25.0",
         "typescript": "^7.0.2",
-        "vite": "^8.1.4",
+        "vite": "^8.1.5",
         "vitest": "^4.1.10"
     }
 }
