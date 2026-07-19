@@ -4,6 +4,7 @@ import { useContext, useMemo, useState } from "react";
 
 import type { ToastPosition } from "../../utils/notifications.ts";
 import type { BackgroundTheme, ColorTheme, ThemeType } from "../../utils/themes.ts";
+import type { PackageInfos } from "../../utils/utils.ts";
 import type { CountdownUnit } from "../content/countdown/CountdownElement.tsx";
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 import type { SettingId } from "./settingConfig.tsx";
@@ -11,8 +12,7 @@ import type { SettingId } from "./settingConfig.tsx";
 import { SettingsError } from "../../utils/errors/SettingsError.ts";
 import { sendNotification } from "../../utils/notifications.ts";
 import { getBackgroundTheme } from "../../utils/themes.ts";
-import { getPackageInfos } from '../../utils/utils.ts';
-import type { PackageInfos } from '../../utils/utils.ts';
+import { getPackageInfos } from "../../utils/utils.ts";
 import { SettingContext } from "../context/setting/SettingContext.tsx";
 import { MultipleValueSelector } from "../library/inputs/MultipleValueSelector.tsx";
 import { TabBar } from "../library/TabBar.tsx";
