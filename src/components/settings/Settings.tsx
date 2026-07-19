@@ -8,10 +8,11 @@ import type { CountdownUnit } from "../content/countdown/CountdownElement.tsx";
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 import type { SettingId } from "./settingConfig.tsx";
 
-import { name, version } from "../../../package.json";
 import { SettingsError } from "../../utils/errors/SettingsError.ts";
 import { sendNotification } from "../../utils/notifications.ts";
 import { getBackgroundTheme } from "../../utils/themes.ts";
+import { getPackageInfos } from '../../utils/utils.ts';
+import type { PackageInfos } from '../../utils/utils.ts';
 import { SettingContext } from "../context/setting/SettingContext.tsx";
 import { MultipleValueSelector } from "../library/inputs/MultipleValueSelector.tsx";
 import { TabBar } from "../library/TabBar.tsx";
@@ -143,12 +144,14 @@ export const Settings: FC = () => {
         }
     };
 
-    if (error) throw error;
+    const packageInfos = useMemo<PackageInfos>(getPackageInfos, []);
 
     const settingsContainerClasses = useMemo(
         () => `flex flex-col rounded-2xl bg-gray-200 p-4 shadow-sm ${getBackgroundTheme(backgroundTheme).settingsBg}`,
         [backgroundTheme]
     );
+
+    if (error) throw error;
 
     return (
         <div className={"flex h-full w-full flex-col gap-4 overflow-auto p-4"}>
@@ -199,10 +202,20 @@ export const Settings: FC = () => {
 
             <div className={settingsContainerClasses}>
                 <div className={"flex flex-col items-center"}>
-                    <span className={"text-xl font-bold text-gray-900 dark:text-gray-100"}>{name}</span>
+                    <span className={"text-xl font-bold text-gray-900 dark:text-gray-100"}>
+                        {packageInfos.projectName}
+                    </span>
                     <span className={"text-sm text-gray-500 dark:text-gray-300"}>
                         {"Version "}
-                        {version}
+                        {packageInfos.version}
+                    </span>
+                    <span className={"text-sm text-gray-500 dark:text-gray-300"}>
+                        {"TypeScript "}
+                        {packageInfos.typeScriptVersion}
+                    </span>
+                    <span className={"text-sm text-gray-500 dark:text-gray-300"}>
+                        {"React "}
+                        {packageInfos.reactVersion}
                     </span>
                 </div>
             </div>
