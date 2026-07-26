@@ -22,6 +22,7 @@ import { SettingContext } from "../../context/setting/SettingContext.tsx";
 import { SingleValueSelector } from "../../library/inputs/SingleValueSelector.tsx";
 import { ActionHeader } from "./ActionHeader";
 import { HeaderButton } from "./HeaderButton";
+import { HeaderLinkButton } from "./HeaderLinkButton.tsx";
 
 type HeaderProps = {
     openSettings: () => void;
@@ -105,10 +106,11 @@ export const Header: FC<HeaderProps> = ({
                         onChange={(val) => handleWorkTimeModeChange(val as string)}
                     />
 
-                    <HeaderButton
+                    <HeaderLinkButton
                         icon={<MdHelpOutline className={"h-6 w-6"} />}
-                        tooltip={"Problem melden"}
-                        onClick={() => open("https://github.com/LukasDano/azr-react/issues", "_blank")}
+                        tooltip={"Ticket erstellen"}
+                        url={"https://github.com/LukasDano/azr-react/issues"}
+                        openInNewTab={true}
                     />
                     <HeaderButton
                         icon={<PiGearDuotone className={"h-6 w-6"} />}
