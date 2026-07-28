@@ -8,23 +8,27 @@ import { SettingContext } from "../context/setting/SettingContext.tsx";
 import { SettingsToggle } from "./inputs/SettingsToggle";
 
 const FunctionSettings: FC = () => {
-    const { overTimeAutomatic, updateOverTimeAutomatic, showShortcuts, updateShowShortcuts } =
-        useContext<SettingContextValues>(SettingContext);
+    const {
+        overTimeAutomatic,
+        updateOverTimeAutomatic,
+        showShortcuts,
+        updateShowShortcuts,
+    } = useContext<SettingContextValues>(SettingContext);
 
     return (
-        <>
-            <SettingsToggle
-                settingName={"Shortcuts anzeigen"}
-                defaultValue={showShortcuts}
-                onToggle={updateShowShortcuts}
-            />
+<>
+                        <SettingsToggle
+                            settingName={"Shortcuts anzeigen"}
+                            defaultValue={showShortcuts}
+                            onToggle={updateShowShortcuts}
+                        />
 
-            <SettingsToggle
-                settingName={"Nach Arbeitsende automatisch erhöhen"}
-                defaultValue={overTimeAutomatic}
-                onToggle={updateOverTimeAutomatic}
-            />
-        </>
+                        <SettingsToggle
+                            settingName={"Nach Arbeitsende automatisch erhöhen"}
+                            defaultValue={overTimeAutomatic}
+                            onToggle={updateOverTimeAutomatic}
+                        />
+                        </>
     );
 };
 
