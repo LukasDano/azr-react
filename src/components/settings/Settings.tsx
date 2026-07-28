@@ -25,13 +25,13 @@ export const Settings: FC = () => {
 
             <div className={"gap-4 flex flex-col rounded-2xl bg-gray-200 p-4 shadow-sm dark:bg-gray-600"}>
                 {settingTabsByName.Design.id === activeTabId && (
-                <Suspense fallback={<Loader loaderIcon={"fade"} />}>
+                <Suspense fallback={<Loader loaderIcon={"circle"} useFullHeight={false} />}>
                         <DesignSettings />
                     </Suspense>
                 )}
 
                 {settingTabsByName.Funktionen.id === activeTabId && (
-                    <Suspense fallback={<Loader loaderIcon={"fade"} />}>
+                    <Suspense fallback={<Loader loaderIcon={"fade"} useFullHeight={false} />}>
                         <FunctionSettings />
                     </Suspense>
                 )}
