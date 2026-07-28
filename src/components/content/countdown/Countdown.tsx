@@ -77,7 +77,9 @@ export const Countdown: FC<CountdownProps> = ({
 
     return (
         <div
-            className={"mx-auto flex h-32 w-2/3 items-center justify-center gap-6 rounded-2xl bg-zinc-400 p-6 shadow-xl dark:bg-gray-800"}
+            className={
+                "mx-auto flex h-32 w-2/3 items-center justify-center gap-6 rounded-2xl bg-zinc-400 p-6 shadow-xl dark:bg-gray-800"
+            }
         >
             {createCountdownElements(time)
                 .filter((unit) => (showDays ? true : unit.key !== "days"))

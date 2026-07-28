@@ -82,7 +82,9 @@ export const Header: FC<HeaderProps> = ({
     return (
         <>
             <nav
-                className={"sticky top-0 z-40 flex items-center justify-between border-b border-slate-300 bg-zinc-700 p-4 shadow dark:border-slate-900 dark:bg-gray-800"}
+                className={
+                    "sticky top-0 z-40 flex items-center justify-between border-b border-slate-300 bg-zinc-700 p-4 shadow dark:border-slate-900 dark:bg-gray-800"
+                }
             >
                 <h1 className={"text-4xl font-bold text-white"}>{"Arbeitszeitrechner"}</h1>
 

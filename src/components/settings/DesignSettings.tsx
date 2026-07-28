@@ -23,7 +23,7 @@ const DesignSettings: FC = () => {
         colorTheme,
         updateColorTheme,
         toastPosition,
-        updateToastPosition,
+        updateToastPosition
     } = useContext<SettingContextValues>(SettingContext);
 
     const handleCountdownColorChange = (key: CountdownUnit, val: string): void => {
@@ -45,52 +45,48 @@ const DesignSettings: FC = () => {
     };
 
     return (
-<>
-                        <SettingsToggle
-                            settingName={"DarkMode"}
-                            defaultValue={darkModeActive}
-                            onToggle={updateDarkModeActive}
-                        />
+        <>
+            <SettingsToggle settingName={"DarkMode"} defaultValue={darkModeActive} onToggle={updateDarkModeActive} />
 
-                        <MultipleValueSelector
-                            name={"LightMode Theme"}
-                            defaultOption={colorTheme.light}
-                            options={Object.keys(availableThemes)}
-                            onChange={(val) => handleThemeChange("light", val as string)}
-                        />
+            <MultipleValueSelector
+                name={"LightMode Theme"}
+                defaultOption={colorTheme.light}
+                options={Object.keys(availableThemes)}
+                onChange={(val) => handleThemeChange("light", val as string)}
+            />
 
-                        <MultipleValueSelector
-                            name={"DarkMode Theme"}
-                            defaultOption={colorTheme.light}
-                            options={Object.keys(availableThemes)}
-                            onChange={(val) => handleThemeChange("dark", val as string)}
-                        />
+            <MultipleValueSelector
+                name={"DarkMode Theme"}
+                defaultOption={colorTheme.light}
+                options={Object.keys(availableThemes)}
+                onChange={(val) => handleThemeChange("dark", val as string)}
+            />
 
-                        <MultipleValueSelector
-                            name={"Benachrichtigungsposition"}
-                            defaultOption={toastPosition}
-                            options={Object.keys(notificationPositions)}
-                            onChange={(val) => updateToastPosition(val as ToastPosition)}
-                        />
+            <MultipleValueSelector
+                name={"Benachrichtigungsposition"}
+                defaultOption={toastPosition}
+                options={Object.keys(notificationPositions)}
+                onChange={(val) => updateToastPosition(val as ToastPosition)}
+            />
 
-                        <ColorPicker
-                            label={"Countdown Farbe für Stunden"}
-                            color={countdownColors.hours}
-                            onColorChange={(val) => handleCountdownColorChange("hours", val)}
-                        />
+            <ColorPicker
+                label={"Countdown Farbe für Stunden"}
+                color={countdownColors.hours}
+                onColorChange={(val) => handleCountdownColorChange("hours", val)}
+            />
 
-                        <ColorPicker
-                            label={"Countdown Farbe für Minuten"}
-                            color={countdownColors.minutes}
-                            onColorChange={(val) => handleCountdownColorChange("minutes", val)}
-                        />
+            <ColorPicker
+                label={"Countdown Farbe für Minuten"}
+                color={countdownColors.minutes}
+                onColorChange={(val) => handleCountdownColorChange("minutes", val)}
+            />
 
-                        <ColorPicker
-                            label={"Countdown Farbe für Sekunden"}
-                            color={countdownColors.seconds}
-                            onColorChange={(val) => handleCountdownColorChange("seconds", val)}
-                        />
-                        </>
+            <ColorPicker
+                label={"Countdown Farbe für Sekunden"}
+                color={countdownColors.seconds}
+                onColorChange={(val) => handleCountdownColorChange("seconds", val)}
+            />
+        </>
     );
 };
 

@@ -5,9 +5,9 @@ import { lazy, Suspense, useMemo, useState } from "react";
 import type { PackageInfos } from "../../utils/utils.ts";
 
 import { getPackageInfos } from "../../utils/utils.ts";
+import { Loader } from "../library/Loader.tsx";
 import { TabBar } from "../library/TabBar.tsx";
 import { settingTabs, settingTabsByName } from "./settingConfig.tsx";
-import { Loader } from "../library/Loader.tsx";
 
 const DesignSettings = lazy(() => import("./DesignSettings.tsx"));
 const FunctionSettings = lazy(() => import("./FunctionSettings.tsx"));
@@ -23,9 +23,9 @@ export const Settings: FC = () => {
                 <TabBar tabs={settingTabs} activeTabId={activeTabId} onTabChange={setActiveTabId} />
             </div>
 
-            <div className={"gap-4 flex flex-col rounded-2xl bg-gray-200 p-4 shadow-sm dark:bg-gray-600"}>
+            <div className={"flex flex-col gap-4 rounded-2xl bg-gray-200 p-4 shadow-sm dark:bg-gray-600"}>
                 {settingTabsByName.Design.id === activeTabId && (
-                <Suspense fallback={<Loader loaderIcon={"circle"} useFullHeight={false} />}>
+                    <Suspense fallback={<Loader loaderIcon={"circle"} useFullHeight={false} />}>
                         <DesignSettings />
                     </Suspense>
                 )}
@@ -42,13 +42,13 @@ export const Settings: FC = () => {
                     <span className={"text-xl font-bold text-gray-900 dark:text-gray-100"}>
                         {packageInfos.projectName}
                     </span>
-                {Object.entries(packageInfos)
+                    {Object.entries(packageInfos)
                         .filter(([key]) => key !== "projectName")
-                        .map(([key, val]) =>  (
-                    <span className={"text-sm text-gray-500 dark:text-gray-300"}>
-                        {`${key.toLocaleUpperCase()}: ${val}`}
-                    </span>
-                ))}
+                        .map(([key, val]) => (
+                            <span key={key} className={"text-sm text-gray-500 dark:text-gray-300"}>
+                                {`${key.toLocaleUpperCase()}: ${val}`}
+                            </span>
+                        ))}
                 </div>
             </div>
         </div>

@@ -27,7 +27,9 @@ export const ActionHeader: FC<ActionHeaderProps> = ({
 
     return (
         <nav
-            className={"sticky top-0 z-39 flex justify-center rounded-b-xl border-b border-slate-500 bg-zinc-600 p-2 shadow-sm dark:border-slate-900 dark:bg-gray-700"}
+            className={
+                "sticky top-0 z-39 flex justify-center rounded-b-xl border-b border-slate-500 bg-zinc-600 p-2 shadow-sm dark:border-slate-900 dark:bg-gray-700"
+            }
         >
             <div className={"flex flex-wrap items-center justify-center gap-5"}>
                 <HeaderButton
