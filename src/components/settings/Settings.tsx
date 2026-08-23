@@ -15,7 +15,7 @@ const FunctionSettings = lazy(() => import("./FunctionSettings.tsx"));
 export const Settings: FC = () => {
     const [activeTabId, setActiveTabId] = useState<number>(settingTabsByName.Design.id);
 
-    const packageInfos = useMemo<PackageInfos>(getPackageInfos, []);
+    const packageInfos = useMemo<PackageInfos>(() => getPackageInfos(), []);
 
     return (
         <div className={"flex h-full w-full flex-col gap-4 overflow-auto p-4"}>
