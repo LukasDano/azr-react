@@ -1,5 +1,7 @@
 import type { ColorTheme, ThemeColors, ThemeName } from "./themes.ts";
 
+import { name, version, dependencies, devDependencies } from "../../package.json";
+
 export const getPercent = (val: number, max: number): number => (val / max) * 100;
 
 export type CountdownTime = {
@@ -46,4 +48,20 @@ export const getColorForTheme = (darkModeActive: boolean, colorTheme: ColorTheme
 
     const theme = darkModeActive ? colorTheme.dark : colorTheme.light;
     return themeColors[theme][darkModeActive ? "dark" : "light"];
+};
+
+export type PackageInfos = {
+    projectName: string;
+    version: string;
+    reactVersion: string;
+    typeScriptVersion: string;
+};
+
+export const getPackageInfos = (): PackageInfos => {
+    return {
+        projectName: name,
+        version: version,
+        reactVersion: dependencies.react.replace("^", ""),
+        typeScriptVersion: devDependencies.typescript.replace("^", "")
+    };
 };

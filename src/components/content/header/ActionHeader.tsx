@@ -5,7 +5,6 @@ import { useContext } from "react";
 
 import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
 
-import { getBackgroundTheme } from "../../../utils/themes.ts";
 import { SettingContext } from "../../context/setting/SettingContext.tsx";
 import { HeaderButton } from "./HeaderButton";
 
@@ -24,11 +23,13 @@ export const ActionHeader: FC<ActionHeaderProps> = ({
     openFlexOfficeAction,
     resetInputs
 }) => {
-    const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
+    const { showShortcuts } = useContext<SettingContextValues>(SettingContext);
 
     return (
         <nav
-            className={`sticky top-0 z-39 flex justify-center rounded-b-xl border-b border-slate-500 bg-zinc-600 p-2 shadow-sm ${getBackgroundTheme(backgroundTheme).actionHeaderBg}`}
+            className={
+                "sticky top-0 z-39 flex justify-center rounded-b-xl border-b border-slate-500 bg-zinc-600 p-2 shadow-sm dark:border-slate-900 dark:bg-gray-700"
+            }
         >
             <div className={"flex flex-wrap items-center justify-center gap-5"}>
                 <HeaderButton

@@ -15,13 +15,13 @@ import {
     defaultWorkTimeForSixHourMode,
     emptyTimeValue
 } from "../../../utils/defaultValues.ts";
-import { getBackgroundTheme } from "../../../utils/themes.ts";
 import { isSameTime, newTime, parseStringToTime, parseTimeToString } from "../../../utils/typeUtilities/time";
 import { AppContext } from "../../context/app/AppContext.tsx";
 import { SettingContext } from "../../context/setting/SettingContext.tsx";
 import { SingleValueSelector } from "../../library/inputs/SingleValueSelector.tsx";
 import { ActionHeader } from "./ActionHeader";
 import { HeaderButton } from "./HeaderButton";
+import { HeaderLinkButton } from "./HeaderLinkButton.tsx";
 
 type HeaderProps = {
     openSettings: () => void;
@@ -40,7 +40,7 @@ export const Header: FC<HeaderProps> = ({
     currentStatsAction,
     resetInputs
 }) => {
-    const { showShortcuts, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
+    const { showShortcuts } = useContext<SettingContextValues>(SettingContext);
     const { breakTime, updateBreakTime, workTime, updateWorkTime } = useContext<AppContextValues>(AppContext);
 
     const [actionHeaderOpen, setActionHeaderOpen] = useState<boolean>(false);
@@ -82,7 +82,9 @@ export const Header: FC<HeaderProps> = ({
     return (
         <>
             <nav
-                className={`sticky top-0 z-40 flex items-center justify-between border-b border-slate-300 bg-zinc-700 p-4 shadow ${getBackgroundTheme(backgroundTheme).headerBg}`}
+                className={
+                    "sticky top-0 z-40 flex items-center justify-between border-b border-slate-300 bg-zinc-700 p-4 shadow dark:border-slate-900 dark:bg-gray-800"
+                }
             >
                 <h1 className={"text-4xl font-bold text-white"}>{"Arbeitszeitrechner"}</h1>
 
@@ -105,10 +107,11 @@ export const Header: FC<HeaderProps> = ({
                         onChange={(val) => handleWorkTimeModeChange(val as string)}
                     />
 
-                    <HeaderButton
+                    <HeaderLinkButton
                         icon={<MdHelpOutline className={"h-6 w-6"} />}
-                        tooltip={"Problem melden"}
-                        onClick={() => open("https://github.com/LukasDano/azr-react/issues", "_blank")}
+                        tooltip={"Ticket erstellen"}
+                        url={"https://github.com/LukasDano/azr-react/issues"}
+                        openInNewTab={true}
                     />
                     <HeaderButton
                         icon={<PiGearDuotone className={"h-6 w-6"} />}
