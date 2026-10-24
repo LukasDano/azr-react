@@ -4,9 +4,10 @@ import { useContext } from "react";
 
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
-import { getThemeClasses } from "../../utils/themes.ts";
 import { SettingContext } from "../context/setting/SettingContext.tsx";
 import { Tooltip } from "./Tooltip.tsx";
+
+import { getThemeClasses } from "../../utils/themes.ts";
 
 type FromFunctionButtonProps = {
     onClick: () => void;
@@ -18,7 +19,7 @@ export const FromFunctionButton: FC<FromFunctionButtonProps> = ({ onClick, toolt
     const { colorTheme } = useContext<SettingContextValues>(SettingContext);
 
     return (
-        <Tooltip tooltip={tooltip} animation={"scale"} disabled={tooltip === ""}>
+        <Tooltip tooltip={tooltip} disabled={tooltip === ""}>
             <button
                 onClick={onClick}
                 className={`flex h-12 flex-1 items-center justify-center rounded p-2 text-white shadow ${getThemeClasses(colorTheme)}`}

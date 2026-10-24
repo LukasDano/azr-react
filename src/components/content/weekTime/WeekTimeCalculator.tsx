@@ -2,16 +2,17 @@ import type { FC } from "react";
 
 import { useState } from "react";
 
+import { BaseButton } from "../../library/BaseButton.tsx";
+import { BaseModal } from "../../library/BaseModal.tsx";
+import { TimeInputField } from "../../library/inputs/TimeInputField.tsx";
+import { WeekTimeResult } from "./WeekTimeResult.tsx";
+
 import type { Time, WeekDay, WeekTime } from "../../../utils/importantTypes.ts";
 
 import { emptyTimeValue } from "../../../utils/defaultValues.ts";
 import { useCookieState } from "../../../utils/storage/cookieManager.ts";
 import { parseWeekTimeToTime } from "../../../utils/typeUtilities/weekTime.ts";
 import { calculateWeekOverTime } from "../../../utils/weekTimeCalculatingUtility.ts";
-import { BaseButton } from "../../library/BaseButton.tsx";
-import { BaseModal } from "../../library/BaseModal.tsx";
-import { TimeInputField } from "../../library/inputs/TimeInputField.tsx";
-import { WeekTimeResult } from "./WeekTimeResult.tsx";
 
 type WeekTimeCalculatorProps = {
     isOpen: boolean;

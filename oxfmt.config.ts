@@ -14,19 +14,50 @@ export default defineConfig({
     insertFinalNewline: true,
     sortImports: {
         internalPattern: ["@/**", "~/**"],
+        customGroups: [
+            {
+                groupName: "tsx-type",
+                elementNamePattern: ["**/*.tsx", "*.tsx"],
+                selector: "import",
+                modifiers: ["type"]
+            },
+            {
+                groupName: "tsx-value",
+                elementNamePattern: ["**/*.tsx", "*.tsx"],
+                selector: "import",
+                modifiers: ["value"]
+            },
+            {
+                groupName: "ts-type",
+                elementNamePattern: ["**/*.ts", "*.ts"],
+                selector: "import",
+                modifiers: ["type"]
+            },
+            {
+                groupName: "ts-value",
+                elementNamePattern: ["**/*.ts", "*.ts"],
+                selector: "import",
+                modifiers: ["value"]
+            }
+        ],
         groups: [
             "type-external",
+            { newlinesBetween: true },
+
             ["value-builtin", "value-external"],
-
             { newlinesBetween: true },
 
-            "type-internal",
-            "value-internal",
-
+            "tsx-type",
             { newlinesBetween: true },
 
-            ["type-parent", "type-sibling", "type-index"],
-            ["value-parent", "value-sibling", "value-index"],
+            "tsx-value",
+            { newlinesBetween: true },
+
+            "ts-type",
+            { newlinesBetween: true },
+
+            "ts-value",
+            { newlinesBetween: true },
 
             "unknown"
         ]

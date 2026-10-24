@@ -63,11 +63,11 @@ const sendInfoNotification = ({ msg, autoClose = 5000, css = {} }: Omit<Notifica
 };
 
 const sendWarnNotification = ({ msg, autoClose = 5000, css = {} }: Omit<NotificationParams, "lvl">): void => {
-    toast.info(msg, { theme: "colored", autoClose: autoClose, style: { ...getColorsCSS("WARN"), ...css } });
+    toast.warn(msg, { theme: "colored", autoClose: autoClose, style: { ...getColorsCSS("WARN"), ...css } });
 };
 
 const sendErrorNotification = ({ msg, autoClose = 5000, css = {} }: Omit<NotificationParams, "lvl">): void => {
-    toast.info(msg, { theme: "colored", autoClose: autoClose, style: { ...getColorsCSS("ERROR"), ...css } });
+    toast.error(msg, { theme: "colored", autoClose: autoClose, style: { ...getColorsCSS("ERROR"), ...css } });
 };
 
 const isDarkModeActive = (): boolean => {

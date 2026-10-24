@@ -7,23 +7,24 @@ import { Flip, ToastContainer } from "react-toastify";
 import type { AppContextValues } from "./context/app/AppContext.tsx";
 import type { SettingContextValues } from "./context/setting/SettingContext.tsx";
 
+import { ErrorBoundary } from "./boundaries/ErrorBoundary.tsx";
+import { PanelErrorBoundary } from "./boundaries/PanelErrorBoundary.tsx";
+import { AppContext } from "./context/app/AppContext.tsx";
+import { SettingContext } from "./context/setting/SettingContext.tsx";
+import { BaseModal } from "./library/BaseModal.tsx";
+import { Loader } from "./library/Loader.tsx";
+
+import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from "../utils/defaultValues.ts";
+import { notificationPositions, sendNotification } from "../utils/notifications.ts";
+
 import {
     calculateGleitzeit,
     calculateIstTime,
     calculateStartEndeTimeDiff,
     createGleitzeitAusgabeFromFloat
 } from "../utils/calculatingTimes";
-import { defaultBreakTime, defaultFloatValue, defaultWorkTime, emptyTimeValue } from "../utils/defaultValues.ts";
-import { notificationPositions, sendNotification } from "../utils/notifications.ts";
-import { getBackgroundTheme } from "../utils/themes.ts";
 import { getCurrentTime, isDefaultTimeValue, parseTimeToString } from "../utils/typeUtilities/time";
-import { ErrorBoundary } from "./boundaries/ErrorBoundary.tsx";
-import { PanelErrorBoundary } from "./boundaries/PanelErrorBoundary.tsx";
 import { Header } from "./content/header/Header";
-import { AppContext } from "./context/app/AppContext.tsx";
-import { SettingContext } from "./context/setting/SettingContext.tsx";
-import { BaseModal } from "./library/BaseModal.tsx";
-import { Loader } from "./library/Loader.tsx";
 import { Settings } from "./settings/Settings";
 
 const Calculator = lazy(() => import("./content/Calculator.tsx"));
@@ -31,7 +32,7 @@ const FlexOfficeCalculator = lazy(() => import("./content/flexOffice/FlexOfficeC
 const WeekTimeCalculator = lazy(() => import("./content/weekTime/WeekTimeCalculator.tsx"));
 
 export const App: FC = () => {
-    const { darkModeActive, toastPosition, backgroundTheme } = useContext<SettingContextValues>(SettingContext);
+    const { darkModeActive, toastPosition } = useContext<SettingContextValues>(SettingContext);
     const {
         startTime,
         updateStartTime,
@@ -102,7 +103,7 @@ export const App: FC = () => {
                 className={"font-medium"}
             />
 
-            <div className={`h-screen ${getBackgroundTheme(backgroundTheme).appBg}`}>
+            <div className={"h-screen dark:bg-gray-900"}>
                 <BaseModal
                     modalTitle={"Settings"}
                     size={"md"}

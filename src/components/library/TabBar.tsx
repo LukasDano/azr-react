@@ -4,9 +4,9 @@ import { useContext } from "react";
 
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
-import { getThemeClasses } from "../../utils/themes";
 import { SettingContext } from "../context/setting/SettingContext.tsx";
-import { Tooltip } from "./Tooltip";
+
+import { getThemeClasses } from "../../utils/themes";
 
 export type Tab = {
     icon: ReactNode;
@@ -65,24 +65,22 @@ type TabButtonProps = {
 
 const TabButton: FC<TabButtonProps> = ({ tab, active, onClick }) => {
     return (
-        <Tooltip tooltip={tab.title}>
-            <button
-                role={"tab"}
-                aria-selected={active}
-                aria-controls={`panel-${tab.id}`}
-                id={`tab-${tab.id}`}
-                tabIndex={active ? 0 : -1}
-                className={
-                    "z-10 flex h-full min-w-0 flex-1 items-center justify-center text-xs font-medium transition-colors focus:outline-none"
-                }
-                onClick={onClick}
+        <button
+            role={"tab"}
+            aria-selected={active}
+            aria-controls={`panel-${tab.id}`}
+            id={`tab-${tab.id}`}
+            tabIndex={active ? 0 : -1}
+            className={
+                "z-10 flex h-full min-w-0 flex-1 items-center justify-center text-xs font-medium transition-colors focus:outline-none"
+            }
+            onClick={onClick}
+        >
+            <span
+                className={`truncate text-xs transition-colors ${active ? "font-semibold text-gray-900" : "text-gray-400 hover:text-white"}`}
             >
-                <span
-                    className={`truncate text-xs transition-colors ${active ? "font-semibold text-gray-900" : "text-gray-400 hover:text-white"}`}
-                >
-                    {tab.icon}
-                </span>
-            </button>
-        </Tooltip>
+                {tab.icon}
+            </span>
+        </button>
     );
 };

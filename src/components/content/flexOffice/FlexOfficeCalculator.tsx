@@ -4,10 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Info } from "lucide-react";
 import { useState } from "react";
 
-import type { FlexOfficeResultContainer } from "../../../utils/flexOfficeUtility";
-import type { Time } from "../../../utils/importantTypes";
+import { MultipleValueSelector } from "../../library/inputs/MultipleValueSelector.tsx";
 
 import { defaultQuote, flexOfficeQuoten } from "../../../utils/defaultValues";
+import type { FlexOfficeResultContainer } from "../../../utils/flexOfficeUtility";
 import {
     calculateFlexOfficeStats,
     calculateMaxDaysForMonthByString,
@@ -20,11 +20,11 @@ import {
     months,
     setFlexOfficeCookie
 } from "../../../utils/flexOfficeUtility";
+import type { Time } from "../../../utils/importantTypes";
 import { checkIfTimeIsBelowZero } from "../../../utils/typeUtilities/time";
 import { BaseButton } from "../../library/BaseButton";
 import { BaseModal } from "../../library/BaseModal";
 import { BaseFormInput } from "../../library/inputs/BaseValueIntput";
-import { MultipleValueSelector } from "../../library/inputs/MultipleValueSelector.tsx";
 import { Tooltip } from "../../library/Tooltip";
 import { FlexOfficeResult } from "./FlexOfficeResult";
 

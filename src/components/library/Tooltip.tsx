@@ -1,27 +1,61 @@
-import type { FC, ReactElement } from "react";
+import type { FC, ReactNode } from "react";
 
-import Tippy from "@tippyjs/react";
-
-type TooltipAnimations = "fade" | "perspective" | "scale" | "shift-toward" | "shift-away";
+import { useFloating, useHover, useFocus, useDismiss, useInteractions, offset, flip, shift } from "@floating-ui/react";
+import { useCallback, useState } from "react";
 
 type TooltipProps = {
-    tooltip: string;
-    children: ReactElement;
+    tooltip: ReactNode;
+    children: ReactNode;
     disabled?: boolean;
-    animation?: TooltipAnimations;
-    inertia?: boolean;
 };
 
-export const Tooltip: FC<TooltipProps> = ({
-    tooltip,
-    children,
-    disabled = false,
-    animation = "fade",
-    inertia = false
-}) => {
+export const Tooltip: FC<TooltipProps> = ({ tooltip, children, disabled = false }) => {
+    const [open, setOpen] = useState(false);
+
+    const { refs, floatingStyles, context } = useFloating({
+        open: disabled ? false : open,
+        onOpenChange: setOpen,
+        placement: "top",
+        middleware: [offset(5), flip(), shift()]
+    });
+
+    const { getReferenceProps, getFloatingProps } = useInteractions([
+        useHover(context),
+        useFocus(context),
+        useDismiss(context)
+    ]);
+
+    const setReference = useCallback(
+        (node: HTMLElement | null) => {
+            refs.setReference(node);
+        },
+        [refs]
+    );
+
+    const setFloating = useCallback(
+        (node: HTMLElement | null) => {
+            refs.setFloating(node);
+        },
+        [refs]
+    );
+
     return (
-        <Tippy content={tooltip} disabled={disabled} animation={animation} inertia={inertia}>
-            {children}
-        </Tippy>
+        <>
+            <span ref={setReference} {...getReferenceProps()}>
+                {children}
+            </span>
+
+            {open && !disabled && (
+                <div
+                    ref={setFloating}
+                    style={floatingStyles}
+                    {...getFloatingProps()}
+                    className={"min-w-fit rounded bg-gray-900 px-2 py-1 text-sm text-zinc-300"}
+                    data-testid={"tooltip"}
+                >
+                    {tooltip}
+                </div>
+            )}
+        </>
     );
 };

@@ -65,7 +65,7 @@ jobs:
 
     oxlint-check:
         runs-on: ubuntu-latest
-        needs: [setup, oxfmt-check, tsc-check]
+        needs: [setup, tsc-check]
         steps:
             - uses: actions/checkout@v6.0.2
 
@@ -83,7 +83,7 @@ jobs:
 
     vitest-function:
         runs-on: ubuntu-latest
-        needs: [tsc-check, oxfmt-check, oxlint-check]
+        needs: [setup, tsc-check]
         steps:
             - uses: actions/checkout@v6.0.2
 
@@ -101,7 +101,7 @@ jobs:
 
     vitest-component:
         runs-on: ubuntu-latest
-        needs: [tsc-check, oxfmt-check, oxlint-check]
+        needs: [setup, tsc-check]
         steps:
             - uses: actions/checkout@v6.0.2
 

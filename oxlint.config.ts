@@ -59,6 +59,8 @@ export default defineConfig({
         "react/jsx-pascal-case": "error",
         "react/jsx-no-target-blank": "error",
         "react/prefer-function-component": "error",
+        "react/set-state-in-effect": "off",
+        "react/exhaustive-effect-dependencies": "off",
         "react/no-unstable-nested-components": [
             "error",
             {

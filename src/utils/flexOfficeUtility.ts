@@ -1,8 +1,9 @@
 ﻿import type { Time } from "./importantTypes.ts";
 
-import { getMonthName, getValidDateString } from "./dateUtility";
 import { emptyTimeValue } from "./defaultValues.ts";
 import { getCookie, setCookieForOneYear } from "./storage/cookieManager.ts";
+
+import { getMonthName, getValidDateString } from "./dateUtility";
 import { minutesToTime } from "./typeUtilities/time";
 
 /**

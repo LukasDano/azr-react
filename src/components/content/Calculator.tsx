@@ -2,9 +2,16 @@ import type { FC } from "react";
 
 import { useCallback, useContext, useEffect } from "react";
 
-import type { FloatTime, Time } from "../../utils/importantTypes.ts";
 import type { AppContextValues } from "../context/app/AppContext.tsx";
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
+
+import { AppContext } from "../context/app/AppContext.tsx";
+import { SettingContext } from "../context/setting/SettingContext.tsx";
+import { FloatTimeInputField } from "../library/inputs/FloatTimeInputField.tsx";
+import { TimeInputField } from "../library/inputs/TimeInputField.tsx";
+import { Countdown } from "./countdown/Countdown.tsx";
+
+import type { FloatTime, Time } from "../../utils/importantTypes.ts";
 
 import {
     calculateGleitzeit,
@@ -24,11 +31,6 @@ import {
     isSameTime,
     parseTimeToDate
 } from "../../utils/typeUtilities/time.ts";
-import { AppContext } from "../context/app/AppContext.tsx";
-import { SettingContext } from "../context/setting/SettingContext.tsx";
-import { FloatTimeInputField } from "../library/inputs/FloatTimeInputField.tsx";
-import { TimeInputField } from "../library/inputs/TimeInputField.tsx";
-import { Countdown } from "./countdown/Countdown.tsx";
 
 type CalculatorProps = {
     updateKey: number;

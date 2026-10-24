@@ -2,12 +2,14 @@ import type { FC, ReactNode } from "react";
 
 import { useMemo } from "react";
 
-import type { ToastPosition } from "../../../utils/notifications.ts";
-import type { BackgroundTheme, ColorTheme, CountdownColors } from "../../../utils/themes.ts";
 import type { SettingContextValues } from "./SettingContext.tsx";
 
-import { useStorageState } from "../../../utils/storage/storageManger.ts";
 import { SettingContext } from "./SettingContext.tsx";
+
+import type { ToastPosition } from "../../../utils/notifications.ts";
+import type { ColorTheme, CountdownColors } from "../../../utils/themes.ts";
+
+import { useStorageState } from "../../../utils/storage/storageManger.ts";
 
 type SettingContextProviderProps = {
     children: ReactNode;
@@ -20,7 +22,6 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
     const [overTimeAutomatic, updateOverTimeAutomatic] = useStorageState<boolean>("azr_overTimeAutomatic");
     const [showShortcuts, updateShowShortcuts] = useStorageState<boolean>("azr_showShortcuts");
     const [toastPosition, updateToastPosition] = useStorageState<ToastPosition>("azr_toastPosition");
-    const [backgroundTheme, updateBackgroundTheme] = useStorageState<BackgroundTheme>("azr_backgroundTheme");
 
     const settingContextValues = useMemo<SettingContextValues>(
         () => ({
@@ -35,9 +36,7 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
             showShortcuts,
             updateShowShortcuts,
             toastPosition,
-            updateToastPosition,
-            backgroundTheme,
-            updateBackgroundTheme
+            updateToastPosition
         }),
         [
             darkModeActive,
@@ -51,9 +50,7 @@ export const SettingContextProvider: FC<SettingContextProviderProps> = ({ childr
             showShortcuts,
             updateShowShortcuts,
             toastPosition,
-            updateToastPosition,
-            backgroundTheme,
-            updateBackgroundTheme
+            updateToastPosition
         ]
     );
 

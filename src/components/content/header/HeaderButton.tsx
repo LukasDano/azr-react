@@ -1,16 +1,17 @@
-import type { FC, ReactNode } from "react";
+import type { FC, ReactElement } from "react";
 
 import { useContext } from "react";
 
 import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
 
-import { getThemeClasses } from "../../../utils/themes";
 import { SettingContext } from "../../context/setting/SettingContext.tsx";
+
+import { getThemeClasses } from "../../../utils/themes";
 import { Tooltip } from "../../library/Tooltip";
 
 type HeaderButtonProps = {
     onClick: () => void;
-    icon: ReactNode;
+    icon: ReactElement;
     tooltip: string;
 };
 

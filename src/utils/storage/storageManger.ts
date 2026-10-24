@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { Time } from "../importantTypes.ts";
 import type { ColorTheme, CountdownColors } from "../themes.ts";
 
-import { defaultBackgroundTheme, defaultColorTheme, defaultCountdownTheme } from "../themes.ts";
+import { defaultColorTheme, defaultCountdownTheme } from "../themes.ts";
 
 export type StorageKey =
     | "azr_darkModeActive"
@@ -11,8 +11,7 @@ export type StorageKey =
     | "azr_colorTheme"
     | "azr_overTimeAutomatic"
     | "azr_showShortcuts"
-    | "azr_toastPosition"
-    | "azr_backgroundTheme";
+    | "azr_toastPosition";
 
 export type StorageValue = Time | boolean | string | CountdownColors | ColorTheme;
 
@@ -22,8 +21,7 @@ const defaultValues: Record<StorageKey, StorageValue> = {
     azr_colorTheme: defaultColorTheme,
     azr_overTimeAutomatic: false,
     azr_showShortcuts: false,
-    azr_toastPosition: "bottomRight",
-    azr_backgroundTheme: defaultBackgroundTheme
+    azr_toastPosition: "bottomRight"
 };
 
 export const getStorageValue = (key: StorageKey): StorageValue => {

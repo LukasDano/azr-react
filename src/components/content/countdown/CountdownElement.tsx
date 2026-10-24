@@ -1,7 +1,8 @@
 import type { FC } from "react";
 
-import { getPercent } from "../../../utils/utils.ts";
 import { CountdownCircle } from "./CountdownCircle.tsx";
+
+import { getPercent } from "../../../utils/utils.ts";
 
 type TimeLabels = {
     days: string;

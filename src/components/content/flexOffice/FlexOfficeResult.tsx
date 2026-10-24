@@ -1,11 +1,12 @@
 import type { FC } from "react";
 
+import { PanelErrorBoundary } from "../../boundaries/PanelErrorBoundary.tsx";
+import { Loader } from "../../library/Loader.tsx";
+
 import type { FlexOfficeResultContainer } from "../../../utils/flexOfficeUtility.ts";
 
 import { formatNumber } from "../../../utils/formatting";
 import { parseTimeToString } from "../../../utils/typeUtilities/time";
-import { PanelErrorBoundary } from "../../boundaries/PanelErrorBoundary.tsx";
-import { Loader } from "../../library/Loader.tsx";
 
 type FlexOfficeResultProps = {
     result: FlexOfficeResultContainer;

@@ -4,9 +4,10 @@ import { useContext, useState } from "react";
 
 import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
 
+import { SettingContext } from "../../context/setting/SettingContext.tsx";
+
 import { sendNotification } from "../../../utils/notifications.ts";
 import { getThemeClasses } from "../../../utils/themes.ts";
-import { SettingContext } from "../../context/setting/SettingContext.tsx";
 
 type SettingsToggleProps = {
     onToggle: (value: boolean) => void;
