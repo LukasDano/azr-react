@@ -2,12 +2,13 @@ import type { FC } from "react";
 
 import { lazy, Suspense, useMemo, useState } from "react";
 
-import type { PackageInfos } from "../../utils/utils.ts";
-
-import { getPackageInfos } from "../../utils/utils.ts";
 import { Loader } from "../library/Loader.tsx";
 import { TabBar } from "../library/TabBar.tsx";
 import { settingTabs, settingTabsByName } from "./settingConfig.tsx";
+
+import type { PackageInfos } from "../../utils/utils.ts";
+
+import { getPackageInfos } from "../../utils/utils.ts";
 
 const DesignSettings = lazy(() => import("./DesignSettings.tsx"));
 const FunctionSettings = lazy(() => import("./FunctionSettings.tsx"));

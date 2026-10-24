@@ -5,6 +5,7 @@ import { useContext } from "react";
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
 import { SettingContext } from "../context/setting/SettingContext.tsx";
+
 import { SettingsToggle } from "./inputs/SettingsToggle";
 
 const FunctionSettings: FC = () => {

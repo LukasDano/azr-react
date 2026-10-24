@@ -2,9 +2,8 @@ import type { FC, ReactElement } from "react";
 
 import { useContext } from "react";
 
-import type { SettingContextValues } from "../../context/setting/SettingContext";
-
 import { getThemeClasses } from "../../../utils/themes";
+import type { SettingContextValues } from "../../context/setting/SettingContext";
 import { SettingContext } from "../../context/setting/SettingContext";
 import { Tooltip } from "../../library/Tooltip";
 

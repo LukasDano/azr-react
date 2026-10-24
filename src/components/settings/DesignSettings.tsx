@@ -2,16 +2,19 @@
 
 import { useContext } from "react";
 
-import type { ToastPosition } from "../../utils/notifications.ts";
-import type { ThemeType } from "../../utils/themes.ts";
 import type { CountdownUnit } from "../content/countdown/CountdownElement.tsx";
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
-import { notificationPositions } from "../../utils/notifications.ts";
-import { availableThemes } from "../../utils/themes.ts";
 import { SettingContext } from "../context/setting/SettingContext.tsx";
 import { MultipleValueSelector } from "../library/inputs/MultipleValueSelector.tsx";
 import { ColorPicker } from "./inputs/ColorSelector.tsx";
+
+import type { ToastPosition } from "../../utils/notifications.ts";
+import type { ThemeType } from "../../utils/themes.ts";
+
+import { notificationPositions } from "../../utils/notifications.ts";
+import { availableThemes } from "../../utils/themes.ts";
+
 import { SettingsToggle } from "./inputs/SettingsToggle";
 
 const DesignSettings: FC = () => {

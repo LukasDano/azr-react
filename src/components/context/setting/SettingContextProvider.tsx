@@ -2,12 +2,14 @@ import type { FC, ReactNode } from "react";
 
 import { useMemo } from "react";
 
-import type { ToastPosition } from "../../../utils/notifications.ts";
-import type { ColorTheme, CountdownColors } from "../../../utils/themes.ts";
 import type { SettingContextValues } from "./SettingContext.tsx";
 
-import { useStorageState } from "../../../utils/storage/storageManger.ts";
 import { SettingContext } from "./SettingContext.tsx";
+
+import type { ToastPosition } from "../../../utils/notifications.ts";
+import type { ColorTheme, CountdownColors } from "../../../utils/themes.ts";
+
+import { useStorageState } from "../../../utils/storage/storageManger.ts";
 
 type SettingContextProviderProps = {
     children: ReactNode;

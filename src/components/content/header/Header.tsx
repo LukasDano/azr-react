@@ -5,9 +5,15 @@ import { useContext, useState, useMemo } from "react";
 import { MdHelpOutline } from "react-icons/md";
 import { PiGearDuotone } from "react-icons/pi";
 
-import type { Time } from "../../../utils/importantTypes.ts";
 import type { AppContextValues } from "../../context/app/AppContext.tsx";
 import type { SettingContextValues } from "../../context/setting/SettingContext.tsx";
+
+import { AppContext } from "../../context/app/AppContext.tsx";
+import { SettingContext } from "../../context/setting/SettingContext.tsx";
+import { SingleValueSelector } from "../../library/inputs/SingleValueSelector.tsx";
+import { HeaderLinkButton } from "./HeaderLinkButton.tsx";
+
+import type { Time } from "../../../utils/importantTypes.ts";
 
 import {
     defaultBreakTime,
@@ -15,13 +21,10 @@ import {
     defaultWorkTimeForSixHourMode,
     emptyTimeValue
 } from "../../../utils/defaultValues.ts";
+
 import { isSameTime, newTime, parseStringToTime, parseTimeToString } from "../../../utils/typeUtilities/time";
-import { AppContext } from "../../context/app/AppContext.tsx";
-import { SettingContext } from "../../context/setting/SettingContext.tsx";
-import { SingleValueSelector } from "../../library/inputs/SingleValueSelector.tsx";
 import { ActionHeader } from "./ActionHeader";
 import { HeaderButton } from "./HeaderButton";
-import { HeaderLinkButton } from "./HeaderLinkButton.tsx";
 
 type HeaderProps = {
     openSettings: () => void;

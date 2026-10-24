@@ -24,8 +24,9 @@ import {
 
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
-import { getColorForTheme } from "../../utils/utils.ts";
 import { SettingContext } from "../context/setting/SettingContext.tsx";
+
+import { getColorForTheme } from "../../utils/utils.ts";
 
 export type LoaderIcon =
     | "bounce"

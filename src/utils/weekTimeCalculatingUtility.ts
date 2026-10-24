@@ -1,6 +1,5 @@
-﻿import type { Time } from "./importantTypes";
-
-import { defaultWeekWorkTime } from "./defaultValues";
+﻿import { defaultWeekWorkTime } from "./defaultValues";
+import type { Time } from "./importantTypes";
 
 /**
  * Rechnet die Gleitzeit für diese Woche aus

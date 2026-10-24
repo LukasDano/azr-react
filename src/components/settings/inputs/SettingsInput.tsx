@@ -3,8 +3,9 @@ import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import { FaRegSave } from "react-icons/fa";
 
-import { sendNotification } from "../../../utils/notifications.ts";
 import { BaseButton } from "../../library/BaseButton.tsx";
+
+import { sendNotification } from "../../../utils/notifications.ts";
 
 type SettingsInputValue = string | number;
 

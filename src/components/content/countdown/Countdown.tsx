@@ -2,12 +2,13 @@ import type { FC } from "react";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { CountdownElement } from "./CountdownElement.tsx";
+
 import type { CountdownColors } from "../../../utils/themes.ts";
 import type { CountdownTime } from "../../../utils/utils.ts";
 
 import { defaultCountdownTheme } from "../../../utils/themes.ts";
 import { createCountdownElements } from "../../../utils/utils.ts";
-import { CountdownElement } from "./CountdownElement.tsx";
 
 type CountdownProps = {
     end: Date;

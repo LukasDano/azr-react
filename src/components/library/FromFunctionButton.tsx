@@ -4,9 +4,10 @@ import { useContext } from "react";
 
 import type { SettingContextValues } from "../context/setting/SettingContext.tsx";
 
-import { getThemeClasses } from "../../utils/themes.ts";
 import { SettingContext } from "../context/setting/SettingContext.tsx";
 import { Tooltip } from "./Tooltip.tsx";
+
+import { getThemeClasses } from "../../utils/themes.ts";
 
 type FromFunctionButtonProps = {
     onClick: () => void;

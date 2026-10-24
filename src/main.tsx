@@ -5,8 +5,10 @@ import { createRoot } from "react-dom/client";
 import { App } from "./components/App.tsx";
 import { ErrorBoundary } from "./components/boundaries/ErrorBoundary.tsx";
 import { AppContextProvider } from "./components/context/app/AppContextProvider.tsx";
+
 import "./index.css";
 import { SettingContextProvider } from "./components/context/setting/SettingContextProvider.tsx";
+
 import { getPackageInfos } from "./utils/utils.ts";
 
 const queryClient = new QueryClient();
