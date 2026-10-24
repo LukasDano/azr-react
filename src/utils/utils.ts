@@ -53,15 +53,15 @@ export const getColorForTheme = (darkModeActive: boolean, colorTheme: ColorTheme
 export type PackageInfos = {
     projectName: string;
     version: string;
-    reactVersion: string;
-    typeScriptVersion: string;
+    react: string;
+    typeScript: string;
 };
 
 export const getPackageInfos = (): PackageInfos => {
     return {
         projectName: name,
         version: version,
-        reactVersion: dependencies.react.replace("^", ""),
-        typeScriptVersion: devDependencies.typescript.replace("^", "")
+        react: dependencies.react.replace("^", ""),
+        typeScript: devDependencies.typescript.replace("^", "")
     };
 };
